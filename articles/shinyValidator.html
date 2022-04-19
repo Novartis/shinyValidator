@@ -56,7 +56,7 @@
 
       
 
-      </header><script src="shinyValidator_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>shinyValidator</h1>
@@ -254,14 +254,14 @@ Example of linting output during CI/CD.
 </ul>
 <p>Pretty much any error may be captured, which ultimately guarantees a high quality project, easy to maintain. Each potential issue is labelled as either NOTE, WARNING or in the worse case ERROR. In general, you don’t want to see ERROR nor WARNING. Few NOTES may be tolerated (in theory), although in practice, NOTES are most of the time rejected from CRAN submissions.</p>
 <p>This step is crucial since it ensures global package quality. By default, <code>{shinyValidator}</code> will not check vignettes nor CRAN. This may however be customized depending on needs in the CI/CD file. For instance, in the <code>./.gitlab-ci.yml</code>, we can control what parameter to pass to <code><a href="../reference/audit_app.html">audit_app()</a></code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Rscript -e 'shinyValidator::audit_app(load_testing = FALSE, profile_code = FALSE, check_reactivity = FALSE, coverage = FALSE);'</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> public</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Rscript -e 'shinyValidator::audit_app(load_testing = FALSE, profile_code = FALSE, check_reactivity = FALSE, coverage = FALSE);'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> public</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
 <p><code>{shinyValidator}</code> automatically generate a coverage report (See <a href="https://covr.r-lib.org/" class="external-link">{covr}</a>), which gives a rather good idea of the code testing state.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-coverage.png" alt="Coverage report available in {shinyValidator}" width="75%"><p class="caption">
@@ -292,14 +292,14 @@ Coverage report available in {shinyValidator}
 <code class="sourceCode R"><span class="va">custom_horde</span> <span class="op">&lt;-</span> <span class="st">"headless_app$set_inputs(obs = 200);
 headless_app$set_inputs(obs = 1000);"</span></code></pre></div>
 <p>Then, we can modify the <code>./.gitlab-ci.yml</code> file to account for this new element:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Rscript -e 'shinyValidator::audit_app(headless_actions = custom_horde);'</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="at">      </span><span class="kw">-</span><span class="at"> public</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Rscript -e 'shinyValidator::audit_app(headless_actions = custom_horde);'</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> public</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-crashtest.png" alt="Crash test. Left: a snapshot is taken after initial app loading. Right: app undergo some usage, another snapshot is taken." width="75%"><p class="caption">
 Crash test. Left: a snapshot is taken after initial app loading. Right: app undergo some usage, another snapshot is taken.
