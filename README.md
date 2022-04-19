@@ -34,5 +34,3 @@ You can install the preview version of `{shinyValidator}` with:
 ``` r
 remotes::install_github("Novartis/shinyValidator")
 ```
-
-<div style="text-align:center;"><a href="articles/shinyValidator.html" class="btn btn-outline-secondary btn-lg">Go to Get Started</a></div>
