@@ -25,7 +25,8 @@ Suggests:
     devtools,
     pkgdown,
     knitr,
-    withr (>= 2.4.3)
+    withr (>= 2.4.3),
+    markdown
 Imports: 
     shiny,
     shinyloadtest,
