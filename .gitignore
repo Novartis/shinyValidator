@@ -1,3 +1,5 @@
 .Rproj.user
 inst/doc
 docs
+.Renviron
+.Rprofile
