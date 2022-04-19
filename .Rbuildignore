@@ -7,3 +7,7 @@
 ^\.lintr$
 ^index\.md$
 ^\.Rprofile$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
