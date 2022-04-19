@@ -34,8 +34,6 @@ jobs:
       - uses: r-lib/actions/setup-renv@v2
         with:
           cache-version: 2
-          
-      - run: renv::restore(packages = "renv")
 
       - uses: r-lib/actions/check-r-package@v1
 

@@ -775,10 +775,8 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.14.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "30e5eba91b67f7f4d75d31de14bbfbdc"
+      "Version": "0.15.4",
+      "Source": "Repository"
     },
     "rex": {
       "Package": "rex",
