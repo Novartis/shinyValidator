@@ -1,0 +1,51 @@
+Package: shinyValidator
+Title: Audit Shiny apps in few steps
+Version: 0.0.0.9576
+Authors@R: 
+    person(given = "David",
+           family = "Granjon",
+           role = c("aut", "cre"),
+           email = "david.granjon@novartis.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Audit your Shiny apps at each commit. 
+    Multiple levels of testings are offered: startup and crash tests, 
+    performance tests (load test and global code profiling), reactivity audit as well as output tests.
+    All results are gathered in an HTML report uploaded and available to everyone 
+    on any CI/CD plaform or RStudio Connect.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: R (>= 4.0.0)
+Suggests: 
+    DT,
+    testthat (>= 3.1.2),
+    lubridate,
+    rmarkdown,
+    devtools,
+    pkgdown,
+    knitr,
+    withr (>= 2.4.3)
+Imports: 
+    shiny,
+    shinyloadtest,
+    profvis,
+    htmlwidgets,
+    callr,
+    reactlog,
+    utils,
+    pkgload,
+    usethis,
+    attempt,
+    lintr,
+    diffviewer,
+    htmltools,
+    shinytest2,
+    pingr,
+    rcmdcheck,
+    covr,
+    flow
+Remotes: 
+    rstudio/shinytest2
+VignetteBuilder: knitr
+Config/testthat/edition: 3

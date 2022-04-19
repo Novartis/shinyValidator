@@ -1,0 +1,56 @@
+### <shinyValidator template DON'T REMOVE> ###
+stages:
+  - lint
+  - audit
+  - deploy-report
+
+# <DON'T REMOVE!>
+variables:
+  RENV_PATHS_CACHE: "~/.renv/cache"
+  RENV_PATHS_LIBRARY_ROOT: "~/.renv/library"
+  RENV_PATHS_LIBRARY_ROOT_ASIS: "true"
+
+# <DON'T REMOVE!>
+cache:
+  key: ${CI_JOB_NAME}
+  paths:
+    - ${RENV_PATHS_CACHE}
+    - ${RENV_PATHS_LIBRARY}
+
+# <BEFORE SCRIPT DON'T REMOVE COMMENT>
+# TBD
+
+# <LINT>
+linting:
+  stage: lint
+  script:
+    - >
+      if [ ! -d "$RENV_PATHS_CACHE" ]; then
+        mkdir -p $RENV_PATHS_CACHE;
+        echo "Installing RENV_PATHS_CACHE in ${RENV_PATHS_CACHE}...";
+      fi
+    - Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv');"
+    - Rscript -e "renv::restore();"
+    - Rscript -e "shinyValidator::lint_code();"
+
+# <AUDIT APP>
+auditing:
+  stage: audit
+  script:
+    - Rscript -e 'shinyValidator::audit_app();'
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+
+# <DEPLOY-REPORT>
+pages:
+  stage: deploy-report
+  script:
+    - echo "deployment with cache"
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+    - main

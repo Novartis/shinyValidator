@@ -7,6 +7,13 @@
 
 ## Purpose
 
+<p>
+<img src="reference/figures/shinyValidator.gif" alt="shinyValidator-report" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;">
+</p>
+
 `{shinyValidator}` aims at __automating__ the audit of a Shiny App project's __quality__, particularly required during a __validation/qualification__ process. There are many different tools available to validate Shiny apps but, to the best of our knowledge, nothing has been made to get a global overview in a centralized report. 
 
 By default, `{shinyValidator}`:

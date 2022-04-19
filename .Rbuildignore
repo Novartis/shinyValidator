@@ -1,0 +1,9 @@
+^renv$
+^renv\.lock$
+^shinyValidator\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^\.gitlab-ci\.yml$
+^\.lintr$
+^index\.md$
+^\.Rprofile$

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <!-- You MUST include jQuery before Fomantic -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+    <title>shinyValidator</title>
+  </head>
+  <body>
+    {{ tabs_menu }}
+    {{ tab_package_check }}
+    {{ tab_crash_test }}
+    {{ tab_output_validation }}
+    {{ tabs_static }}
+    <div class="ui basic modal">
+      <div class="ui icon header">
+        Welcome to the Shiny App validator
+      </div>
+      <div class="content">
+        <p>Please inspect all sections ...</p>
+      </div>
+      <div class="actions">
+          <div class="ui green ok inverted button">
+              <i class="checkmark icon"></i>
+              ok
+            </div>
+      </div>
+    </div>
+      {{ js_code }}
+  </body>
+</html>
