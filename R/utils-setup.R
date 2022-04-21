@@ -194,7 +194,10 @@ initialize_cicd <- function(cicd_platform) {
   )
 
   if (cicd_platform == "github") {
-    dir.create(".github/workflows", recursive = TRUE)
+    # directory may already exist if user has GA setup
+    if (!dir.exists(".github/workflows")) {
+      dir.create(".github/workflows", recursive = TRUE)
+    }
   }
 
   file.copy(
