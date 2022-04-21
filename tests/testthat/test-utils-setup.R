@@ -4,12 +4,6 @@ dir.create(path)
 # use withr to change directory
 withr::with_dir(path, {
   test_that("Requirements", {
-    R.version$major <- 2
-    print(sprintf("Changing R major to %s", R.version$major))
-    expect_message(use_validator())
-    R.version$major <- 4
-    print(sprintf("Restoring R major to %s", R.version$major))
-
     # Missing description
     expect_error(use_validator())
     file.copy(
