@@ -26,7 +26,8 @@ Suggests:
     pkgdown,
     knitr,
     withr (>= 2.4.3),
-    markdown
+    markdown,
+    vdiffr
 Imports: 
     shiny,
     shinyloadtest,
