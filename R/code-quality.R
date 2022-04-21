@@ -41,8 +41,10 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
 
   tests_out <- readLines(
     file.path(
-      getwd(),
-      sprintf("public/%s.Rcheck/tests/testthat.Rout", check_res$package)
+      sprintf(
+        "public/%s.Rcheck/tests/testthat.Rout",
+        check_res$package
+      )
     )
   )
 
