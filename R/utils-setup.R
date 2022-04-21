@@ -6,7 +6,7 @@
 #'
 #' @return Error if any of the requirement is not met.
 #' @keywords internal
-check_setup_requirements <- function(cicd_platform = c("gitlab", "github")) {
+check_setup_requirements <- function(cicd_platform) {
   message("Checking requirements ...")
 
   check_if_validator_installed(cicd_platform)

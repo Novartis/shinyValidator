@@ -15,7 +15,7 @@ use_validator <- function(cicd_platform = c("gitlab", "github")) {
   check_setup_requirements(cicd_platform)
 
   # CI/CD
-  initialize_cicd()
+  initialize_cicd(cicd_platform)
 
   # Add lintr
   file.copy(system.file("lintr/.lintr", package = "shinyValidator"), ".")

@@ -4,7 +4,7 @@
 \alias{check_setup_requirements}
 \title{Checks to run before initializing the shinyValidator template}
 \usage{
-check_setup_requirements(cicd_platform = c("gitlab", "github"))
+check_setup_requirements(cicd_platform)
 }
 \arguments{
 \item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
