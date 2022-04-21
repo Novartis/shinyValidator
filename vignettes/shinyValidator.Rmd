@@ -114,7 +114,7 @@ audit_app(
 ```
 
 Although primarily meant to be called from CI/CD, it may also run locally, provided
-that you have `shinycannon`and a Chrome-based browser. Fortunately, `use_validator()` is able to detect any compatibility issue and accordingly warn you. 
+that you have `shinycannon`and a Chrome-based browser. Fortunately, `audit_app()` is able to detect any compatibility issue and accordingly warn you. 
 
 ### What you still have to do
 Even though `{shinyValidator}` offers many helpers, there is still some work to be done, particularly for output validation (plots, htmlwidgets, ...), and testing in general. Importantly, `{shinyValidator}` __will not__ automatically write such tests for you, like unit tests.

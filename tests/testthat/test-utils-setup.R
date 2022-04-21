@@ -4,13 +4,6 @@ dir.create(path)
 # use withr to change directory
 withr::with_dir(path, {
   test_that("Requirements", {
-    print(packageVersion("testthat"))
-    R.version$major <- 2
-    print(sprintf("Changing R major to %s", R.version$major))
-    expect_error(use_validator())
-    R.version$major <- 4
-    print(sprintf("Restoring R major to %s", R.version$major))
-
     # Missing description
     expect_error(use_validator())
     file.copy(
@@ -30,7 +23,7 @@ withr::with_dir(path, {
     file.create("./R/run_app.R")
 
     # Create structure
-    use_validator()
+    use_validator(cicd_platform = "gitlab")
 
     # Check up initialize_cicd() -> will change if we add GitHub...
     expect_true(file.exists("./.gitlab-ci.yml"))

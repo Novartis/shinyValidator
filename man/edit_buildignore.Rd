@@ -4,7 +4,10 @@
 \alias{edit_buildignore}
 \title{Edit .Rbuildignore file}
 \usage{
-edit_buildignore()
+edit_buildignore(cicd_platform)
+}
+\arguments{
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
 }
 \value{
 Edit existing .Rbuidignore file with additional entries

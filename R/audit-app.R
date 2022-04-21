@@ -38,6 +38,10 @@ audit_app <- function(
   check_reactivity = TRUE,
   flow = TRUE
 ) {
+
+  # Technical requirements
+  check_audit_requirements()
+
   # Scope
   scope <- match.arg(scope)
   process_scope(scope)
@@ -80,4 +84,27 @@ audit_app <- function(
   )
 
   message("\n---- ALL GOOD ---- \n")
+}
+
+#' Checks to run before running the audit tools
+#'
+#' Useful for \link{audit_app}. Briefly, we expect the user
+#' to have shinycannon and Chrome installed since they are required
+#' for loadtest, headless testing ...
+#'
+#' @return Error if any of the requirement is not met.
+#' @keywords internal
+check_audit_requirements <- function() {
+  message("Checking technical requirements ...")
+
+  if (length(system("which shinycannon", intern = TRUE)) == 0) {
+    stop("Missing shinycannon: https://github.com/rstudio/shinycannon")
+  }
+
+  if (length(system("which google-chrome", intern = TRUE)) == 0 ||
+      length(system("which chromium", intern = TRUE)) == 0) {
+    stop("Missing Chrome browser ...")
+  }
+
+  message("Requirements: DONE ...")
 }
