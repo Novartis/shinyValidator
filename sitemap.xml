@@ -37,13 +37,16 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/call_gremlins.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/check_audit_requirements.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/check_if_validator_installed.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/check_package.html</loc>
   </url>
   <url>
-    <loc>http://opensource.nibr.com/shinyValidator/reference/check_requirements.html</loc>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/check_setup_requirements.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/copy_app_file.html</loc>
