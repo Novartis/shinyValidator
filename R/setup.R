@@ -24,7 +24,7 @@ use_validator <- function(cicd_platform = c("gitlab", "github")) {
   copy_app_file()
 
   # treat .Rbuildignore
-  edit_buildignore()
+  edit_buildignore(cicd_platform)
 
   # Add suggested pkgs to DESCRIPTION + install them in renv library
   add_suggested_packages()
