@@ -23,7 +23,6 @@ By default, `{shinyValidator}`:
 Another goal of `{shinyValidator}` is to promote testing and automation (CI/CD) to deliver better Shiny apps in production. 
 
 ## Pre-requisites
-- `{shinyValidator}` requires `R >= 4.0.0`. 
 - It must be run within a __package__ Shiny app project, compatible with `{golem}`. 
 - It requires to control R package dependencies with `{renv}`.
 
