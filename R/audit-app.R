@@ -101,7 +101,7 @@ check_audit_requirements <- function() {
     stop("Missing shinycannon: https://github.com/rstudio/shinycannon")
   }
 
-  if (length(system("which google-chrome", intern = TRUE)) == 0 &&
+  if (length(system("which google-chrome", intern = TRUE)) == 0 ||
       length(system("which chromium", intern = TRUE)) == 0) {
     stop("Missing Chrome browser ...")
   }
