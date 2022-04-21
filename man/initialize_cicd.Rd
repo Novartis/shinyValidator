@@ -4,7 +4,10 @@
 \alias{initialize_cicd}
 \title{Initialize CI/CD template}
 \usage{
-initialize_cicd()
+initialize_cicd(cicd_platform)
+}
+\arguments{
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
 }
 \value{
 A yml file with CI/CD steps.

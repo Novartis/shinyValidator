@@ -2,15 +2,17 @@
 #'
 #' Setup all necessary tools and requirements to validate Shiny apps project.
 #' This function is the first to be called.
+#' 
+#' @param cicd_platform CI/CD engine. GitLab or GitHub Actions.
 #'
 #' @details By default, the package is checked, built and test are run.
 #' Also, we quickly check if the Shiny application is able to start and run
 #' without crashing.
 #' @export
-use_validator <- function() {
-
-  # prerequisites
-  check_requirements()
+use_validator <- function(cicd_platform = c("gitlab", "github")) {
+  cicd_platform <- match.arg(cicd_platform)
+  # setup prerequisites
+  check_setup_requirements(cicd_platform)
 
   # CI/CD
   initialize_cicd()

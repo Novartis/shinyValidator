@@ -1,16 +1,18 @@
-#' Checks to run before
+#' Checks to run before initializing the shinyValidator template
 #'
 #' Useful for \link{use_validator}
+#' 
+#' @inheritParams use_validator
 #'
-#' @return Error if any if the requirement is not met.
+#' @return Error if any of the requirement is not met.
 #' @keywords internal
-check_requirements <- function() {
+check_setup_requirements <- function(cicd_platform = c("gitlab", "github")) {
   message("Checking requirements ...")
 
-  check_if_validator_installed()
+  check_if_validator_installed(cicd_platform)
 
-  if (R.version$major != "4") {
-    stop("{shinyValidator} only works for R >= 4")
+  if (R.version$major < "4") {
+    message("Note: {shinyValidator} works better with R >=4.")
   }
   if (!file.exists("DESCRIPTION")) {
     stop("{shinyValidator} only works inside R packages.")
@@ -19,12 +21,8 @@ check_requirements <- function() {
     stop("Please setup {renv} to manage dependencies in your project.")
   }
 
-  if (length(system("which shinycannon", intern = TRUE)) == 0) {
-    stop("Missing shinycannon: https://github.com/rstudio/shinycannon")
-  }
-
   if (!file.exists("./R/app_server.R")) {
-    stop("Project must contain: app_ui.R and app_server.R like in {golem}, {creatr}.")
+    stop("Project must contain: app_ui.R and app_server.R like in {golem} templates.")
   }
 
   message("Requirements: DONE ...")
@@ -72,11 +70,19 @@ apply_poc_scope <- function() {
 
 #' Checks if the validator is already installed
 #'
+#' @inheritParams use_validator
+#'
 #' @return Boolean.
 #' @keywords internal
-check_if_validator_installed <- function() {
-  if (file.exists("./.gitlab-ci.yml")) {
-    tmp <- readLines("./.gitlab-ci.yml")
+check_if_validator_installed <- function(cicd_platform) {
+
+  file_name <- switch(cicd_platform,
+    "gitlab" = "./.gitlab-ci.yml",
+    "github" = "./.github/workflows/shiny-validator.yaml"
+  )
+
+  if (file.exists(file_name)) {
+    tmp <- readLines(file_name)
     sum(grep("### <shinyValidator template DON'T REMOVE> ###", tmp) == 1)
     stop("Validator already installed! Aborting ...")
   } else {
@@ -90,17 +96,26 @@ check_if_validator_installed <- function() {
 copy_app_file <- function() {
   message("Copying run_app.R and archive old run_app.R function")
   file.rename("./R/run_app.R", "./R/run_app-old.R")
-  file.copy(system.file("run-app/run_app.R", package = "shinyValidator"), "./R/run_app.R")
+  file.copy(
+    system.file("run-app/run_app.R", package = "shinyValidator"), 
+    "./R/run_app.R"
+  )
 }
 
 #' Edit .Rbuildignore file
-#'
+#' @inheritParams use_validator
 #' @return Edit existing .Rbuidignore file with additional entries
 #' @keywords internal
-edit_buildignore <- function() {
+edit_buildignore <- function(cicd_platform) {
+
+  cicd_ignore <- switch(cicd_platform,
+    "gitlab" = ".gitlab-ci.yml",
+    "github" = ".github"
+  )
+
   usethis::use_build_ignore(
     c(
-      ".gitlab-ci.yml",
+      cicd_ignore,
       ".Rprofile",
       ".lintr"
     )
@@ -168,14 +183,24 @@ add_gremlins_assets <- function() {
 
 #' Initialize CI/CD template
 #'
+#' @inheritParams use_validator
 #' @return A yml file with CI/CD steps.
 #' @keywords internal
-initialize_cicd <- function() {
-  if (!file.exists("./.gitlab-ci.yml")) {
-    message("Initialized GitLab CI/CD template")
-    file.copy(
-      from = system.file("workflows/.gitlab-ci.yml", package = "shinyValidator"),
-      to = "./.gitlab-ci.yml"
-    )
-  }
+initialize_cicd <- function(cicd_platform) {
+  message(sprintf("Initialized %s CI/CD template", cicd_platform))
+  file_name <- switch(cicd_platform,
+    "gitlab" = ".gitlab-ci.yml",
+    "github" = "shiny-validator.yaml"
+  )
+  file.copy(
+    from = system.file(
+      sprintf("workflows/%s", file_name),
+      package = "shinyValidator"
+    ),
+    to = if (cicd_platform == "gitlab") {
+      "./.gitlab-ci.yml"
+    } else if (cicd_platform == "github") {
+      ".github/workflows/shiny-validator.yaml"
+    }
+  )
 }

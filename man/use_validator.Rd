@@ -4,7 +4,10 @@
 \alias{use_validator}
 \title{Include Shiny app validation tools in your project}
 \usage{
-use_validator()
+use_validator(cicd_platform = c("gitlab", "github"))
+}
+\arguments{
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
 }
 \description{
 Setup all necessary tools and requirements to validate Shiny apps project.

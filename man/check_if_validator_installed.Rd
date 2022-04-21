@@ -4,7 +4,10 @@
 \alias{check_if_validator_installed}
 \title{Checks if the validator is already installed}
 \usage{
-check_if_validator_installed()
+check_if_validator_installed(cicd_platform)
+}
+\arguments{
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
 }
 \value{
 Boolean.
