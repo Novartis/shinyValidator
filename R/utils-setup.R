@@ -192,6 +192,11 @@ initialize_cicd <- function(cicd_platform) {
     "gitlab" = ".gitlab-ci.yml",
     "github" = "shiny-validator.yaml"
   )
+
+  if (cicd_platform == "github") {
+    dir.create(".github/workflows", recursive = TRUE)
+  }
+
   file.copy(
     from = system.file(
       sprintf("workflows/%s", file_name),
