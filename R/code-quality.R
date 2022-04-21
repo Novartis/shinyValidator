@@ -39,36 +39,48 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
 
   check_res <- rcmdcheck::check_details(tmp_chk)
 
-  tests_out <- readLines(
-    file.path(
-      sprintf(
-        "public/%s.Rcheck/tests/testthat.Rout",
-        check_res$package
+  # Avoids any error if test folder does not exist.
+  # It is possible that people don't have tests at the
+  # begining but still want to run loadtest and profiling ...
+  tests_out <- if (dir.exists("tests")) {
+    out_tmp <- readLines(
+      file.path(
+        sprintf(
+          "public/%s.Rcheck/tests/testthat.Rout",
+          check_res$package
+        )
       )
     )
-  )
+    HTML(paste(out_tmp, collapse = "\n"))
+  } else {
+    "No tests available."
+  }
 
   steps <- list(
     "Building" = HTML(check_res$install_out),
     "Checking" = tmp_chk,
-    "Testing" = HTML(paste(tests_out, collapse = "\n"))
+    "Testing" = tests_out
   )
 
   n_errors <- length(check_res$errors)
   n_warnings <- length(check_res$warnings)
   n_notes <- length(check_res$notes)
 
-  # count failed tests
-  n_failed_test <- as.numeric(
-    strsplit(
-      trimws(
-        strsplit(
-          tests_out[which(grepl("FAIL", tests_out, perl = TRUE) == TRUE)],
-          "FAIL"
-        )[[1]][2]),
-      "|"
-    )[[1]][1]
-  )
+  # count failed tests if tests exist ...
+  n_failed_test <- if (dir.exists("tests")) {
+    as.numeric(
+      strsplit(
+        trimws(
+          strsplit(
+            tests_out[which(grepl("FAIL", tests_out, perl = TRUE) == TRUE)],
+            "FAIL"
+          )[[1]][2]),
+        "|"
+      )[[1]][1]
+    )
+  } else {
+    0
+  }
 
   # Prepare check tab UI
   package_check_tab_ui <- create_tab_content(
