@@ -73,7 +73,13 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/initialize_cicd.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/initialize_gh_pages.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/inject_js_helpers.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/is_git_repository.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/lint_code.html</loc>

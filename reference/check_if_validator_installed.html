@@ -53,7 +53,12 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>cicd_platform</dt>
-<dd><p>CI/CD engine. GitLab or GitHub Actions.</p></dd>
+<dd><p>CI/CD engine. GitLab or GitHub Actions.
+When gitlab-docker is selected, we leverage docker executor.
+The provided CI/CD template will pull docker image from
+<a href="https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker" class="external-link">https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker</a>,
+which provides installation of R, shinycannon, Chrome, necessary to
+run the pipeline without issue.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

@@ -49,13 +49,18 @@ This function is the first to be called.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">use_validator</span><span class="op">(</span>cicd_platform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gitlab"</span>, <span class="st">"github"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">use_validator</span><span class="op">(</span>cicd_platform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gitlab-docker"</span>, <span class="st">"gitlab"</span>, <span class="st">"github"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>cicd_platform</dt>
-<dd><p>CI/CD engine. GitLab or GitHub Actions.</p></dd>
+<dd><p>CI/CD engine. GitLab or GitHub Actions.
+When gitlab-docker is selected, we leverage docker executor.
+The provided CI/CD template will pull docker image from
+<a href="https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker" class="external-link">https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker</a>,
+which provides installation of R, shinycannon, Chrome, necessary to
+run the pipeline without issue.</p></dd>
 </dl></div>
     <div id="details">
     <h2>Details</h2>
