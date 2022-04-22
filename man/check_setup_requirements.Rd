@@ -7,7 +7,12 @@
 check_setup_requirements(cicd_platform)
 }
 \arguments{
-\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.
+When gitlab-docker is selected, we leverage docker executor.
+The provided CI/CD template will pull docker image from
+\url{https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker},
+which provides installation of R, shinycannon, Chrome, necessary to
+run the pipeline without issue.}
 }
 \value{
 Error if any of the requirement is not met.

@@ -4,12 +4,19 @@
 #' This function is the first to be called.
 #' 
 #' @param cicd_platform CI/CD engine. GitLab or GitHub Actions.
+#' When gitlab-docker is selected, we leverage docker executor.
+#' The provided CI/CD template will pull docker image from
+#' \url{https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker},
+#' which provides installation of R, shinycannon, Chrome, necessary to
+#' run the pipeline without issue. This is typically the easiest setup since
+#' the classic GitLab CI/CD templates assumes that your GitLab runner has
+#' everything installed, which is not necessarily the case.
 #'
 #' @details By default, the package is checked, built and test are run.
 #' Also, we quickly check if the Shiny application is able to start and run
 #' without crashing.
 #' @export
-use_validator <- function(cicd_platform = c("gitlab", "github")) {
+use_validator <- function(cicd_platform = c("gitlab-docker", "gitlab", "github")) {
   cicd_platform <- match.arg(cicd_platform)
   # setup prerequisites
   check_setup_requirements(cicd_platform)

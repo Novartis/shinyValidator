@@ -4,10 +4,15 @@
 \alias{use_validator}
 \title{Include Shiny app validation tools in your project}
 \usage{
-use_validator(cicd_platform = c("gitlab", "github"))
+use_validator(cicd_platform = c("gitlab-docker", "gitlab", "github"))
 }
 \arguments{
-\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.}
+\item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.
+When gitlab-docker is selected, we leverage docker executor.
+The provided CI/CD template will pull docker image from
+\url{https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker},
+which provides installation of R, shinycannon, Chrome, necessary to
+run the pipeline without issue.}
 }
 \description{
 Setup all necessary tools and requirements to validate Shiny apps project.

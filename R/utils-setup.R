@@ -235,6 +235,7 @@ initialize_cicd <- function(cicd_platform) {
   message(sprintf("Initialized %s CI/CD template", cicd_platform))
   file_name <- switch(cicd_platform,
     "gitlab" = ".gitlab-ci.yml",
+    "gitlab-docker" = "docker/.gitlab-ci.yml",
     "github" = "shiny-validator.yaml"
   )
 
@@ -250,7 +251,7 @@ initialize_cicd <- function(cicd_platform) {
       sprintf("workflows/%s", file_name),
       package = "shinyValidator"
     ),
-    to = if (cicd_platform == "gitlab") {
+    to = if (cicd_platform %in% c("gitlab", "gitlab-docker")) {
       "./.gitlab-ci.yml"
     } else if (cicd_platform == "github") {
       ".github/workflows/shiny-validator.yaml"

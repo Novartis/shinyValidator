@@ -1,0 +1,43 @@
+### <shinyValidator template DON'T REMOVE> ###
+image: divadnojnarg/shinyvalidator-docker:latest
+
+stages:
+  - audit
+  - deploy-report
+  
+variables:
+  #RENV_PATHS_CACHE: "/home/.renv/cache"
+  #RENV_PATHS_LIBRARY_ROOT: "/home/.renv/library"
+  #RENV_PATHS_LIBRARY_ROOT_ASIS: "true"
+  
+# <DON'T REMOVE!>
+#cache:
+#  key: global-cache
+#  paths:
+#    - ${RENV_PATHS_CACHE}
+#    - ${RENV_PATHS_LIBRARY}
+
+auditing-app:
+  stage: audit
+  script:
+    #- >
+    #  if [ ! -d "$RENV_PATHS_CACHE" ]; then
+    #    mkdir -p $RENV_PATHS_CACHE;
+    #    echo "Installing RENV_PATHS_CACHE in ${RENV_PATHS_CACHE}...";
+    #  fi
+    - Rscript -e 'source("renv/activate.R")'
+    - Rscript -e 'renv::restore();'
+    - Rscript -e 'shinyValidator::lint_code();'
+    - Rscript -e 'shinyValidator::audit_app();'
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+      
+pages:
+  stage: deploy-report
+  script:
+    - echo 'Deploy to GitLab Pages ...'
+  artifacts:
+    paths:
+      - public
