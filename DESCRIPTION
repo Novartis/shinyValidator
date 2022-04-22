@@ -26,8 +26,7 @@ Suggests:
     knitr,
     withr (>= 2.4.3),
     markdown,
-    vdiffr,
-    qpdf
+    vdiffr
 Imports: 
     shiny,
     shinyloadtest,

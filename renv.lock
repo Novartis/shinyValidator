@@ -1143,18 +1143,6 @@
         "rlang"
       ]
     },
-    "qpdf": {
-      "Package": "qpdf",
-      "Version": "1.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "5a2907cd44279b5861ac5f813465b5c9",
-      "Requirements": [
-        "Rcpp",
-        "askpass",
-        "curl"
-      ]
-    },
     "ragg": {
       "Package": "ragg",
       "Version": "1.1.3",
@@ -1662,8 +1650,18 @@
       "Package": "vdiffr",
       "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c45dc68b6ef4d784c5df6f5bbc5f7f39"
+      "Repository": "RSPM",
+      "Hash": "c45dc68b6ef4d784c5df6f5bbc5f7f39",
+      "Requirements": [
+        "cpp11",
+        "diffobj",
+        "glue",
+        "htmltools",
+        "lifecycle",
+        "rlang",
+        "testthat",
+        "xml2"
+      ]
     },
     "viridisLite": {
       "Package": "viridisLite",
