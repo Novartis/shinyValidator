@@ -20,12 +20,57 @@ check_setup_requirements <- function(cicd_platform) {
   if (!file.exists("renv.lock")) {
     stop("Please setup {renv} to manage dependencies in your project.")
   }
-
   if (!file.exists("./R/app_server.R")) {
     stop("Project must contain: app_ui.R and app_server.R like in {golem} templates.")
   }
-
+  if (!dir.exists("tests")) {
+    message("No unit tests found. call usethis::use_testthat(); ...")
+  }
+  # Requires gh-pages branch if GitHub
+  if (!is_git_repository()) {
+    stop("Project is not under version control: run 'git init' ...")
+  } else {
+    initialize_gh_pages(cicd_platform)
+  }
   message("Requirements: DONE ...")
+}
+
+
+#' Check if git is initialized locally
+#'
+#' @return Boolean.
+#' @keywords internal
+is_git_repository <- function() {
+  dir.exists(".git")
+}
+
+#' Checks if gh_pages branch exists
+#' 
+#' Creates gh_pages branch if not
+#'
+#' @inheritParams use_validator
+#' @keywords internal
+initialize_gh_pages <- function(cicd_platform) {
+  if (cicd_platform == "github") {
+    has_gh_pages <- length(
+      suppressWarnings(
+        system("git rev-parse --verify gh-pages", intern = TRUE)
+      )
+    )
+    if (has_gh_pages == 0) {
+      message("Missing 'gh-pages' branch. Creating new branch ...")
+      system(
+        "git checkout --orphan gh-pages;
+        git reset --hard;
+        git commit --allow-empty -m 'fresh and empty gh-pages branch';
+        git push origin gh-pages;",
+        intern = TRUE
+      )
+      message("gh-pages: DONE ...")
+    } else {
+      message("gh-pages already exists. Nothing to do ...")
+    }
+  }
 }
 
 #' Process scope for project

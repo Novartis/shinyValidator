@@ -22,6 +22,10 @@ withr::with_dir(path, {
     )
     file.create("./R/run_app.R")
 
+    # Git does not exist
+    expect_error(use_validator())
+    system("git init")
+
     # Create structure
     use_validator(cicd_platform = "gitlab")
 
