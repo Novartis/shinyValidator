@@ -40,14 +40,14 @@ jobs:
         with:
           cache-version: 1
 
-      - name: Install shinycannon
+      - name: Install shinycannon 💥
         run: |
           sudo bash -c 'apt-get update; apt-get install -y default-jre-headless; apt-get clean; rm -rf /var/lib/apt/lists/*'
           wget https://github.com/rstudio/shinycannon/releases/download/v1.1.3/shinycannon_1.1.3-dd43f6b_amd64.deb 
           sudo dpkg -i shinycannon_1.1.3-dd43f6b_amd64.deb
           sudo rm shinycannon_1.1.3-dd43f6b_amd64.deb
       
-      - name: Install Chrome
+      - name: Install Chrome 🌐
         run: |
            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
            sudo dpkg -i google-chrome-stable_current_amd64.deb
@@ -57,7 +57,7 @@ jobs:
         shell: Rscript {0}
         run: shinyValidator::lint_code()
 
-      - name: Audit app
+      - name: Audit app 🏥
         shell: Rscript {0}
         run: shinyValidator::audit_app()
 
