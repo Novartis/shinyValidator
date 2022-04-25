@@ -58,7 +58,9 @@ When gitlab-docker is selected, we leverage docker executor.
 The provided CI/CD template will pull docker image from
 <a href="https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker" class="external-link">https://hub.docker.com/repository/docker/divadnojnarg/shinyvalidator-docker</a>,
 which provides installation of R, shinycannon, Chrome, necessary to
-run the pipeline without issue.</p></dd>
+run the pipeline without issue. This is typically the easiest setup since
+the classic GitLab CI/CD templates assumes that your GitLab runner has
+everything installed, which is not necessarily the case.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
