@@ -44,6 +44,14 @@ is_git_repository <- function() {
   dir.exists(".git")
 }
 
+#' Check if current repo has remote part
+#'
+#' @return Boolean.
+#' @keywords internal
+has_git_remote <- function() {
+  length(system("git remote -v", intern = TRUE) > 1)
+}
+
 #' Checks if gh_pages branch exists
 #' 
 #' Creates gh_pages branch if not
@@ -52,6 +60,10 @@ is_git_repository <- function() {
 #' @keywords internal
 initialize_gh_pages <- function(cicd_platform) {
   if (cicd_platform == "github") {
+    if (!has_git_remote()) {
+      stop("Current repo does not have remote. Please add GitHub remote ...")
+    }
+
     has_gh_pages <- length(
       suppressWarnings(
         system("git rev-parse --verify gh-pages", intern = TRUE)

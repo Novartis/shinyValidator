@@ -42,10 +42,10 @@ Under the hood, `{shinyValidator}` brings its own version of `run_app()` to inje
 
 #### Initialize package
 
-```r
+```{r, eval=FALSE}
 path <- file.path(tempdir(), "mypkg") 
 golem::create_golem(path)
-usethis::use_license("mit") # or whatever license
+usethis::use_mit_license() # or whatever license
 usethis::use_testthat()
 usethis::use_test("dummy")
 usethis::use_git()
@@ -98,10 +98,12 @@ replace the CRAN repository and point to binaries:
 ```
 
 #### {shinyValidator} setup
+If your are using Github, don't forget to connect the remote repository 
+to the local one before initializing `{shinyValidator}`.
 
 Below shows how to activate `{shinyValidator}`:
 
-``` r
+```{r, eval=FALSE}
 devtools::install_github("Novartis/shinyValidator")
 library(shinyValidator)
 ## At the root of your R package
@@ -111,7 +113,7 @@ devtools::document() # update help
   
 `audit_app()` is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:
 
-```r
+```{r, eval=FALSE}
 audit_app(
   cran = FALSE,
   vignettes = FALSE,
@@ -135,7 +137,7 @@ that you have `shinycannon`and a Chrome-based browser. Fortunately, `audit_app()
 `audit_app()` gives you the flexibility to choose whatever 
 level of testing you want. The following code will only enable basic check and linting:
 
-```r
+```{r, eval=FALSE}
 audit_app(scope = "POC") # Proof of concept
 ```
 
@@ -150,7 +152,7 @@ Even though `{shinyValidator}` offers many helpers, there is still some work to 
 
 As a reminder, to initialize tests in a package, you run:
 
-```r
+```{r, eval=FALSE}
 usethis::use_testthat() # Init tests folder structure
 usethis::use_test("modules") # creates test-module.R
 ```
@@ -159,7 +161,7 @@ usethis::use_test("modules") # creates test-module.R
 
 Shiny server function [testing](https://shiny.rstudio.com/articles/server-function-testing.html) consists of simulating a mock session, thereby providing access to reactive values, inputs and outputs, like you would have in a real session. This is very convenient to check how Shiny modules interact together for instance. However, none of this can be automated, which means these tests will have to be written by someone. As an example, assume a Shiny app with this server function:
 
-```r
+```{r, eval=FALSE}
 app_server <- function(input, output, session) {
   # Your application server logic
   output$distPlot <- renderPlot({
@@ -170,7 +172,7 @@ app_server <- function(input, output, session) {
 
 One can write:
 
-```r
+```{r, eval=FALSE}
 testServer(app_server, {
   session$setInputs(obs = 0)
   # There should be an error
@@ -184,7 +186,7 @@ Notice how inputs are set. This is because the test is run without the UI part. 
 
 Important note: if you had to test Shiny modules, server testing only works with the `moduleServer()` API (new API). For instance, let's rewrite the previous server function as a module:
 
-```r
+```{r, eval=FALSE}
 my_base_hist <- function(id, extra) {
   moduleServer(id, function(input, output, session) {
     # Your application server logic
@@ -197,7 +199,7 @@ my_base_hist <- function(id, extra) {
 
 The new test script would be:
 
-```r
+```{r, eval=FALSE}
 testServer(my_base_hist, args = list(extra = 0), {
   session$setInputs(obs = 100)
   expect_error(output$distPlot)
@@ -217,13 +219,13 @@ We believe that a good R project has consistent R style. This is particularly re
 
 Tools like `{lintr}`, a static code reviewer for R, help doing this with a pretty straightforward API. The first step of the `{shinyValidator}` pipeline utilizes `{lintr}` to quickly analyse the `./R` folder (default):
 
-```r
+```{r, eval=FALSE}
 shinyValidator::lint_code(paths = "R", tolerance = 0)
 ```
 
 If you had to check more than one folder, you can pass a vector instead:
 
-```r
+```{r, eval=FALSE}
 shinyValidator::lint_code(paths = c("R", "tests/testthat"), tolerance = 0)
 ```
 
@@ -312,13 +314,13 @@ This step leverages R subprocesses, the idea being to start the app on a child p
   - __timeout__: if the app takes time to load, you have to adjust this value.
   - __custom_horde__: required if you want to provide custom instructions to manipulate the app with a headless browser. By default, `{shinyValidator}` performs a [Monkey test](https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic) (see also [here](https://github.com/marmelab/gremlins.js/blob/master/README.md)), which consists of triggering random events on the app such as clicks, scroll, input change, ... for 10 seconds. 
 
-```r
+```{r, eval=FALSE}
 shinyValidator::run_crash_test(timeout = 5, custom_horde = NULL)
 ```
 
 In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a __custom_horde__ parameter. As `{shinyValidator}` relies on `{shinytest2}`, we rely on the `set_inputs` method to manipulate the slider:
 
-```r
+```{r, eval=FALSE}
 custom_horde <- "headless_app$set_inputs(obs = 200);
 headless_app$set_inputs(obs = 1000);"
 ```
@@ -344,7 +346,7 @@ knitr::include_graphics("figures/shinyValidator-crashtest.png")
 
 During CI/CD, `{shinyValidator}` runs a global output snapshot comparison to check whether the current commit shows similar results as the current snapshot (as a reminder, you have to initialize a first snapshot locally, which will server as reference for future comparison). This however requires to have predefined tests, for instance in `test-basic-plot.R` for a static base plot (work similarly for `{ggplot2}`):
 
-```r
+```{r, eval=FALSE}
 test_that("Base plot OK", {
   vdiffr::expect_doppelganger("Base graphics histogram", make_hist(500))
 })
@@ -352,7 +354,7 @@ test_that("Base plot OK", {
 
 and `test-echarts4r.R` for an `{echarts4r}` powered graph (htmlwidget): 
 
-```r
+```{r, eval=FALSE}
 test_that("echarts4r ok", {
   snapshot_widget <- function(path) {
     htmlwidgets::saveWidget(make_echart("Income"), path)
@@ -386,7 +388,7 @@ Keep trying!
 
 `{shinyValidator}` displays a visual widgets (based on `{diffviewer}`) for each detected snapshot difference, allowing the developer to compare the current outputs to reference snapshot. It is the developer's responsibility to decide whether to accept the changes. This may be done locally with:
 
-```r
+```{r, eval=FALSE}
 testthat::snapshot_review('basic-plot')
 ```
 
@@ -415,7 +417,7 @@ From a technical point of view, there are 2 pieces of software:
   
 In theory, the recording step is manual. However, it is entirely possible to automate it with a headless web-browser. The idea being to provide a realistic set of instructions to manipulate the app. This is usually the trickiest part, but tools like the `{shinytest}2` recorder can generate the replay [script](https://rstudio.github.io/shinytest/articles/in-depth.html). `{shinyValidator}` offers both approaches with the `record_app()` function:
 
-```r
+```{r, eval=FALSE}
 shinyValidator::record_app(workers = 5, timeout = 5, custom_horde = NULL);
 ```
 
@@ -445,7 +447,7 @@ load-test - HTTP Latency [====>-------------------------------------------------
 This is a known [issue](https://github.com/r-lib/svglite/issues/71). 
 Reinstall `{svglite}` from source:
 
-```r
+```{r, eval=FALSE}
 install.packages("svglite", type = "source")
 ```
 
@@ -459,7 +461,7 @@ Have you already experienced situations where a reactive expression did not upda
 
 In the background, `{shinyValidator}` automatically starts the app in the background, wait for Shiny to be available, stops the app and returns the reactlog object. The reactlog is in turn exported as a standalone HTML widget to be included in the validation report, as shown below. You may fine tune the __timeout__ parameter to account for the app loading duration and also add custom manipulation through __headless_actions__:
 
-```r
+```{r, eval=FALSE}
 shinyValidator::upload_reactlog(timeout = 5, headless_actions = NULL);
 ```
 
