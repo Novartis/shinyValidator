@@ -1,5 +1,5 @@
 template:
   bootstrap: 5
-  bootswatch: vapor
+  bootswatch: cyborg
   theme: dracula
 url: http://opensource.nibr.com/shinyValidator/
