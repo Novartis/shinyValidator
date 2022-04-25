@@ -94,12 +94,15 @@ initialize_gh_pages <- function(cicd_platform) {
     if (has_gh_pages == 0) {
       message("Missing 'gh-pages' branch. Creating new branch ...")
       system(
-        "git checkout --orphan gh-pages;
-        git reset --hard;
-        git commit --allow-empty -m 'fresh and empty gh-pages branch';
-        git push origin gh-pages;",
-        sprintf("git checkout %s;", find_main_branch()),
-        intern = TRUE
+        paste(
+          "git checkout --orphan gh-pages;
+          git reset --hard;
+          git commit --allow-empty -m 'fresh and empty gh-pages branch';
+          git push origin gh-pages;",
+          sprintf("git checkout %s;", find_main_branch())
+        ),
+        intern = TRUE,
+        ignore.stdout = TRUE
       )
       message("gh-pages: DONE ...")
     } else {
