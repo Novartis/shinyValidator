@@ -123,6 +123,7 @@ check_if_validator_installed <- function(cicd_platform) {
 
   file_name <- switch(cicd_platform,
     "gitlab" = "./.gitlab-ci.yml",
+    "gitlab-docker" = ".gitlab-ci.yml",
     "github" = "./.github/workflows/shiny-validator.yaml"
   )
 
@@ -155,6 +156,7 @@ edit_buildignore <- function(cicd_platform) {
 
   cicd_ignore <- switch(cicd_platform,
     "gitlab" = ".gitlab-ci.yml",
+    "gitlab-docker" = ".gitlab-ci.yml",
     "github" = ".github"
   )
 
