@@ -82,6 +82,20 @@ renv::snapshot()
 ```
 
 As a side note, `{renv}` may also be used during [CI/CD](https://rstudio.github.io/renv/articles/ci.html) (see an example [here](https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv)). 
+To have faster package restoration with `{renv}` during CI/CD, you may
+replace the CRAN repository and point to binaries:
+
+```json
+"R": {
+  "Version": "4.1.0",
+  "Repositories": [
+    {
+      "Name": "CRAN",
+      "URL": "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
+    }
+  ]
+}
+```
 
 #### {shinyValidator} setup
 
