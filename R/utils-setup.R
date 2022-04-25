@@ -143,8 +143,14 @@ copy_app_file <- function() {
   message("Copying run_app.R and archive old run_app.R function")
   file.rename("./R/run_app.R", "./R/run_app-old.R")
   file.copy(
-    system.file("run-app/run_app.R", package = "shinyValidator"), 
+    system.file("run-app/run_app.R", package = "shinyValidator"),
     "./R/run_app.R"
+  )
+  # Comment out old files
+  old_file <- readLines("./R/run_app-old.R")
+  write(
+    unlist(lapply(old_file, sub, pattern = "^", replacement = "# ")),
+    "./R/run_app-old.R"
   )
 }
 
@@ -164,7 +170,10 @@ edit_buildignore <- function(cicd_platform) {
     c(
       cicd_ignore,
       ".Rprofile",
-      ".lintr"
+      ".lintr",
+      # if audit_app is run locally
+      "public",
+      "recording.log"
     )
   )
 }

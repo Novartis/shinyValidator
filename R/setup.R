@@ -16,7 +16,7 @@
 #' Also, we quickly check if the Shiny application is able to start and run
 #' without crashing.
 #' @export
-use_validator <- function(cicd_platform = c("gitlab-docker", "gitlab", "github")) {
+use_validator <- function(cicd_platform = c("github", "gitlab-docker", "gitlab")) {
   cicd_platform <- match.arg(cicd_platform)
   # setup prerequisites
   check_setup_requirements(cicd_platform)

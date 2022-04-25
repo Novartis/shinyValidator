@@ -38,21 +38,33 @@ Particularly, it expects to have these functions:
   
 Under the hood, `{shinyValidator}` brings its own version of `run_app()` to inject various elements necessary to the validation steps. Your old `run_app()` will be renamed as `run_app-old()`. It also automatically creates a CI/CD file template so that the workflow is ready to run on Github Actions or Gitlab CI/CD. Other elements such as a custom `.lintr` file and package suggests are imported to reduce the amount of work you have to do. Finally, a few JavaScript (JS) assets are copied as they are necessary to run the [Monkey](https://en.wikipedia.org/wiki/Monkey_testing) tests (this avoids proxy issues blocking external JS assets in corporate environments).
 
+### Typical setup workflow with {golem}
 
-### Prepare {renv}
+#### Initialize package
+
+```r
+path <- file.path(tempdir(), "mypkg") 
+golem::create_golem(path)
+usethis::use_license("mit") # or whatever license
+usethis::use_testthat()
+usethis::use_test("dummy")
+usethis::use_git()
+# ...
+```
+
+#### Prepare {renv}
 
 Before using `{renv}`, we suggest to create a `.Renviron` file containing:
 
 ```shell
 RENV_PATHS_LIBRARY_ROOT = ~/.renv/library
-RENV_PATHS_LIBRARY_ROOT_ASIS = TRUE
 ```
 
 and restart R.
 
 Overall, this options creates the `{renv}` library outside the current Shiny app project folder, which avoids delays during `devtools::check()` and `devtools::build()`.
 
-### Setting up {renv}
+#### Setting up {renv}
 Before initializing `{shinyValidator}`, `{renv}` must be activated in your project. It allows you to properly maintain your dependencies and isolate each project. This way, it prevents from accidentally breaking the code after installing a new package version that could be incompatible with your current code base. While this is more efforts, it is a game changer in the long run. 
 
 ```{r, eval=FALSE}
@@ -71,29 +83,19 @@ renv::snapshot()
 
 As a side note, `{renv}` may also be used during [CI/CD](https://rstudio.github.io/renv/articles/ci.html) (see an example [here](https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv)). 
 
-### {shinyValidator} setup
+#### {shinyValidator} setup
 
 Below shows how to activate `{shinyValidator}`:
 
 ``` r
+devtools::install_github("Novartis/shinyValidator")
 library(shinyValidator)
 ## At the root of your R package
-use_validator()
+use_validator("github")
+devtools::document() # update help
 ```
-
-You have the flexibility to choose whatever level of testing you want. The following code will only enable basic check and linting. 
-
-```r
-use_validator()
-```
-
-At the moment, 3 predefined scopes exist:
-
-  - manual: You have full control on the level of testing you want to apply. This is the default choice. 
-  - DMC: setup validation tools for DMC apps (data monitoring committee, an independent group responsible to assess the efficacy and safety for patients in a clinical trial), where testing expectations are very high.
-  - POC: setup validation tools for proof of concept apps, where minor testing is required.
   
-`audit_app()` is the main package function. It essentially runs a series of test based on the predefined parameters or scope:
+`audit_app()` is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:
 
 ```r
 audit_app(
@@ -115,6 +117,19 @@ audit_app(
 
 Although primarily meant to be called from CI/CD, it may also run locally, provided
 that you have `shinycannon`and a Chrome-based browser. Fortunately, `audit_app()` is able to detect any compatibility issue and accordingly warn you. 
+
+`audit_app()` gives you the flexibility to choose whatever 
+level of testing you want. The following code will only enable basic check and linting:
+
+```r
+audit_app(scope = "POC") # Proof of concept
+```
+
+At the moment, 3 predefined scopes exist:
+
+  - manual: You have full control on the level of testing you want to apply. This is the default choice. 
+  - DMC: setup validation tools for DMC apps (data monitoring committee, an independent group responsible to assess the efficacy and safety for patients in a clinical trial), where testing expectations are very high.
+  - POC: setup validation tools for proof of concept apps, where minor testing is required.
 
 ### What you still have to do
 Even though `{shinyValidator}` offers many helpers, there is still some work to be done, particularly for output validation (plots, htmlwidgets, ...), and testing in general. Importantly, `{shinyValidator}` __will not__ automatically write such tests for you, like unit tests.
@@ -235,6 +250,10 @@ While `{lintr}` analyses R code, `devtools::check()` audits the overall package 
 - Run unit tests.
 - ...
 
+```{r shinyValidator-rcmdcheck, echo=FALSE, fig.cap='Package check report for {shinyValidator}.', out.width='75%', fig.align='center'}
+knitr::include_graphics("figures/shinyValidator-rcmdcheck.png")
+```
+
 Pretty much any error may be captured, which ultimately guarantees a high quality project, easy to maintain. Each potential issue is labelled as either NOTE, WARNING or in the worse case ERROR. In general, you don't want to see ERROR nor WARNING. Few NOTES may be tolerated (in theory), although in practice, NOTES are most of the time rejected from CRAN submissions. 
 
 This step is crucial since it ensures global package quality. By default, `{shinyValidator}` will not check vignettes nor CRAN. This may however be customized depending on needs in the
@@ -251,6 +270,14 @@ auditing:
     expire_in: 30 days
 ```
 
+For GitHub Actions, you'll have to modify the `.github/workflows/shiny-validator.yaml` file:
+
+```yaml
+- name: Audit app 🏥
+  shell: Rscript {0}
+  run: shinyValidator::audit_app() # Customize here ...
+```
+
 `{shinyValidator}` automatically generate a coverage report (See [{covr}](https://covr.r-lib.org/)), which gives a rather good idea of the code testing state.
 
 ```{r shinyValidator-coverage, echo=FALSE, fig.cap='Coverage report available in {shinyValidator}', out.width='75%', fig.align='center'}
@@ -259,7 +286,7 @@ knitr::include_graphics("figures/shinyValidator-coverage.png")
 
 #### Crash test
 
-If the two previous steps ensure global code quality, it does not check if the application starts properly and remains alive after basic usage. 
+If the two previous steps ensure global code quality, it does not check whether the application starts properly and remains alive after basic usage. 
 
 This is where the crash test comes to play. It first:
 
@@ -391,6 +418,21 @@ At the end, an HTML report with relevant results is generated. Overall, the blue
 
 ```{r shinyValidator-loadtest-report, echo=FALSE, fig.cap='Load test HTML report', out.width='75%', fig.align='center'}
 knitr::include_graphics("figures/shinyValidator-loadtest-report.png")
+```
+
+As a side note, if you ever see this error during the load-test:
+
+```shell
+load-test - HTTP Latency [====>----------------------------------------------------------] 2/26 eta: 
+0sError in svglite_(filename, bg, width, height, pointsize, standalone,  : 
+  Graphics API version mismatch
+```
+
+This is a known [issue](https://github.com/r-lib/svglite/issues/71). 
+Reinstall `{svglite}` from source:
+
+```r
+install.packages("svglite", type = "source")
 ```
 
 #### Reactivity analysis
