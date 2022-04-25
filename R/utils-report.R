@@ -155,7 +155,7 @@ inject_js_helpers <- function(steps) {
      });",
         steps[[i]],
         names(steps)[[i]],
-        gsub("\n ", "", steps_doc[[i]])
+        gsub("\n ", "", steps_doc[[names(steps)[[i]]]])
       )
     }, FUN.VALUE = character(1)),
     collapse = "\n"
@@ -180,29 +180,29 @@ inject_js_helpers <- function(steps) {
 
 # Maybe needs to be automated later ...
 steps_doc <- c(
-  "Package is first built. Any error is shown in case the
+  "Package check" = "Package is first built. Any error is shown in case the
   installation fails. Package is checked for consistency
   (style, files, ...). Unit tests are run. Overall you want
   to see all green.",
-  "Crash test ensures the app starts and takes a snapshot
+  "Crash test" = "Crash test ensures the app starts and takes a snapshot
   when the app is loaded. Then, the app is manipulated with headless
   browser and check for alive. Another snapshot is taken.",
-  "The report shows noticed output differences found during unit testing.
+  "Output validation" = "The report shows noticed output differences found during unit testing.
   It is the business user responsibility to decide whether to accept the
   difference(s).",
-  "Code coverage shows the amounts of code covered by unit tests.
+  "Coverage" = "Code coverage shows the amounts of code covered by unit tests.
   The higher the coverage, the higher the package reliability
   (assuming relevant unit tests).",
-  "Load testing consists of checking whether the app can support multiple
+   "Load test" = "Load testing consists of checking whether the app can support multiple
   simultaneous sessions with reasonable performances.
   If you see a lot of blue area in the session tab, the app is
   likely not very well optimized.",
-  "{reactlog} represents the reactive graph of the Shiny app.
+  "Reactivity" = "{reactlog} represents the reactive graph of the Shiny app.
   It is useful to identify and fix reactivity-related issues.",
-  "{profvis} runs the app and returns the time taken by the R code
+  "Code profile" = "{profvis} runs the app and returns the time taken by the R code
   to finish. The lower the result, the higher the performances.
   It is useful to identify bottlenecks.",
-  "{flow} displays the overall project structure."
+  "Project structure" = "{flow} displays the overall project structure."
 )
 
 globalVariables("steps_doc")
