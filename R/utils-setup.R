@@ -52,8 +52,30 @@ has_git_remote <- function() {
   length(system("git remote -v", intern = TRUE) > 1)
 }
 
+#' Find a git branch
+#'
+#' @param name Branch name.
+#'
+#' @return Branch name if found
+#' @keywords internal
+find_branch <- function(name) {
+  if (length(grep(name, system("git branch -a", intern = TRUE))) > 0) {
+    name
+  }
+}
+
+`%OR%` <- function(a, b) if (!is.null(a)) a else b
+
+#' Find the main branch
+#'
+#' @return master or main depending on the initial configuration.
+#' @keywords internal
+find_main_branch <- function() {
+  find_branch("main") %OR% find_branch("master")
+}
+
 #' Checks if gh_pages branch exists
-#' 
+#'
 #' Creates gh_pages branch if not
 #'
 #' @inheritParams use_validator
@@ -76,6 +98,7 @@ initialize_gh_pages <- function(cicd_platform) {
         git reset --hard;
         git commit --allow-empty -m 'fresh and empty gh-pages branch';
         git push origin gh-pages;",
+        sprintf("git checkout %s;", find_main_branch()),
         intern = TRUE
       )
       message("gh-pages: DONE ...")
