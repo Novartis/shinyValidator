@@ -137,7 +137,7 @@ audit_app_docker <- function(
           system(%s);'
       ",
       container_name,
-      port,
+      port, port,
       shinyValidator_tag,
       apache2_cmd
     )
