@@ -144,7 +144,7 @@ audit_app_docker <- function(
   )
 
   if (open) {
-    browseUrl("http://0.0.0.0:80")
+    browseURL("http://0.0.0.0:80")
   }
   print(system("docker ps"))
   #docker stop <ID> && docker rm <ID>
