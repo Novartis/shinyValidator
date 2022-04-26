@@ -34,7 +34,7 @@ record_app <- function(timeout = 5, headless_actions = NULL, workers = 5) {
   target_url <- "http://127.0.0.1:3515"
   system(
     sprintf(
-      "shinycannon recording.log %s --workers %s --loaded-duration-minutes 2 --output-dir run1",
+      "shinycannon recording.log %s --workers %s --loaded-duration-minutes 2 --output-dir load-run",
       target_url, workers
     )
   )
@@ -42,7 +42,7 @@ record_app <- function(timeout = 5, headless_actions = NULL, workers = 5) {
   target$kill()
 
   # Treat data and generate report
-  df <- shinyloadtest::load_runs("run1")
+  df <- shinyloadtest::load_runs("load-run")
   shinyloadtest::shinyloadtest_report(
     df,
     "public/load-test.html",

@@ -1,4 +1,4 @@
-#' Run Shiny app validation tools in your project
+#' Run Shiny app validation tools in your project with CI/CD
 #'
 #' Run all specified tools and requirements to validate Shiny apps project.
 #'
@@ -85,6 +85,101 @@ audit_app <- function(
 
   message("\n---- ALL GOOD ---- \n")
 }
+
+
+#' Run Shiny app validation tools in your project locally with docker
+#'
+#' Run all specified tools and requirements to validate Shiny apps project.
+#'
+#' @param container_name Container name for docker.
+#' @param container_cache renv cache location inside the container.
+#' Default to "renv/cache".
+#' @param port Port where apache2 server will serve the audit HTML report.
+#' @param open Whether to browse to the apache2 local server url.
+#' @export
+audit_app_docker <- function(
+  container_name,
+  container_cache = "/renv/cache",
+  port = 80,
+  open = TRUE
+) {
+  # Set env vars for cache
+  Sys.setenv(
+    "RENV_PATHS_CACHE_HOST" = get_renv_cache_path(),
+    "RENV_PATHS_CACHE_CONTAINER" = container_cache
+  )
+  # Build docker image
+  system("docker build -t shinyvalidator-local:latest .")
+
+
+  apache2_cmd <- paste(
+    "rm /var/www/html/index.html",
+    "mv ./public/* /var/www/html/",
+    "apache2ctl -D FOREGROUND",
+    sep = " && "
+  )
+
+  # Start container
+  system(
+    sprintf(
+      "docker run --name %s \
+        -p %s:%s \
+        -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
+        -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
+        shinyvalidator-local:latest \
+        R --vanilla -s -e 'source(\"renv/activate.R\");
+          renv::restore();
+          devtools::install_github(\"Novartis/shinyValidator\");
+          shinyValidator::lint_code();
+          shinyValidator::audit_app(flow = FALSE, output_validation = FALSE, load_testing = FALSE);
+          system(%s);'
+      ",
+      container_name,
+      port,
+      apache2_cmd
+    )
+  )
+
+  if (open) {
+    browseUrl("http://0.0.0.0:80")
+  }
+  print(system("docker ps"))
+  #docker stop <ID> && docker rm <ID>
+}
+
+
+#' Checks if docker is installed on the local machine
+#'
+#' @return Boolean.
+#' @keywords internal
+is_docker_installed <- function() {
+  length(system("docker --version", intern = TRUE)) > 0
+}
+
+#' Get system OS
+#'
+#' @return Character with system OS.
+#' @keywords internal
+get_sysname <- function() {
+  sys_info <- Sys.info()
+  sys_info[["sysname"]]
+}
+
+#' Get renv cache location
+#'
+#' Specific to OS.
+#' Taken from \url{https://rstudio.github.io/renv/articles/renv.html#cache}.
+#'
+#' @return Character with renv path cache location.
+#' @keywords internal
+get_renv_cache_path <- function() {
+  switch(get_sysname(),
+    "Darwin" = "~/Library/Application Support/renv",
+    "Linux" = "~/.local/share/renv",
+    "Windows" = "%LOCALAPPDATA%/renv"
+  )
+}
+
 
 #' Checks to run before running the audit tools
 #'

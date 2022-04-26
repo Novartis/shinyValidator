@@ -6,11 +6,16 @@
 #'
 #' @return Error if any of the requirement is not met.
 #' @keywords internal
-check_setup_requirements <- function(cicd_platform) {
+check_setup_requirements <- function(cicd_platform, local) {
   message("Checking requirements ...")
 
   check_if_validator_installed(cicd_platform)
 
+  if (local) {
+    if (!is_docker_installed()) {
+      stop("docker is not installed ...")
+    }
+  }
   if (R.version$major < "4") {
     message("Note: {shinyValidator} works better with R >=4.")
   }
@@ -34,7 +39,6 @@ check_setup_requirements <- function(cicd_platform) {
   }
   message("Requirements: DONE ...")
 }
-
 
 #' Check if git is initialized locally
 #'
@@ -196,7 +200,7 @@ copy_app_file <- function() {
 #' @inheritParams use_validator
 #' @return Edit existing .Rbuidignore file with additional entries
 #' @keywords internal
-edit_buildignore <- function(cicd_platform) {
+edit_buildignore <- function(cicd_platform, local) {
 
   cicd_ignore <- switch(cicd_platform,
     "gitlab" = ".gitlab-ci.yml",
@@ -211,7 +215,9 @@ edit_buildignore <- function(cicd_platform) {
       ".lintr",
       # if audit_app is run locally
       "public",
-      "recording.log"
+      "recording.log",
+      "load-run",
+      if (local) "Dockerfile"
     )
   )
 }

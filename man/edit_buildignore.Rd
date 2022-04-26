@@ -4,7 +4,7 @@
 \alias{edit_buildignore}
 \title{Edit .Rbuildignore file}
 \usage{
-edit_buildignore(cicd_platform)
+edit_buildignore(cicd_platform, local)
 }
 \arguments{
 \item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.
@@ -15,6 +15,9 @@ which provides installation of R, shinycannon, Chrome, necessary to
 run the pipeline without issue. This is typically the easiest setup since
 the classic GitLab CI/CD templates assumes that your GitLab runner has
 everything installed, which is not necessarily the case.}
+
+\item{local}{Whether to setup the project for local audit with docker.
+Default to FALSE.}
 }
 \value{
 Edit existing .Rbuidignore file with additional entries

@@ -2,7 +2,7 @@
 % Please edit documentation in R/audit-app.R
 \name{audit_app}
 \alias{audit_app}
-\title{Run Shiny app validation tools in your project}
+\title{Run Shiny app validation tools in your project with CI/CD}
 \usage{
 audit_app(
   cran = FALSE,

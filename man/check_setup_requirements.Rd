@@ -4,7 +4,7 @@
 \alias{check_setup_requirements}
 \title{Checks to run before initializing the shinyValidator template}
 \usage{
-check_setup_requirements(cicd_platform)
+check_setup_requirements(cicd_platform, local)
 }
 \arguments{
 \item{cicd_platform}{CI/CD engine. GitLab or GitHub Actions.
@@ -15,6 +15,9 @@ which provides installation of R, shinycannon, Chrome, necessary to
 run the pipeline without issue. This is typically the easiest setup since
 the classic GitLab CI/CD templates assumes that your GitLab runner has
 everything installed, which is not necessarily the case.}
+
+\item{local}{Whether to setup the project for local audit with docker.
+Default to FALSE.}
 }
 \value{
 Error if any of the requirement is not met.
