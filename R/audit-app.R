@@ -121,14 +121,14 @@ audit_app_docker <- function(
       "\n",
       "",
       sprintf(
-        "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s docker run --name %s \
+        "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s docker run -d --name %s \
           -p %s:%s \
           -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
           -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
           shinyvalidator-local:latest \
           R --vanilla -s -e 'source(\"renv/activate.R\");
             renv::restore();
-            devtools::install_github(\"Novartis/shinyValidator@%s\");
+            devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
             shinyValidator::lint_code();
             shinyValidator::audit_app(flow = FALSE, output_validation = FALSE);
             system(\"%s\");'
