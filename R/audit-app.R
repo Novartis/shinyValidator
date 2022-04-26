@@ -92,6 +92,7 @@ audit_app <- function(
 #' Run all specified tools and requirements to validate Shiny apps project.
 #'
 #' @param container_name Container name for docker.
+#' @param host_cache renv host cache.
 #' @param container_cache renv cache location inside the container.
 #' Default to "renv/cache".
 #' @param shinyValidator_tag Allow to get specific flavor of shinyValidator.
@@ -100,6 +101,7 @@ audit_app <- function(
 #' @export
 audit_app_docker <- function(
   container_name,
+  host_cache = get_renv_cache_path(),
   container_cache = "/renv/cache",
   shinyValidator_tag = NULL,
   port = 80,
@@ -134,7 +136,7 @@ audit_app_docker <- function(
             system(\"%s\");'
         ",
         container_cache,
-        get_renv_cache_path(),
+        host_cache,
         container_name,
         port, port,
         shinyValidator_tag,
