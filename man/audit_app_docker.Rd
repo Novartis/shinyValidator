@@ -7,6 +7,7 @@
 audit_app_docker(
   container_name,
   container_cache = "/renv/cache",
+  shinyValidator_tag = NULL,
   port = 80,
   open = TRUE
 )
@@ -16,6 +17,8 @@ audit_app_docker(
 
 \item{container_cache}{renv cache location inside the container.
 Default to "renv/cache".}
+
+\item{shinyValidator_tag}{Allow to get specific flavor of shinyValidator.}
 
 \item{port}{Port where apache2 server will serve the audit HTML report.}
 

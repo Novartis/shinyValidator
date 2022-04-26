@@ -94,12 +94,14 @@ audit_app <- function(
 #' @param container_name Container name for docker.
 #' @param container_cache renv cache location inside the container.
 #' Default to "renv/cache".
+#' @param shinyValidator_tag Allow to get specific flavor of shinyValidator.
 #' @param port Port where apache2 server will serve the audit HTML report.
 #' @param open Whether to browse to the apache2 local server url.
 #' @export
 audit_app_docker <- function(
   container_name,
   container_cache = "/renv/cache",
+  shinyValidator_tag = NULL,
   port = 80,
   open = TRUE
 ) {
@@ -129,13 +131,14 @@ audit_app_docker <- function(
         shinyvalidator-local:latest \
         R --vanilla -s -e 'source(\"renv/activate.R\");
           renv::restore();
-          devtools::install_github(\"Novartis/shinyValidator\");
+          devtools::install_github(\"Novartis/shinyValidator@%s\");
           shinyValidator::lint_code();
           shinyValidator::audit_app(flow = FALSE, output_validation = FALSE, load_testing = FALSE);
           system(%s);'
       ",
       container_name,
       port,
+      shinyValidator_tag,
       apache2_cmd
     )
   )
