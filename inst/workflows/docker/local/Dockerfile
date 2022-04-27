@@ -7,3 +7,4 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 # Audit app
 ADD . /app/
+WORKDIR /app
