@@ -155,6 +155,7 @@ audit_app_docker <- function(
               renv::restore();
               devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
               shinyValidator::lint_code();
+              system(\"rm -r ./public/*\");
               %s;
               system(\"%s\");'
           ",
