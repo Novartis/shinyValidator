@@ -91,7 +91,6 @@ audit_app <- function(
 #'
 #' Run all specified tools and requirements to validate Shiny apps project.
 #'
-#' @param container_name Container name for docker.
 #' @param host_cache renv host cache.
 #' @param container_cache renv cache location inside the container.
 #' Default to "renv/cache".
@@ -100,9 +99,8 @@ audit_app <- function(
 #' @param open Whether to browse to the apache2 local server url.
 #' @export
 audit_app_docker <- function(
-  container_name,
   host_cache = get_renv_cache_path(),
-  container_cache = "/renv/cache",
+  container_cache = "/root/.renv/cache",
   shinyValidator_tag = NULL,
   port = 80,
   open = TRUE
@@ -123,7 +121,7 @@ audit_app_docker <- function(
       "\n",
       "",
       sprintf(
-        "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s docker run -d --name %s \
+        "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s docker run -d \
           -p %s:%s \
           -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
           -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
@@ -137,7 +135,6 @@ audit_app_docker <- function(
         ",
         container_cache,
         host_cache,
-        container_name,
         port, port,
         shinyValidator_tag,
         apache2_cmd

@@ -5,17 +5,14 @@
 \title{Run Shiny app validation tools in your project locally with docker}
 \usage{
 audit_app_docker(
-  container_name,
   host_cache = get_renv_cache_path(),
-  container_cache = "/renv/cache",
+  container_cache = "/root/.renv/cache",
   shinyValidator_tag = NULL,
   port = 80,
   open = TRUE
 )
 }
 \arguments{
-\item{container_name}{Container name for docker.}
-
 \item{host_cache}{renv host cache.}
 
 \item{container_cache}{renv cache location inside the container.
