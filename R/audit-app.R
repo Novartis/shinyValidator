@@ -97,56 +97,74 @@ audit_app <- function(
 #' @param shinyValidator_tag Allow to get specific flavor of shinyValidator.
 #' @param port Port where apache2 server will serve the audit HTML report.
 #' @param open Whether to browse to the apache2 local server url.
+#' @param update Whether to only update the image. Default to FALSE. Set to TRUE
+#' if you already have a container existing and only want to update the underlying image.
+#' @param ... Parameters to pass to \link{audit_app}.
 #' @export
 audit_app_docker <- function(
   host_cache = get_renv_cache_path(),
   container_cache = "/root/.renv/cache",
   shinyValidator_tag = NULL,
   port = 80,
-  open = TRUE
+  open = TRUE,
+  update = FALSE,
+  ...
 ) {
+  # Necessary to do.call later ...
+  audit_pars <- list(...)
   # Build docker image
+  if (update) {
+    message("Updating docker image ...")
+  }
   system("docker build -t shinyvalidator-local:latest .")
 
-  apache2_cmd <- paste(
-    "rm /var/www/html/index.html",
-    "mv ./public/* /var/www/html/",
-    "apache2ctl -D FOREGROUND",
-    sep = " && "
-  )
+  # We don't need to rerun the container when it exists
+  # We just have to rebuild the image and launch it with the docker
+  # UI.
+  if (!update) {
+    apache2_cmd <- paste(
+      "rm /var/www/html/index.html",
+      "mv ./public/* /var/www/html/",
+      "apache2ctl -D FOREGROUND",
+      sep = " && "
+    )
 
-  # Start container
-  system(
-    gsub(
-      "\n",
-      "",
-      sprintf(
-        "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s docker run -d \
-          -p %s:%s \
-          -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
-          -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
-          shinyvalidator-local:latest \
-          R --vanilla -s -e 'source(\"renv/activate.R\");
-            renv::restore();
-            devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
-            shinyValidator::lint_code();
-            shinyValidator::audit_app(flow = FALSE, output_validation = FALSE);
-            system(\"%s\");'
-        ",
-        container_cache,
-        host_cache,
-        port, port,
-        shinyValidator_tag,
-        apache2_cmd
+    # Start container
+    system(
+      gsub(
+        "\n",
+        "",
+        sprintf(
+          "RENV_PATHS_CACHE_CONTAINER=%s RENV_PATHS_CACHE_HOST=%s \
+            docker run -d --name shinyvalidator \
+            -p %s:%s \
+            -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
+            -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
+            shinyvalidator-local:latest \
+            cd /app \
+            R --vanilla -s -e 'source(\"renv/activate.R\");
+              renv::restore();
+              devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
+              shinyValidator::lint_code();
+              do.call(shinyValidator::audit_app, %s);
+              system(\"%s\");'
+          ",
+          container_cache,
+          host_cache,
+          port, port,
+          shinyValidator_tag,
+          audit_pars,
+          apache2_cmd
+        )
       )
     )
-  )
+    #docker stop <ID> && docker rm <ID>
+    print(system("docker ps"))
+  }
 
   if (open) {
     browseURL("http://0.0.0.0:80")
   }
-  print(system("docker ps"))
-  #docker stop <ID> && docker rm <ID>
 }
 
 

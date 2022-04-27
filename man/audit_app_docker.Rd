@@ -9,7 +9,9 @@ audit_app_docker(
   container_cache = "/root/.renv/cache",
   shinyValidator_tag = NULL,
   port = 80,
-  open = TRUE
+  open = TRUE,
+  update = FALSE,
+  ...
 )
 }
 \arguments{
@@ -23,6 +25,11 @@ Default to "renv/cache".}
 \item{port}{Port where apache2 server will serve the audit HTML report.}
 
 \item{open}{Whether to browse to the apache2 local server url.}
+
+\item{update}{Whether to only update the image. Default to FALSE. Set to TRUE
+if you already have a container existing and only want to update the underlying image.}
+
+\item{...}{Parameters to pass to \link{audit_app}.}
 }
 \description{
 Run all specified tools and requirements to validate Shiny apps project.
