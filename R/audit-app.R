@@ -121,7 +121,7 @@ audit_app_docker <- function(
   # UI.
   if (!update) {
     apache2_cmd <- paste(
-      "rm /var/www/html/index.html",
+      "rm /var/www/html/*",
       "mv ./public/* /var/www/html/",
       "apache2ctl -D FOREGROUND",
       sep = " && "
