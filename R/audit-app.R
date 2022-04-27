@@ -141,8 +141,8 @@ audit_app_docker <- function(
             -e \"RENV_PATHS_CACHE=${RENV_PATHS_CACHE_CONTAINER}\" \
             -v \"${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE_CONTAINER}\" \
             shinyvalidator-local:latest \
-            cd /app \
-            R --vanilla -s -e 'source(\"renv/activate.R\");
+            R --vanilla -s -e 'system(\"cd /app\");
+              source(\"renv/activate.R\");
               renv::restore();
               devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
               shinyValidator::lint_code();
