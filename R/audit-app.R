@@ -110,8 +110,6 @@ audit_app_docker <- function(
   update = FALSE,
   ...
 ) {
-  # Necessary to do.call later ...
-  audit_pars <- list(...)
   # Build docker image
   if (update) {
     message("Updating docker image ...")
@@ -128,6 +126,17 @@ audit_app_docker <- function(
       "apache2ctl -D FOREGROUND",
       sep = " && "
     )
+
+    # Necessary to do.call later ...
+    audit_pars <- list(...)
+    tmp <- paste(
+      vapply(seq_along(audit_pars), function(i) {
+        sprintf("%s = %s", names(audit_pars)[[i]], audit_pars[[i]])
+      }, FUN.VALUE = character(1)),
+      collapse = ", "
+    )
+
+    audit_cmd <- paste0("do.call(shinyValidator::audit_app, list(", tmp, "))")
 
     # Start container
     system(
@@ -146,7 +155,7 @@ audit_app_docker <- function(
               renv::restore();
               devtools::install_github(\"Novartis/shinyValidator@%s\", upgrade = \"never\");
               shinyValidator::lint_code();
-              do.call(shinyValidator::audit_app, %s);
+              %s;
               system(\"%s\");'
           ",
           container_cache,
@@ -154,7 +163,7 @@ audit_app_docker <- function(
           port, port,
           container_cache,
           shinyValidator_tag,
-          audit_pars,
+          audit_cmd,
           apache2_cmd
         )
       )
