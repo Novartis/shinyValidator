@@ -357,6 +357,7 @@ make_hist <- function(val) {
   hist(rnorm(val))
 }
 test_that("Base plot OK", {
+  set.seed(42) # to avoid the test from failing due to randomness :)
   vdiffr::expect_doppelganger("Base graphics histogram", make_hist(500))
 })
 ```
@@ -374,6 +375,7 @@ test_that("echarts4r ok", {
 })
 ```
 
+Don't forget to account for random number generation if you are using `rnorm` for instance.
 Whenever you modify the app, you have to run `devtools::test()` locally to create snapshots of the plots. If any difference is detected, the test will fail: 
 
 ```shell
