@@ -49,6 +49,7 @@ usethis::use_mit_license() # or whatever license
 usethis::use_testthat()
 usethis::use_test("dummy")
 usethis::use_git()
+usethis::use_github() # make sure to have a valid GITHUB_PAT
 # ...
 ```
 
@@ -58,6 +59,10 @@ Before using `{renv}`, we suggest to create a `.Renviron` file containing:
 
 ```shell
 RENV_PATHS_LIBRARY_ROOT = ~/.renv/library
+```
+
+```r
+system("echo 'RENV_PATHS_LIBRARY_ROOT = ~/.renv/library' >> .Renviron")
 ```
 
 and restart R.
@@ -83,7 +88,7 @@ renv::snapshot()
 
 As a side note, `{renv}` may also be used during [CI/CD](https://rstudio.github.io/renv/articles/ci.html) (see an example [here](https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv)). 
 To have faster package restoration with `{renv}` during CI/CD, you may
-replace the CRAN repository and point to binaries:
+replace the CRAN repository and point to binaries, below for Linux:
 
 ```json
 "R": {
@@ -109,6 +114,7 @@ library(shinyValidator)
 ## At the root of your R package
 use_validator("github")
 devtools::document() # update help
+renv::snapshot()
 ```
   
 `audit_app()` is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:
@@ -122,12 +128,12 @@ audit_app(
   headless_actions = NULL,
   workers = 5,
   scope = c("manual", "DMC", "POC"),
-  output_validation = TRUE,
+  output_validation = FALSE,
   coverage = TRUE,
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = TRUE
+  flow = FALSE
 )
 ```
 
@@ -347,6 +353,9 @@ knitr::include_graphics("figures/shinyValidator-crashtest.png")
 During CI/CD, `{shinyValidator}` runs a global output snapshot comparison to check whether the current commit shows similar results as the current snapshot (as a reminder, you have to initialize a first snapshot locally, which will server as reference for future comparison). This however requires to have predefined tests, for instance in `test-basic-plot.R` for a static base plot (work similarly for `{ggplot2}`):
 
 ```{r, eval=FALSE}
+make_hist <- function(val) {
+  hist(rnorm(val))
+}
 test_that("Base plot OK", {
   vdiffr::expect_doppelganger("Base graphics histogram", make_hist(500))
 })
