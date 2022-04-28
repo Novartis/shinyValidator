@@ -353,6 +353,7 @@ Crash test. Left: a snapshot is taken after initial app loading. Right: app unde
   <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">val</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">test_that</span><span class="op">(</span><span class="st">"Base plot OK"</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> <span class="co"># to avoid the test from failing due to randomness :)</span>
   <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"Base graphics histogram"</span>, <span class="fu">make_hist</span><span class="op">(</span><span class="fl">500</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>and <code>test-echarts4r.R</code> for an <a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a> powered graph (htmlwidget):</p>
@@ -365,7 +366,7 @@ Crash test. Left: a snapshot is taken after initial app loading. Right: app unde
   
   <span class="fu">expect_snapshot_file</span><span class="op">(</span><span class="fu">snapshot_widget</span><span class="op">(</span><span class="st">"tmp_echarts_plot.html"</span><span class="op">)</span>, <span class="st">"echarts_plot.html"</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
-<p>Whenever you modify the app, you have to run <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> locally to create snapshots of the plots. If any difference is detected, the test will fail:</p>
+<p>Don’t forget to account for random number generation if you are using <code>rnorm</code> for instance. Whenever you modify the app, you have to run <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> locally to create snapshots of the plots. If any difference is detected, the test will fail:</p>
 <pre class="shell"><code>x |   0 1     | basic-plot [0.1 s]                       
 ─────────────────────────────────────────────────────────
 Failure (test-basic-plot.R:3:3): Base plot OK
