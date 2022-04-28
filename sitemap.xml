@@ -67,6 +67,15 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/edit_html_report.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/find_branch.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/find_main_branch.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/has_git_remote.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/index.html</loc>
   </url>
   <url>
