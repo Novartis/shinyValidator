@@ -31,12 +31,12 @@ audit_app <- function(
   headless_actions = NULL,
   workers = 5,
   scope = c("manual", "DMC", "POC"),
-  output_validation = TRUE,
+  output_validation = FALSE,
   coverage = TRUE,
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = TRUE
+  flow = FALSE
 ) {
 
   # Technical requirements
