@@ -4,7 +4,11 @@
 \alias{recorder_bg}
 \title{Start shinyloadtest recorder in the background}
 \usage{
-recorder_bg()
+recorder_bg(shiny_port)
+}
+\arguments{
+\item{shiny_port}{Port where runs the shiny apps. This is automatically
+detected in \link{start_r_bg}.}
 }
 \description{
 Required by \link{start_r_bg}.

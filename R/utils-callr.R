@@ -13,10 +13,13 @@ shiny_bg <- function() {
 #'
 #' Required by \link{start_r_bg}.
 #'
+#' @param shiny_port Port where runs the shiny apps. This is automatically
+#' detected in \link{start_r_bg}.
+#'
 #' @keywords internal
-recorder_bg <- function() {
+recorder_bg <- function(shiny_port) {
   shinyloadtest::record_session(
-    target_app_url = "http://127.0.0.1:3515",
+    target_app_url = sprintf("http://127.0.0.1:%s", shiny_port),
     host = "127.0.0.1",
     port = 8600,
     output_file = "recording.log",
@@ -68,13 +71,24 @@ reactlog_bg <- function() {
 #' @return Process or error
 #' @keywords internal
 start_r_bg <- function(fun) {
+
+  func_name <- deparse(substitute(fun))
+  parms <- if (func_name == "recorder_bg") {
+    list(shiny_port = 3515)
+  } else {
+    list()
+  }
+
+  port <- if (func_name == "recorder_bg") 8600 else 3515
+
   process <- callr::r_bg(
     func = fun,
     stderr= "",
-    stdout = ""
+    stdout = "",
+    args = parms
   )
 
-  while (any(is.na(pingr::ping_port("127.0.0.1", 3515)))) {
+  while (any(is.na(pingr::ping_port("127.0.0.1", port)))) {
     message("Waiting for Shiny app to start...")
     Sys.sleep(0.1)
   }
