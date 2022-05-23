@@ -8,7 +8,6 @@ stages:
 variables:
   RENV_PATHS_CACHE: "~/.renv/cache"
   RENV_PATHS_LIBRARY_ROOT: "~/.renv/library"
-  RENV_PATHS_LIBRARY_ROOT_ASIS: "true"
 
 # <DON'T REMOVE!>
 cache:
