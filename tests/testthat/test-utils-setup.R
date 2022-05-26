@@ -54,8 +54,6 @@ withr::with_dir(path, {
 
     # gremlins
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
-    system("cat DESCRIPTION")
-
   })
 })
 
