@@ -51,6 +51,10 @@ withr::with_dir(path, {
     )
 
     # Suggested pkgs TODO
+    system("cat DESCRIPTION")
+    suggests <- find_pkg_suggests()
+    suggests_test <- sum(suggested_pkgs_names %in% suggests)
+    expect_true(length(suggests) == suggests_test)
 
     # gremlins
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
