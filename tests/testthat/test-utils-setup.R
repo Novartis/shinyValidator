@@ -31,7 +31,7 @@ withr::with_dir(path, {
 
     # Check up initialize_cicd() -> will change if we add GitHub...
     expect_true(file.exists("./.gitlab-ci.yml"))
-    expect_length(readLines("./.gitlab-ci.yml"), 56)
+    expect_length(readLines("./.gitlab-ci.yml"), 55)
 
     # check lintr assets
     expect_true(file.exists("./.lintr"))
@@ -54,6 +54,7 @@ withr::with_dir(path, {
 
     # gremlins
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
+    system("cat DESCRIPTION")
 
   })
 })
