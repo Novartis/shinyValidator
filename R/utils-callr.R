@@ -35,10 +35,10 @@ recorder_bg <- function(shiny_port) {
 profile_bg <- function() {
   options(keep.source = TRUE, shiny.port = 3515)
   pkgload::load_all()
+  .profile_code <- TRUE
   profvis::profvis(
     {
       profvis::pause(0.2)
-      .profile_code <<- TRUE
       run_app()
     },
     simplify = FALSE,
@@ -56,7 +56,7 @@ profile_bg <- function() {
 reactlog_bg <- function() {
   options("shiny.port" = 3515)
   pkgload::load_all()
-  .enable_reactlog <<- TRUE
+  .enable_reactlog <- TRUE
   reactlog::reactlog_enable()
   run_app()
 }

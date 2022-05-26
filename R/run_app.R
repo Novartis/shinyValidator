@@ -7,8 +7,11 @@ run_app <- function() {
   # serve js tools for Monkey test (in case proxy blocks external scripts)
   addResourcePath("gremlins", "inst/shinyValidator-js")
   # DON'T CHANGE (INTERNAL TO SHINYVALIDATOR)
-  if (!exists(".enable_reactlog")) .enable_reactlog <- FALSE
-  if (!exists(".profile_code")) .profile_code <- FALSE
+  p <- parent.frame(1)
+  .enable_reactlog <- p[[".enable_reactlog"]]
+  .profile_code <- p[[".profile_code"]]
+  if (is.null(.enable_reactlog)) .enable_reactlog <- FALSE
+  if (is.null(.profile_code)) .profile_code <- FALSE
 
   if (.enable_reactlog || .profile_code) {
     tmp <- body(app_server)
