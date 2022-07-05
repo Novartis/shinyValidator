@@ -1,6 +1,6 @@
 Package: shinyValidator
 Title: Audit Shiny apps in few steps
-Version: 0.0.0.9600
+Version: 0.0.0.9610
 Authors@R: 
     person(given = "David",
            family = "Granjon",
@@ -37,7 +37,6 @@ Imports:
     utils,
     pkgload,
     usethis,
-    attempt,
     lintr,
     diffviewer,
     htmltools,

@@ -93,10 +93,7 @@ start_r_bg <- function(fun) {
     Sys.sleep(0.1)
   }
 
-  attempt::stop_if_not(
-    process$is_alive(),
-    msg = "Unable to launch the subprocess"
-  )
+  if (!process$is_alive()) stop("Unable to launch the subprocess")
 
   process
 }
