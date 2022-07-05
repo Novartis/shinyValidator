@@ -98,6 +98,3 @@ start_r_bg <- function(fun) {
   process
 }
 
-is_inside_ci <- function() {
-  !identical(Sys.getenv("CI", unset = ""), "")
-}

@@ -69,29 +69,53 @@ withr::with_dir(path, {
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
   })
 
-  test_that("Crash test works", {
-    devtools::document()
-    devtools::load_all()
-    crash_test_tab <- run_crash_test()
+  # test_that("Crash test works", {
+  #   devtools::document()
+  #   devtools::load_all()
+  #   crash_test_tab <- run_crash_test()
+  #
+  #   # Check that returned content is HTML
+  #   screenshots <- list.files("public/crash-test")
+  #   expect_length(screenshots, 2)
+  #   expect_s3_class(crash_test_tab, "shiny.tag")
+  #   expect_equal(crash_test_tab$attribs$class, "ui tab")
+  #
+  #   # Check that nothing runs anymore
+  #   # run_crash_test is supposed to cleanup
+  #   print(system("netstat -plnt", intern = TRUE))
+  #   expect_warning(system("netstat -plnt | grep ':3515'", intern = TRUE))
+  #   # TO DO: check why chrome is still alive despite being killed...
+  #   #chrome_process <- system("netstat -plnt | grep 'google-chrom'", intern = TRUE)
+  #   #expect_true(length(chrome_process) == 0)
+  #
+  #   # Check that screenshots are taken
+  #   expect_true(file.exists("public/crash-test/1-init-crash.png"))
+  #   expect_true(file.exists("public/crash-test/2-gremlins.png"))
+  # })
+  #
+  # test_that("Load test work", {
+  #   record_app()
+  #
+  #   # Check that nothing runs anymore
+  #   print(system("netstat -plnt", intern = TRUE))
+  #   expect_warning(system("netstat -plnt | grep ':3515'", intern = TRUE))
+  #   expect_warning(system("netstat -plnt | grep ':8600'", intern = TRUE))
+  #
+  #   # Check that load test artifacts are produces
+  #   expect_true(dir.exists("run1"))
+  #   expect_true(file.exists("recording.log"))
+  #   expect_true(file.exists("public/load-test.html"))
+  #})
 
-    # Check that returned content is HTML
-    screenshots <- list.files("public/crash-test")
-    expect_length(screenshots, 2)
-    expect_s3_class(crash_test_tab, "shiny.tag")
-    expect_equal(crash_test_tab$attribs$class, "ui tab")
+  #test_that("Profiling works", {
+  #  profile_app()
+  #  expect_true(file.exists("public/code-profile.html"))
+  #})
 
-    # Check that nothing runs anymore
-    # run_crash_test is supposed to cleanup
-    print(system("netstat -plnt", intern = TRUE))
-    expect_warning(system("netstat -plnt | grep ':3515'", intern = TRUE))
-    # TO DO: check why chrome is still alive despite being killed...
-    #chrome_process <- system("netstat -plnt | grep 'google-chrom'", intern = TRUE)
-    #expect_true(length(chrome_process) == 0)
-
-    # Check that screenshots are taken
-    expect_true(file.exists("public/crash-test/1-init-crash.png"))
-    expect_true(file.exists("public/crash-test/2-gremlins.png"))
-  })
+  #test_that("Reactlog works", {
+  #  upload_reactlog()
+  #  expect_true(file.exists("public/reactlog.html"))
+  #})
 })
 
 # cleanup

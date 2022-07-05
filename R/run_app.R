@@ -5,7 +5,7 @@
 #' @import shiny
 run_app <- function() {
   # serve js tools for Monkey test (in case proxy blocks external scripts)
-  addResourcePath("gremlins", "inst/shinyValidator-js")
+  addResourcePath("gremlins", system.file("shinyValidator-js", package = "shinyValidator"))
   # DON'T CHANGE (INTERNAL TO SHINYVALIDATOR)
   p <- parent.frame(1)
   .enable_reactlog <- p[[".enable_reactlog"]]
