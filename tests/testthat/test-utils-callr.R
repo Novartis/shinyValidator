@@ -4,8 +4,7 @@ dir.create(path)
 # use withr to change directory
 withr::with_dir(path, {
   test_that("Start R bg works", {
-    # Recorder needs a running shiny app in the background
-    # on the provided port
+    # Copy assets
     file.copy(
       from = system.file("tests/DESCRIPTION", package = "shinyValidator"),
       to = "./DESCRIPTION"
@@ -27,6 +26,9 @@ withr::with_dir(path, {
 
     devtools::document()
     devtools::load_all()
+
+    # Recorder needs a running shiny app in the background
+    # on the provided port
     expect_error(recorder_bg("3515"))
     shiny_app <- start_r_bg(shiny_bg)
     expect_s3_class(shiny_app, c("r_process", "process", "R6"))
