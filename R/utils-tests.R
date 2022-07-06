@@ -1,6 +1,9 @@
 find_pkg_suggests <- function(path = "./DESCRIPTION") {
   desc <- readLines(path)
   suggests_start <- grep("^Suggests: (.*)", desc)
+  if (length(suggests_start) == 0) {
+    stop("This package does not have any 'Suggests' field.")
+  }
   suggests_end <- NULL
   for (i in seq_along(desc)) {
     if (suggests_start + i <= length(desc)) {

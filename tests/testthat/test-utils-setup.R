@@ -133,9 +133,27 @@ withr::with_dir(path, {
       "tests",
       recursive = TRUE
     )
-    print(list.files(recursive = TRUE))
     output_tab_tag <- validate_outputs()
     expect_s3_class(output_tab_tag, "shiny.tag")
+  })
+
+  test_that("Has git remote works", {
+    # No remote is currently setup
+    expect_length(has_git_remote(), 1)
+  })
+
+  test_that("Find main branch works", {
+    # maybe not always TRUE ... depending on people's config
+    expect_length(find_main_branch(), 0)
+  })
+
+  test_that("initialize_gh_pages works", {
+    # No remote
+    expect_error(initialize_gh_pages("github"))
+  })
+
+  test_that("check_if_validator_installed works", {
+    expect_error(check_if_validator_installed("gitlab"))
   })
 })
 
