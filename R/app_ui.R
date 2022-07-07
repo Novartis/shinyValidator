@@ -1,4 +1,4 @@
-app_ui <- function() {
+app_ui <- function() { # nocov start
   fluidPage(
     sliderInput(
       "obs",
@@ -9,4 +9,4 @@ app_ui <- function() {
     ),
     plotOutput("distPlot")
   )
-}
+} # nocov end

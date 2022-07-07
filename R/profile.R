@@ -23,6 +23,5 @@ profile_app <- function(timeout = 5, headless_actions = NULL) {
   chrome$stop()
   Sys.sleep(1) # required so that we can get_result()
 
-  if (!dir.exists("public")) dir.create("public")
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
 }

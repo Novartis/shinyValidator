@@ -32,7 +32,7 @@ edit_html_report <- function(..., source = path, path = "public/index.html") {
 #' Used by \link{check_package}, ...
 #'
 #' @param ... Tab content.
-#' @param tab_name Unique tab id. Must match that of \link{create_report_tabs}.
+#' @param tab_name Unique tab id. Must match that of \link{create_audit_report}.
 #' @param title Tab title.
 #'
 #' @return An HTML tag representing a tab element content.
@@ -58,32 +58,51 @@ create_tab_content <- function(..., tab_name, title) {
   )
 }
 
+#' Create a tab menu
+#'
+#' Useful inside \link{create_audit_report}.
+#'
+#' @param steps Audit steps: coverage, output validation, load testing, ...
+#' @param pkg_name Audited package name.
+#' @param pkg_version Audited package version.
+#'
+#' @return A shiny HTML tag
+#' @keywords internal
+create_tabs_menu <- function(steps, pkg_name, pkg_version) {
+  tags$div(
+    class = "ui pointing menu",
+    lapply(seq_along(steps), function(i) {
+      tags$a(class = "item", `data-tab` = steps[[i]], names(steps)[[i]])
+    }),
+    tags$div(
+      class = "right menu",
+      tags$a(class = "ui item", pkg_name),
+      tags$a(class = "ui tag label", pkg_version)
+    )
+  )
+}
 
-#' Create a tab menu for HTML report
+#' Helper to process audit steps
+#'
+#' Useful for \link{create_audit_report}.
 #'
 #' @inheritParams use_validator
-#' @param ... To pass extra parameters to \link{edit_html_report}.
 #'
-#' @return A tab menu used to navigate through \link{create_tab_content}
-#' elements.
+#' @return A list composed of dynamic and static steps.
 #' @keywords internal
-create_report_tabs <- function(
+create_report_steps <- function(
   output_validation = TRUE,
   coverage = TRUE,
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = TRUE,
-  ...
+  flow = TRUE
 ) {
-
-  items <- list(...)
-
   # Steps that are programmatically generated
   dynamic_steps <- c(
-     "Package check" = "check",
-     "Crash test" = "crash-test",
-     "Output validation" = if (output_validation) "output" else NULL
+    "Package check" = "check",
+    "Crash test" = "crash-test",
+    "Output validation" = if (output_validation) "output" else NULL
   )
 
   # Steps for which report is just iframe
@@ -95,44 +114,33 @@ create_report_tabs <- function(
     "Project structure" = if (flow) "flow" else NULL
   )
 
-  steps <- c(dynamic_steps, static_steps)
+  list(dynamic_steps, static_steps)
+}
 
-  tabs_menu_tag <- tags$div(
-    class = "ui pointing menu",
-    lapply(seq_along(steps), function(i) {
-      tags$a(class = "item", `data-tab` = steps[[i]], names(steps)[[i]])
-    }),
-    tags$div(
-      class = "right menu",
-      tags$a(class = "ui item", items$package_name),
-      tags$a(class = "ui tag label", items$package_version)
+
+#' Create static tabs
+#'
+#' Useful in \link{create_audit_report}.
+#'
+#' @param static_steps Provided by \link{create_report_steps}.
+#'
+#' @return A shiny html tag
+#' @keywords internal
+create_static_tabs <- function(static_steps) {
+  lapply(seq_along(static_steps), function(i) {
+    create_tab_content(
+      if (static_steps[[i]] == "code-profile") tags$br(),
+      tags$iframe(
+        src = sprintf("./%s.html", static_steps[[i]]),
+        frameborder = "0",
+        scrolling = "yes",
+        width = "100%",
+        height = "770px"
+      ),
+      tab_name = static_steps[[i]],
+      title = names(static_steps)[[i]]
     )
-  )
-
-  # Setup HTML report (needs source = NULL to start from clean report)
-  edit_html_report(
-    source = NULL,
-    tabs_menu = tabs_menu_tag,
-    # Inject JS helpers
-    js_code = inject_js_helpers(steps),
-    # passed from top level function (see audit_app)
-    ...,
-    # Handle tabs that are just iframe (load-test, profile, reactlog, coverage, flow)
-    tabs_static = lapply(seq_along(static_steps), function(i) {
-      create_tab_content(
-        if (static_steps[[i]] == "code-profile") tags$br(),
-        tags$iframe(
-          src = sprintf("./%s.html", static_steps[[i]]),
-          frameborder = "0",
-          scrolling = "yes",
-          width = "100%",
-          height = "770px"
-        ),
-        tab_name = static_steps[[i]],
-        title = names(static_steps)[[i]]
-      )
-    })
-  )
+  })
 }
 
 #' Inject JS code
@@ -153,9 +161,9 @@ inject_js_helpers <- function(steps) {
        title   : '%s',
        content : '%s'
      });",
-        steps[[i]],
-        names(steps)[[i]],
-        gsub("\n ", "", steps_doc[[names(steps)[[i]]]])
+     steps[[i]],
+     names(steps)[[i]],
+     gsub("\n ", "", steps_doc[[names(steps)[[i]]]])
       )
     }, FUN.VALUE = character(1)),
     collapse = "\n"
@@ -193,7 +201,7 @@ steps_doc <- c(
   "Coverage" = "Code coverage shows the amounts of code covered by unit tests.
   The higher the coverage, the higher the package reliability
   (assuming relevant unit tests).",
-   "Load test" = "Load testing consists of checking whether the app can support multiple
+  "Load test" = "Load testing consists of checking whether the app can support multiple
   simultaneous sessions with reasonable performances.
   If you see a lot of blue area in the session tab, the app is
   likely not very well optimized.",
@@ -206,3 +214,51 @@ steps_doc <- c(
 )
 
 globalVariables("steps_doc")
+
+#' Create a tab menu for HTML report
+#'
+#' @inheritParams use_validator
+#' @param ... To pass extra parameters to \link{edit_html_report}.
+#'
+#' @return A tab menu used to navigate through \link{create_tab_content}
+#' elements.
+#' @keywords internal
+create_audit_report <- function(
+  output_validation = TRUE,
+  coverage = TRUE,
+  load_testing = TRUE,
+  profile_code = TRUE,
+  check_reactivity = TRUE,
+  flow = TRUE,
+  ...
+) {
+
+  items <- list(...)
+
+  steps <- create_report_steps(
+    output_validation,
+    coverage,
+    load_testing,
+    profile_code,
+    check_reactivity,
+    flow
+  )
+
+  # Return all steps (dynamic steps + static steps)
+  all_steps <- unlist(steps)
+  static_steps <- steps[[2]]
+
+  tabs_menu_tag <- create_tabs_menu(all_steps, items$package_name, items$package_version)
+
+  # Setup HTML report (needs source = NULL to start from clean report)
+  edit_html_report(
+    source = NULL,
+    tabs_menu = tabs_menu_tag,
+    # Inject JS helpers
+    js_code = inject_js_helpers(all_steps),
+    # passed from top level function (see audit_app)
+    ...,
+    # Handle tabs that are just iframe (load-test, profile, reactlog, coverage, flow)
+    tabs_static = create_static_tabs(static_steps)
+  )
+}

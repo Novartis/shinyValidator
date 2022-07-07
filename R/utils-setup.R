@@ -1,7 +1,7 @@
 #' Checks to run before initializing the shinyValidator template
 #'
 #' Useful for \link{use_validator}
-#' 
+#'
 #' @inheritParams use_validator
 #'
 #' @return Error if any of the requirement is not met.
@@ -130,9 +130,9 @@ process_scope <- function(scope) {
 #' DMC are the most critical applications
 #'
 #' @keywords internal
-apply_dmc_scope <- function() {
+apply_dmc_scope <- function() { # nocov start
 
-}
+} # nocov end
 
 #' Apply POC scope
 #'

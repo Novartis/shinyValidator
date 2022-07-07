@@ -9,7 +9,7 @@ create_tab_content(..., tab_name, title)
 \arguments{
 \item{...}{Tab content.}
 
-\item{tab_name}{Unique tab id. Must match that of \link{create_report_tabs}.}
+\item{tab_name}{Unique tab id. Must match that of \link{create_audit_report}.}
 
 \item{title}{Tab title.}
 }
