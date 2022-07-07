@@ -1,3 +1,43 @@
+#' Create output HTML tab
+#'
+#' Useful for \link{validate_outputs}.
+#'
+#' @param done Boolean. Internal to \link{validate_outputs}.
+#'
+#' @return A shiny HTML tag
+#' @keywords internal
+create_output_tab <- function(done) {
+  tmp_html <- if (done) {
+
+    output_snaps <- list.files("public/outputs", pattern = ".html$", full.names = TRUE)
+
+    tags$div(
+      class = "ui equal width grid",
+      lapply(seq_along(output_snaps), function(i) {
+        tags$div(
+          class = "eight wide column",
+          tags$iframe(
+            src = sprintf("./%s", strsplit(output_snaps[[i]], "public/")[[1]][2]),
+            frameborder = "0",
+            scrolling = "yes",
+            width = "100%",
+            height = "770px"
+          )
+        )
+      })
+    )
+
+  } else {
+    tags$h1(class = "ui header", "No visual change to review")
+  }
+
+  create_tab_content(
+    tmp_html,
+    tab_name = "output",
+    title = "Output validation"
+  )
+}
+
 #' Validate plot outputs
 #'
 #' @return For each snapshot folder found in tests/testthat/_snaps
@@ -48,33 +88,5 @@ validate_outputs <- function() {
   })
 
   # Tag to display in the report
-  tmp_html <- if (done) {
-
-    output_snaps <- list.files("public/outputs", pattern = ".html$", full.names = TRUE)
-
-    tags$div(
-      class = "ui equal width grid",
-      lapply(seq_along(output_snaps), function(i) {
-        tags$div(
-          class = "eight wide column",
-          tags$iframe(
-            src = sprintf("./%s", strsplit(output_snaps[[i]], "public/")[[1]][2]),
-            frameborder = "0",
-            scrolling = "yes",
-            width = "100%",
-            height = "770px"
-          )
-        )
-      })
-    )
-
-  } else {
-    tags$h1(class = "ui header", "No visual change to review")
-  }
-
-  create_tab_content(
-    tmp_html,
-    tab_name = "output",
-    title = "Output validation"
-  )
+  create_output_tab(done)
 }

@@ -10,18 +10,7 @@ withr::with_dir(path, {
       to = "./DESCRIPTION"
     )
     dir.create("R")
-    file.copy(
-      from = system.file("tests/app_server.R", package = "shinyValidator"),
-      to = "./R/app_server.R"
-    )
-    file.copy(
-      from = system.file("tests/app_ui.R", package = "shinyValidator"),
-      to = "./R/app_ui.R"
-    )
-    file.copy(
-      from = system.file("run-app/run_app.R", package = "shinyValidator"),
-      to = "./R/run_app.R"
-    )
+    copy_shiny_app_files()
     add_gremlins_assets()
 
     devtools::document()

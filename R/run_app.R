@@ -3,7 +3,7 @@
 #' @return A shiny app object
 #' @export
 #' @import shiny
-run_app <- function() {
+run_app <- function() { # nocov start
   # serve js tools for Monkey test (in case proxy blocks external scripts)
   addResourcePath("gremlins", system.file("shinyValidator-js", package = "shinyValidator"))
   # DON'T CHANGE (INTERNAL TO SHINYVALIDATOR)
@@ -27,6 +27,6 @@ run_app <- function() {
     shinyApp(app_ui, app_server),
     test.mode = TRUE
   )
-}
+} # nocov end
 
 globalVariables(c("app_ui", "app_server"))

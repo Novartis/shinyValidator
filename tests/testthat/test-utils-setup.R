@@ -16,19 +16,8 @@ withr::with_dir(path, {
     file.create("renv.lock")
     # Missing app_server.R
     expect_error(use_validator())
-    dir.create("R")
-    file.copy(
-      from = system.file("tests/app_server.R", package = "shinyValidator"),
-      to = "./R/app_server.R"
-    )
-    file.copy(
-      from = system.file("tests/app_ui.R", package = "shinyValidator"),
-      to = "./R/app_ui.R"
-    )
-    file.copy(
-      from = system.file("run-app/run_app.R", package = "shinyValidator"),
-      to = "./R/run_app.R"
-    )
+
+    copy_shiny_app_files()
 
     # Git does not exist
     expect_error(use_validator())
@@ -71,6 +60,24 @@ withr::with_dir(path, {
     # Prepare for next steps
     devtools::document()
     devtools::load_all()
+  })
+
+  test_that("process_scope works", {
+    # Does nothing at the moment
+    expect_true(is.null(process_scope("manual")))
+    output_validation <- TRUE
+    coverage <- TRUE
+    load_testing <- TRUE
+    profile_code <- TRUE
+    check_reactivity <- TRUE
+    flow <- TRUE
+    process_scope("POC")
+    expect_false(flow)
+    expect_false(check_reactivity)
+    expect_false(profile_code)
+    expect_false(load_testing)
+    expect_false(coverage)
+    expect_false(output_validation)
   })
 
   test_that("Check package works", {
@@ -135,6 +142,14 @@ withr::with_dir(path, {
       "tests",
       recursive = TRUE
     )
+
+    # test HTML structure
+    tmp <- create_output_tab(TRUE)
+    expect_s3_class(tmp, "shiny.tag")
+    tmp <- create_output_tab(FALSE)
+    expect_s3_class(tmp, "shiny.tag")
+    expect_true(grepl("No visual change to review", as.character(tmp)))
+
     output_tab_tag <- validate_outputs()
     expect_s3_class(output_tab_tag, "shiny.tag")
   })
@@ -155,6 +170,7 @@ withr::with_dir(path, {
   })
 
   test_that("check_if_validator_installed works", {
+    # Already setup in previous step ...
     expect_error(check_if_validator_installed("gitlab"))
   })
 

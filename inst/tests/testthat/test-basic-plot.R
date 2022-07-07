@@ -1,7 +1,3 @@
-make_hist <- function(val) {
-  hist(rnorm(val))
-}
-
 test_that("plot works", {
   set.seed(42)
   vdiffr::expect_doppelganger(

@@ -18,4 +18,6 @@ VignetteBuilder: knitr
 Config/testthat/edition: 3
 Imports:
     golem,
-    shiny
+    shiny,
+    echarts4r,
+    magrittr

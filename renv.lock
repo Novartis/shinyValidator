@@ -190,15 +190,14 @@
     },
     "bslib": {
       "Package": "bslib",
-      "Version": "0.2.5.1",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "2f069f3f42847231aef7baa49bed97b0",
+      "Hash": "56ae7e1987b340186a8a5a157c2ec358",
       "Requirements": [
         "htmltools",
         "jquerylib",
         "jsonlite",
-        "magrittr",
         "rlang",
         "sass"
       ]
@@ -319,10 +318,10 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.3.1",
+      "Version": "0.4.2",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "e02edab2bc389c5e4b12949b13df44f2",
+      "Repository": "RSPM",
+      "Hash": "fa53ce256cd280f468c080a58ea5ba8c",
       "Requirements": []
     },
     "crayon": {
@@ -454,17 +453,20 @@
     },
     "downlit": {
       "Package": "downlit",
-      "Version": "0.2.1",
+      "Version": "0.4.2",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f24f1e44320a978c03050b8403a83793",
+      "Hash": "79bf3f66590752ffbba20f8d2da94c7c",
       "Requirements": [
         "brio",
+        "desc",
         "digest",
         "evaluate",
         "fansi",
+        "memoise",
         "rlang",
         "vctrs",
+        "withr",
         "yaml"
       ]
     },
@@ -999,11 +1001,12 @@
     },
     "pkgdown": {
       "Package": "pkgdown",
-      "Version": "1.6.1",
+      "Version": "2.0.5",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "8896076540d9e9b556a2ec658c81f916",
+      "Hash": "584e7c13c2cb3a1d4b32166dc411f3bb",
       "Requirements": [
+        "bslib",
         "callr",
         "crayon",
         "desc",
@@ -1011,12 +1014,11 @@
         "downlit",
         "fs",
         "httr",
+        "jsonlite",
         "magrittr",
         "memoise",
-        "openssl",
         "purrr",
         "ragg",
-        "rematch2",
         "rlang",
         "rmarkdown",
         "tibble",
@@ -1222,10 +1224,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.11",
+      "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "515f341d3affe0de9e4a7f762efb0456",
+      "Hash": "9103a8f74b2114a5ed1136b471d8feca",
       "Requirements": []
     },
     "rmarkdown": {
