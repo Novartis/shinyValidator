@@ -16,3 +16,6 @@ RoxygenNote: 7.1.1
 Depends: R (>= 4.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Imports:
+    golem,
+    shiny

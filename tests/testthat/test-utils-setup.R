@@ -67,11 +67,13 @@ withr::with_dir(path, {
 
     # gremlins
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
+
+    # Prepare for next steps
+    devtools::document()
+    devtools::load_all()
   })
 
   test_that("Check package works", {
-    devtools::document()
-    devtools::load_all()
     tmp <- check_package()
     expect_equal(tmp$package_name, "Dummy")
     expect_equal(tmp$package_version, "0.0.0.9000")
@@ -154,6 +156,46 @@ withr::with_dir(path, {
 
   test_that("check_if_validator_installed works", {
     expect_error(check_if_validator_installed("gitlab"))
+  })
+
+  test_that("audit app works", {
+    # cleanup for audit_app
+    system("rm -rf tests public run1")
+    file.remove("recording.log")
+
+    audit_app(
+      output_validation = FALSE,
+      coverage = TRUE,
+      load_testing = TRUE,
+      profile_code = TRUE,
+      check_reactivity = TRUE,
+      flow = FALSE
+    )
+
+    expect_true(file.exists("public/index.html"))
+    # Check that 4 static docs exist
+    expect_true(file.exists("public/load-test.html"))
+    expect_true(file.exists("public/coverage.html"))
+    expect_true(file.exists("public/reactlog.html"))
+    expect_true(file.exists("public/code-profile.html"))
+
+    # Inspect report
+    tmp <- readLines("public/index.html")
+    check_tab <- grep("data-tab=\"check\"", tmp)
+    crash_tab <- grep("data-tab=\"crash-test\"", tmp)
+    coverage_tab <- grep("data-tab=\"coverage\"", tmp)
+    load_test_tab <- grep("data-tab=\"load-test\"", tmp)
+    profile_tab <- grep("data-tab=\"code-profile\"", tmp)
+    reactivity_tab <- grep("data-tab=\"reactlog\"", tmp)
+    # Must match the tab menu item + tab content + the JS helper
+    expect_length(check_tab, 3)
+    expect_length(crash_tab, 3)
+    expect_length(coverage_tab, 3)
+    expect_length(load_test_tab, 3)
+    expect_length(profile_tab, 3)
+    expect_length(reactivity_tab, 3)
+
+    # TO DO: more checks ... Maybe convert to Shiny tags and inspect structure ...
   })
 })
 

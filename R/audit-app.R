@@ -69,7 +69,7 @@ audit_app <- function(
   message("\n---- BEGIN REPORT GENERATION ---- \n")
 
   # Generate report with tabs
-  create_report_tabs(
+  create_audit_report(
     output_validation,
     coverage,
     load_testing,
