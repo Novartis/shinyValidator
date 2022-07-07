@@ -12,7 +12,7 @@ the headless connection is opened."><!-- mathjax --><script src="https://cdnjs.c
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9600</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9610</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,20 +51,25 @@ the headless connection is opened.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">run_monkey_test</span><span class="op">(</span><span class="va">headless_app</span>, <span class="va">headless_actions</span>, screenshot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_monkey_test</span><span class="op">(</span><span class="va">headless_app</span>, <span class="va">headless_actions</span>, screenshot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>headless_app</dt>
 <dd><p>Headless app R6 instance.</p></dd>
+
+
 <dt>headless_actions</dt>
 <dd><p>Custom code passed as a string to manipulate the app with headless
 web browser, for instance
 <code>"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"</code>.
 If NULL, the app will undergo a classic random Monkey test session.</p></dd>
+
+
 <dt>screenshot</dt>
 <dd><p>Whether to take screenshot. Defaults to TRUE.</p></dd>
+
 </dl></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -76,7 +81,7 @@ If NULL, the app will undergo a classic random Monkey test session.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

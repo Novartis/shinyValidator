@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9600</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9610</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>shinyValidator</h1>
             
       
@@ -71,7 +71,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyValidator</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyValidator</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -102,14 +102,14 @@
 <h4 id="initialize-package">Initialize package<a class="anchor" aria-label="anchor" href="#initialize-package"></a>
 </h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mypkg"</span><span class="op">)</span> 
-<span class="fu">golem</span><span class="fu">::</span><span class="fu">create_golem</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html" class="external-link">use_mit_license</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># or whatever license</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_test</a></span><span class="op">(</span><span class="st">"dummy"</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git.html" class="external-link">use_git</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">use_github</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># make sure to have a valid GITHUB_PAT</span>
-<span class="co"># ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mypkg"</span><span class="op">)</span> </span>
+<span><span class="fu">golem</span><span class="fu">::</span><span class="fu">create_golem</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html" class="external-link">use_mit_license</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># or whatever license</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_test</a></span><span class="op">(</span><span class="st">"dummy"</span><span class="op">)</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git.html" class="external-link">use_git</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">use_github</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># make sure to have a valid GITHUB_PAT</span></span>
+<span><span class="co"># ...</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="prepare-renv">Prepare {renv}<a class="anchor" aria-label="anchor" href="#prepare-renv"></a>
@@ -117,7 +117,7 @@
 <p>Before using <a href="https://rstudio.github.io/renv/" class="external-link">renv</a>, we suggest to create a <code>.Renviron</code> file containing:</p>
 <pre class="shell"><code>RENV_PATHS_LIBRARY_ROOT = ~/.renv/library</code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"echo 'RENV_PATHS_LIBRARY_ROOT = ~/.renv/library' &gt;&gt; .Renviron"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"echo 'RENV_PATHS_LIBRARY_ROOT = ~/.renv/library' &gt;&gt; .Renviron"</span><span class="op">)</span></span></code></pre></div>
 <p>and restart R.</p>
 <p>Overall, this options creates the <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> library outside the current Shiny app project folder, which avoids delays during <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> and <code><a href="https://devtools.r-lib.org/reference/build.html" class="external-link">devtools::build()</a></code>.</p>
 </div>
@@ -126,17 +126,17 @@
 </h4>
 <p>Before initializing <code>{shinyValidator}</code>, <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> must be activated in your project. It allows you to properly maintain your dependencies and isolate each project. This way, it prevents from accidentally breaking the code after installing a new package version that could be incompatible with your current code base. While this is more efforts, it is a game changer in the long run.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># DaVinci renv</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/renv/" class="external-link">renv</a></span><span class="op">)</span>
-
-<span class="co"># SCAN the project and look for dependencies</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu">init</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># install missing packages</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"&lt;PACKAGE&gt;"</span><span class="op">)</span>
-
-<span class="co"># Capture new dependencies after package installation</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># DaVinci renv</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/renv/" class="external-link">renv</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># SCAN the project and look for dependencies</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu">init</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># install missing packages</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"&lt;PACKAGE&gt;"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Capture new dependencies after package installation</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>As a side note, <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> may also be used during <a href="https://rstudio.github.io/renv/articles/ci.html" class="external-link">CI/CD</a> (see an example <a href="https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv" class="external-link">here</a>). To have faster package restoration with <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> during CI/CD, you may replace the CRAN repository and point to binaries, below for Linux:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="er">"R":</span> <span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"Version"</span><span class="fu">:</span> <span class="st">"4.1.0"</span><span class="fu">,</span></span>
@@ -154,33 +154,33 @@
 <p>If your are using Github, don’t forget to connect the remote repository to the local one before initializing <code>{shinyValidator}</code>.</p>
 <p>Below shows how to activate <code>{shinyValidator}</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Novartis/shinyValidator"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyValidator</span><span class="op">)</span>
-<span class="co">## At the root of your R package</span>
-<span class="fu"><a href="../reference/use_validator.html">use_validator</a></span><span class="op">(</span><span class="st">"github"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># update help</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Novartis/shinyValidator"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyValidator</span><span class="op">)</span></span>
+<span><span class="co">## At the root of your R package</span></span>
+<span><span class="fu"><a href="../reference/use_validator.html">use_validator</a></span><span class="op">(</span><span class="st">"github"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># update help</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/audit_app.html">audit_app()</a></code> is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span>
-  cran <span class="op">=</span> <span class="cn">FALSE</span>,
-  vignettes <span class="op">=</span> <span class="cn">FALSE</span>,
-  error_on <span class="op">=</span> <span class="st">"never"</span>,
-  timeout <span class="op">=</span> <span class="fl">5</span>,
-  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,
-  workers <span class="op">=</span> <span class="fl">5</span>,
-  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,
-  output_validation <span class="op">=</span> <span class="cn">FALSE</span>,
-  coverage <span class="op">=</span> <span class="cn">TRUE</span>,
-  load_testing <span class="op">=</span> <span class="cn">TRUE</span>,
-  profile_code <span class="op">=</span> <span class="cn">TRUE</span>,
-  check_reactivity <span class="op">=</span> <span class="cn">TRUE</span>,
-  flow <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span></span>
+<span>  cran <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  vignettes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error_on <span class="op">=</span> <span class="st">"never"</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  workers <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,</span>
+<span>  output_validation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  coverage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  load_testing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  profile_code <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  check_reactivity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  flow <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Although primarily meant to be called from CI/CD, it may also run locally, provided that you have <code>shinycannon</code>and a Chrome-based browser. Fortunately, <code><a href="../reference/audit_app.html">audit_app()</a></code> is able to detect any compatibility issue and accordingly warn you.</p>
 <p><code><a href="../reference/audit_app.html">audit_app()</a></code> gives you the flexibility to choose whatever level of testing you want. The following code will only enable basic check and linting:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"POC"</span><span class="op">)</span> <span class="co"># Proof of concept</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"POC"</span><span class="op">)</span> <span class="co"># Proof of concept</span></span></code></pre></div>
 <p>At the moment, 3 predefined scopes exist:</p>
 <ul>
 <li>manual: You have full control on the level of testing you want to apply. This is the default choice.</li>
@@ -195,45 +195,45 @@
 <p>Even though <code>{shinyValidator}</code> offers many helpers, there is still some work to be done, particularly for output validation (plots, htmlwidgets, …), and testing in general. Importantly, <code>{shinyValidator}</code> <strong>will not</strong> automatically write such tests for you, like unit tests.</p>
 <p>As a reminder, to initialize tests in a package, you run:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Init tests folder structure</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_test</a></span><span class="op">(</span><span class="st">"modules"</span><span class="op">)</span> <span class="co"># creates test-module.R</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Init tests folder structure</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_test</a></span><span class="op">(</span><span class="st">"modules"</span><span class="op">)</span> <span class="co"># creates test-module.R</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="note-about-shiny-server-testing">Note about Shiny server testing<a class="anchor" aria-label="anchor" href="#note-about-shiny-server-testing"></a>
 </h4>
 <p>Shiny server function <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">testing</a> consists of simulating a mock session, thereby providing access to reactive values, inputs and outputs, like you would have in a real session. This is very convenient to check how Shiny modules interact together for instance. However, none of this can be automated, which means these tests will have to be written by someone. As an example, assume a Shiny app with this server function:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">app_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># Your application server logic</span>
-  <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">app_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Your application server logic</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>One can write:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">testServer</span><span class="op">(</span><span class="va">app_server</span>, <span class="op">{</span>
-  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-  <span class="co"># There should be an error</span>
-  <span class="fu">expect_error</span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span>
-  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">testServer</span><span class="op">(</span><span class="va">app_server</span>, <span class="op">{</span></span>
+<span>  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="co"># There should be an error</span></span>
+<span>  <span class="fu">expect_error</span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span></span>
+<span>  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Notice how inputs are set. This is because the test is run without the UI part. Therefore, it is the developer’s responsibility to drive the UI.</p>
 <p>Important note: if you had to test Shiny modules, server testing only works with the <code>moduleServer()</code> API (new API). For instance, let’s rewrite the previous server function as a module:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_base_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">extra</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Your application server logic</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span>
-      <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">obs</span> <span class="op">*</span> <span class="va">extra</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_base_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">extra</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Your application server logic</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">obs</span> <span class="op">*</span> <span class="va">extra</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The new test script would be:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">testServer</span><span class="op">(</span><span class="va">my_base_hist</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, <span class="op">{</span>
-  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-  <span class="fu">expect_error</span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">testServer</span><span class="op">(</span><span class="va">my_base_hist</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, <span class="op">{</span></span>
+<span>  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_error</span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>We leave the reader refer to the official <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">documentation</a> for further use cases.</p>
 </div>
 </div>
@@ -245,12 +245,12 @@
 <h4 id="lint">Lint<a class="anchor" aria-label="anchor" href="#lint"></a>
 </h4>
 <p>We believe that a good R project has consistent R style. This is particularly relevant when many people contribute to the same code base. Assuming we all have slightly different preferences, how do we maintain consistency after each commit?</p>
-<p>Tools like <a href="https://github.com/jimhester/lintr" class="external-link">lintr</a>, a static code reviewer for R, help doing this with a pretty straightforward API. The first step of the <code>{shinyValidator}</code> pipeline utilizes <a href="https://github.com/jimhester/lintr" class="external-link">lintr</a> to quickly analyse the <code>./R</code> folder (default):</p>
+<p>Tools like <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a>, a static code reviewer for R, help doing this with a pretty straightforward API. The first step of the <code>{shinyValidator}</code> pipeline utilizes <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> to quickly analyse the <code>./R</code> folder (default):</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="st">"R"</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="st">"R"</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>If you had to check more than one folder, you can pass a vector instead:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"tests/testthat"</span><span class="op">)</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"tests/testthat"</span><span class="op">)</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>The tolerance is the number or errors to allow, which defaults to 0. We recommend not changing it and play the game!</p>
 <p>This function may be called locally and we strongly suggest doing so since it may ease the debugging process (rather than on CI/CD). As shown in the following figure, the lintr found an issue in the <code>app_server.R</code> file , line 6 with an extra white space, which has to be removed.</p>
 <div class="figure" style="text-align: center">
@@ -258,23 +258,23 @@
 Example of linting output during CI/CD.
 </p>
 </div>
-<p>We strongly encourage to use <a href="https://github.com/jimhester/lintr" class="external-link">lintr</a> at the beginning of a project since the number of errors after 1 year of coding might be important and frustrating to debug.</p>
-<p>If you think that <a href="https://github.com/jimhester/lintr" class="external-link">lintr</a> is too strict, you may fine tune its <a href="https://github.com/r-lib/lintr#available-linters" class="external-link">behavior</a> by changing the <code>.lintr</code> file:</p>
-<pre class="shell"><code><span class="va">linters</span><span class="op">:</span>
-  <span class="fu">with_defaults</span><span class="op">(</span>
-    line_length_linter <span class="op">=</span> <span class="fu">line_length_linter</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
-    infix_spaces_linter <span class="op">=</span> <span class="cn">NULL</span>,
-    object_usage_linter <span class="op">=</span> <span class="cn">NULL</span>,
-    object_name_linter <span class="op">=</span> <span class="cn">NULL</span>,
-    open_curly_linter <span class="op">=</span> <span class="cn">NULL</span>,
-    commented_code_linter <span class="op">=</span> <span class="cn">NULL</span>,
-    trailing_whitespace_linter <span class="op">=</span> <span class="cn">NULL</span>
-  <span class="op">)</span></code></pre>
+<p>We strongly encourage to use <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> at the beginning of a project since the number of errors after 1 year of coding might be important and frustrating to debug.</p>
+<p>If you think that <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> is too strict, you may fine tune its <a href="https://github.com/r-lib/lintr#available-linters" class="external-link">behavior</a> by changing the <code>.lintr</code> file:</p>
+<pre class="shell"><code><span><span class="va">linters</span><span class="op">:</span></span>
+<span>  <span class="fu">with_defaults</span><span class="op">(</span></span>
+<span>    line_length_linter <span class="op">=</span> <span class="fu">line_length_linter</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>    infix_spaces_linter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    object_usage_linter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    object_name_linter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    open_curly_linter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    commented_code_linter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    trailing_whitespace_linter <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="package-check-and-build">Package check and build<a class="anchor" aria-label="anchor" href="#package-check-and-build"></a>
 </h4>
-<p>While <a href="https://github.com/jimhester/lintr" class="external-link">lintr</a> analyses R code, <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> audits the overall package quality:</p>
+<p>While <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> analyses R code, <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> audits the overall package quality:</p>
 <ul>
 <li>Check that package can be built.</li>
 <li>Check for non standard files/folder.</li>
@@ -327,11 +327,11 @@ Coverage report available in {shinyValidator}
 <strong>custom_horde</strong>: required if you want to provide custom instructions to manipulate the app with a headless browser. By default, <code>{shinyValidator}</code> performs a <a href="https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic" class="external-link">Monkey test</a> (see also <a href="https://github.com/marmelab/gremlins.js/blob/master/README.md" class="external-link">here</a>), which consists of triggering random events on the app such as clicks, scroll, input change, … for 10 seconds.</li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/run_crash_test.html">run_crash_test</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/run_crash_test.html">run_crash_test</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a <strong>custom_horde</strong> parameter. As <code>{shinyValidator}</code> relies on <a href="https://github.com/rstudio/shinytest2" class="external-link">shinytest2</a>, we rely on the <code>set_inputs</code> method to manipulate the slider:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">custom_horde</span> <span class="op">&lt;-</span> <span class="st">"headless_app$set_inputs(obs = 200);
-headless_app$set_inputs(obs = 1000);"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">custom_horde</span> <span class="op">&lt;-</span> <span class="st">"headless_app$set_inputs(obs = 200);</span></span>
+<span><span class="st">headless_app$set_inputs(obs = 1000);"</span></span></code></pre></div>
 <p>Then, we can modify the <code>./.gitlab-ci.yml</code> file to account for this new element:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
@@ -352,23 +352,23 @@ Crash test. Left: a snapshot is taken after initial app loading. Right: app unde
 </h4>
 <p>During CI/CD, <code>{shinyValidator}</code> runs a global output snapshot comparison to check whether the current commit shows similar results as the current snapshot (as a reminder, you have to initialize a first snapshot locally, which will server as reference for future comparison). This however requires to have predefined tests, for instance in <code>test-basic-plot.R</code> for a static base plot (work similarly for <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>):</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">make_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">val</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">val</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">test_that</span><span class="op">(</span><span class="st">"Base plot OK"</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> <span class="co"># to avoid the test from failing due to randomness :)</span>
-  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"Base graphics histogram"</span>, <span class="fu">make_hist</span><span class="op">(</span><span class="fl">500</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">make_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">val</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">val</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">test_that</span><span class="op">(</span><span class="st">"Base plot OK"</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> <span class="co"># to avoid the test from failing due to randomness :)</span></span>
+<span>  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"Base graphics histogram"</span>, <span class="fu">make_hist</span><span class="op">(</span><span class="fl">500</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>and <code>test-echarts4r.R</code> for an <a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a> powered graph (htmlwidget):</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">test_that</span><span class="op">(</span><span class="st">"echarts4r ok"</span>, <span class="op">{</span>
-  <span class="va">snapshot_widget</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html" class="external-link">saveWidget</a></span><span class="op">(</span><span class="fu">make_echart</span><span class="op">(</span><span class="st">"Income"</span><span class="op">)</span>, <span class="va">path</span><span class="op">)</span>
-    <span class="va">path</span>
-  <span class="op">}</span>
-  
-  <span class="fu">expect_snapshot_file</span><span class="op">(</span><span class="fu">snapshot_widget</span><span class="op">(</span><span class="st">"tmp_echarts_plot.html"</span><span class="op">)</span>, <span class="st">"echarts_plot.html"</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"echarts4r ok"</span>, <span class="op">{</span></span>
+<span>  <span class="va">snapshot_widget</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">htmlwidgets</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html" class="external-link">saveWidget</a></span><span class="op">(</span><span class="fu">make_echart</span><span class="op">(</span><span class="st">"Income"</span><span class="op">)</span>, <span class="va">path</span><span class="op">)</span></span>
+<span>    <span class="va">path</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu">expect_snapshot_file</span><span class="op">(</span><span class="fu">snapshot_widget</span><span class="op">(</span><span class="st">"tmp_echarts_plot.html"</span><span class="op">)</span>, <span class="st">"echarts_plot.html"</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Don’t forget to account for random number generation if you are using <code>rnorm</code> for instance. Whenever you modify the app, you have to run <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> locally to create snapshots of the plots. If any difference is detected, the test will fail:</p>
 <pre class="shell"><code>x |   0 1     | basic-plot [0.1 s]                       
 ─────────────────────────────────────────────────────────
@@ -388,7 +388,7 @@ Duration: 33.0 s
 Keep trying!</code></pre>
 <p><code>{shinyValidator}</code> displays a visual widgets (based on <a href="https://diffviewer.r-lib.org" class="external-link">diffviewer</a>) for each detected snapshot difference, allowing the developer to compare the current outputs to reference snapshot. It is the developer’s responsibility to decide whether to accept the changes. This may be done locally with:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/snapshot_accept.html" class="external-link">snapshot_review</a></span><span class="op">(</span><span class="st">'basic-plot'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/snapshot_accept.html" class="external-link">snapshot_review</a></span><span class="op">(</span><span class="st">'basic-plot'</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-output-validation.png" alt="Output validation example. Left: static plot. Right: htmlwidget data." width="75%"><p class="caption">
 Output validation example. Left: static plot. Right: htmlwidget data.
@@ -419,7 +419,7 @@ Output validation example. Left: static plot. Right: htmlwidget data.
 </ul>
 <p>In theory, the recording step is manual. However, it is entirely possible to automate it with a headless web-browser. The idea being to provide a realistic set of instructions to manipulate the app. This is usually the trickiest part, but tools like the <code>{shinytest}2</code> recorder can generate the replay <a href="https://rstudio.github.io/shinytest/articles/in-depth.html" class="external-link">script</a>. <code>{shinyValidator}</code> offers both approaches with the <code><a href="../reference/record_app.html">record_app()</a></code> function:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/record_app.html">record_app</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">5</span>, timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/record_app.html">record_app</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">5</span>, timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</span></code></pre></div>
 <p><strong>workers</strong> corresponds to the number of parallel sessions replayed by <code>shinycannon</code> in the background. <strong>timeout</strong> is the time taken the the app to be ready and <strong>custom_horde</strong> is a parameter to provide custom manipulations.</p>
 <p>In the following screenshot, we still play with the same demo app having only one slider input. The app is started locally on a R subprocess, then we connect the <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> recorder. We manipulate the app with the headless browser. The recorder is stopped as well as the headless browser and <code>shinycannon</code> replays the app (this is the longest part, depending on the number of workers).</p>
 <div class="figure" style="text-align: center">
@@ -439,7 +439,7 @@ Load test HTML report
   Graphics API version mismatch</code></pre>
 <p>This is a known <a href="https://github.com/r-lib/svglite/issues/71" class="external-link">issue</a>. Reinstall <a href="https://svglite.r-lib.org" class="external-link">svglite</a> from source:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"svglite"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"svglite"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="reactivity-analysis">Reactivity analysis<a class="anchor" aria-label="anchor" href="#reactivity-analysis"></a>
@@ -449,7 +449,7 @@ Load test HTML report
 <p><code>{reaclog}</code> is the tool you were looking for. It offers a network representation of the app reactivity, allowing to quickly identify potential issues. The reader will refer to the comprehensive guide <a href="https://rstudio.github.io/reactlog/articles/reactlog.html#reactlog-in-detail-1" class="external-link">here</a>.</p>
 <p>In the background, <code>{shinyValidator}</code> automatically starts the app in the background, wait for Shiny to be available, stops the app and returns the reactlog object. The reactlog is in turn exported as a standalone HTML widget to be included in the validation report, as shown below. You may fine tune the <strong>timeout</strong> parameter to account for the app loading duration and also add custom manipulation through <strong>headless_actions</strong>:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/upload_reactlog.html">upload_reactlog</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/upload_reactlog.html">upload_reactlog</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</span></code></pre></div>
 <p>In the below output, we notice an isolated output. This is generally an issue, meaning that something was hard coded in the code. Here, we deliberately removed the input feeding into the echarts plot causing this strange pattern.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-reactlog.png" alt="Shiny app reactivity graph. We see one output is not linked to any input. This is likely an issue. " width="75%"><p class="caption">
@@ -484,7 +484,7 @@ Shiny app profiling at start.
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

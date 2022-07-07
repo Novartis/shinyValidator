@@ -55,13 +55,25 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/copy_app_file.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/create_audit_report.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/create_message_div.html</loc>
   </url>
   <url>
-    <loc>http://opensource.nibr.com/shinyValidator/reference/create_report_tabs.html</loc>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/create_output_tab.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/create_report_steps.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/create_static_tabs.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/create_tab_content.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/create_tabs_menu.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/edit_buildignore.html</loc>
