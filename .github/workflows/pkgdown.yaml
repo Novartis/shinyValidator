@@ -39,8 +39,8 @@ jobs:
 
       - name: Move coverage assets for pkgdown
         run: |
-          sudo cp covr/shinyValidator-report.html docs
-          sudo cp -rf lib docs
+          sudo cp inst/covr/shinyValidator-report.html docs
+          sudo cp -rf inst/covr/lib docs
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
