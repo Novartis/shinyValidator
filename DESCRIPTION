@@ -44,7 +44,8 @@ Imports:
     pingr,
     rcmdcheck,
     covr,
-    flow
+    flow,
+    desc
 Remotes: 
     rstudio/shinytest2
 VignetteBuilder: knitr

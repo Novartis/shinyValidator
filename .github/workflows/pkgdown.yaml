@@ -37,6 +37,11 @@ jobs:
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
+      - name: Move coverage assets for pkgdown
+        run: |
+          sudo cp covr/shinyValidator-report.html docs
+          sudo cp -rf lib docs
+
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@4.1.4

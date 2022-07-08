@@ -2,7 +2,7 @@
 #'
 #' Setup all necessary tools and requirements to validate Shiny apps project.
 #' This function is the first to be called.
-#' 
+#'
 #' @param cicd_platform CI/CD engine. GitLab or GitHub Actions.
 #' When gitlab-docker is selected, we leverage docker executor.
 #' The provided CI/CD template will pull docker image from
@@ -27,6 +27,9 @@ use_validator <- function(cicd_platform = c("github", "gitlab-docker", "gitlab")
   # Add lintr
   file.copy(system.file("lintr/.lintr", package = "shinyValidator"), ".")
 
+  # Add gremlins.js assets
+  add_gremlins_assets()
+
   # Copy R/run_app.R
   copy_app_file()
 
@@ -35,9 +38,6 @@ use_validator <- function(cicd_platform = c("github", "gitlab-docker", "gitlab")
 
   # Add suggested pkgs to DESCRIPTION + install them in renv library
   add_suggested_packages()
-
-  # Add gremlins.js assets
-  add_gremlins_assets()
 
   message("Don't forget to call renv::snapshot() and restart R")
 }

@@ -149,56 +149,10 @@ test_that("create_static_tabs works", {
   # Step is length 2 so should be static tabs
   expect_length(static_tabs, 2)
 
-  # Check tabs correspondance
+  # Check tabs correspondence
   invisible(
     lapply(seq_along(static_steps), function(i) {
       expect_equal(static_tabs[[i]]$attribs$`data-tab`, static_steps[[i]])
     })
   )
 })
-
-#test_that("edit_html_report works", {
-#  if (!dir.exists("public")) dir.create("public")
-#  # testing default
-#  edit_html_report(
-#    source = NULL,
-#    tabs_menu = tabs_menu_tag,
-#    tab_package_check = create_tab_content("Check", tab_name = "check", title = "Check"),
-#    tab_crash_test = create_tab_content("Crash", tab_name = "crash-test", title = "Crash"),
-#    tab_output_validation = NULL,
-#    tabs_static = tabs_static,
-#    js_code = inject_js_helpers(steps)
-#  )
-#
-#  expect_true(file.exists("public/index.html"))
-#  tmp <- readLines("public/index.html")
-#  check_tab <- grep("data-tab=\"check\"", tmp)
-#  crash_tab <- grep("data-tab=\"crash-test\"", tmp)
-#  coverage_tab <- grep("data-tab=\"coverage\"", tmp)
-#  load_test_tab <- grep("data-tab=\"load-test\"", tmp)
-#  # Must match the tab menu item + tab content + the JS helper
-#  expect_length(check_tab, 3)
-#  expect_length(crash_tab, 3)
-#  expect_length(coverage_tab, 3)
-#  expect_length(load_test_tab, 3)
-#
-#  # check pkg name and version
-#  expect_length(grep("Dummy", tmp), 1)
-#  expect_length(grep("0.0.0.9000", tmp), 1)
-#
-#  file.remove("public/index.html")
-#
-#  # testing path parameter
-#  edit_html_report(
-#    source = NULL,
-#    tabs_menu = dummy_tab,
-#    tab_package_check = dummy_tab,
-#    tab_crash_test = dummy_tab,
-#    tab_output_validation = dummy_tab,
-#    tabs_static = dummy_tab,
-#    js_code = NULL,
-#    path = "public/test.html"
-#  )
-#  expect_true(file.exists("public/test.html"))
-#  system("rm -rf public/")
-#})

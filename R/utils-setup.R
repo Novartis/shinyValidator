@@ -229,8 +229,7 @@ suggested_pkgs_names <- c(
 
 shinyValidator_suggested_pkgs <- data.frame(
   name = suggested_pkgs_names,
-  type = rep("suggests", length(suggested_pkgs_names)),
-  min_version = c("", "3.1.2", rep("", 5), "2.4.3")
+  type = rep("Suggests", length(suggested_pkgs_names))
 )
 
 globalVariables("shinyValidator_suggested_pkgs")
@@ -246,14 +245,9 @@ add_suggested_packages <- function() {
     shinyValidator_suggested_pkgs,
     1,
     function(pkg) {
-      usethis::use_package(
+      desc::desc_set_dep(
         pkg[["name"]],
-        type = pkg[["type"]],
-        min_version = if (nchar(pkg[["min_version"]] == 0)) {
-          NULL
-        } else {
-          pkg[["min_version"]]
-        }
+        type = pkg[["type"]]
       )
     }
   )
@@ -265,6 +259,7 @@ add_suggested_packages <- function() {
 #'
 #' @keywords internal
 add_gremlins_assets <- function() {
+  message("Adding gremlins.js assets ...")
   if (!dir.exists("inst")) {
     dir.create("inst")
   }

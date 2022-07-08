@@ -9,7 +9,6 @@ withr::with_dir(path, {
       from = system.file("tests/DESCRIPTION", package = "shinyValidator"),
       to = "./DESCRIPTION"
     )
-    dir.create("R")
     copy_shiny_app_files()
     add_gremlins_assets()
 

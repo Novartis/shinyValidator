@@ -5,6 +5,8 @@
 [![R-CMD-check](https://github.com/Novartis/shinyValidator/workflows/R-CMD-check/badge.svg)](https://github.com/Novartis/shinyValidator/actions)
 <!-- badges: end -->
 
+<iframe src="shinyValidator-report.html" title="Coverage report"></iframe>
+
 ## Purpose
 
 <p>

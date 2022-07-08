@@ -1,8 +1,6 @@
-#' Title
+#' Main app ui
 #'
-#' @return
 #' @export
-#'
 #' @import shiny
 #' @importFrom echarts4r echarts4rOutput
 app_ui <- function() {

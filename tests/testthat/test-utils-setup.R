@@ -13,6 +13,7 @@ withr::with_dir(path, {
     file.create("./.Rbuildignore")
     # Missing renv (maybe to remove...)
     expect_error(use_validator())
+
     file.create("renv.lock")
     # Missing app_server.R
     expect_error(use_validator())
@@ -56,11 +57,10 @@ withr::with_dir(path, {
 
     # gremlins
     expect_true(file.exists("inst/shinyValidator-js/gremlins.min.js"))
-
-    # Prepare for next steps
-    devtools::document()
-    devtools::load_all()
   })
+
+  devtools::document()
+  devtools::load_all()
 
   test_that("process_scope works", {
     # Does nothing at the moment
@@ -71,7 +71,9 @@ withr::with_dir(path, {
     profile_code <- TRUE
     check_reactivity <- TRUE
     flow <- TRUE
+
     process_scope("POC")
+    # Variables should be modified in the parent environment
     expect_false(flow)
     expect_false(check_reactivity)
     expect_false(profile_code)
@@ -216,4 +218,4 @@ withr::with_dir(path, {
 })
 
 # cleanup
-unlink(path)
+#unlink(path)

@@ -6,6 +6,7 @@
 #'
 #' @import shiny
 #' @importFrom echarts4r renderEcharts4r
+#' @export
 app_server <- function(input, output, session) {
   output$distPlot <- renderPlot({
     make_hist(input$obs)

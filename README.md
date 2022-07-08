@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Novartis/shinyValidator/workflows/R-CMD-check/badge.svg)](https://github.com/Novartis/shinyValidator/actions)
-[![Coverage](https://img.shields.io/badge/Coverage-83-yellowgreen)](https://github.com/Novartis/shinyValidator/tree/main/tests/testthat)
+[![Coverage](https://img.shields.io/badge/Coverage-83%-yellowgreen)](https://github.com/Novartis/shinyValidator/tree/main/tests/testthat)
 <!-- badges: end -->
 
 ## Purpose
