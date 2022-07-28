@@ -65,6 +65,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
   n_errors <- length(check_res$errors)
   n_warnings <- length(check_res$warnings)
   n_notes <- length(check_res$notes)
+  install_status <- grepl("had non-zero exit status", check_res$install_out)
 
   # count failed tests if tests exist ...
   n_failed_test <- if (dir.exists("tests")) {
@@ -91,13 +92,15 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
           class = "link step",
           tags$i(
             class = paste(
-              if (n_errors == 0 &&
-                  n_warnings == 0 &&
-                  n_failed_test == 0) {
-                "green check"
-              } else {
-                "red times"
-              },
+              if (names(steps)[[i]] == "Building" && install_status) {
+              "green check"
+            } else if (names(steps)[[i]] %in% c("Building", "Checking") && n_errors == 0 && n_warnings == 0) {
+              "green check"
+            } else if (names(steps)[[i]] == "Testing" && n_failed_test == 0) {
+              "green check"
+            } else {
+              "red times"
+            },
               "icon"
             )
           ),
