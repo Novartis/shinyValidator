@@ -52,7 +52,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
       )
     )
   }
-  
+
   tests_out <- if (dir.exists("tests")) {
     HTML(paste(out_tmp, collapse = "\n"))
   } else {
@@ -68,7 +68,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
   n_errors <- length(check_res$errors)
   n_warnings <- length(check_res$warnings)
   n_notes <- length(check_res$notes)
-  install_status <- grepl("had non-zero exit status", check_res$install_out)
+  install_status <- !grepl("had non-zero exit status", check_res$install_out)
 
   # count failed tests if tests exist ...
   n_failed_test <- if (dir.exists("tests")) {
