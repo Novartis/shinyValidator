@@ -42,7 +42,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
   # Avoids any error if test folder does not exist.
   # It is possible that people don't have tests at the
   # begining but still want to run loadtest and profiling ...
-  tests_out <- if (dir.exists("tests")) {
+  if (dir.exists("tests")) {
     out_tmp <- readLines(
       file.path(
         sprintf(
@@ -51,6 +51,9 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
         )
       )
     )
+  }
+  
+  tests_out <- if (dir.exists("tests")) {
     HTML(paste(out_tmp, collapse = "\n"))
   } else {
     "No tests available."
@@ -73,7 +76,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
       strsplit(
         trimws(
           strsplit(
-            tests_out[which(grepl("FAIL", tests_out, perl = TRUE) == TRUE)],
+            out_tmp[grep("FAIL", out_tmp)[1]],
             "FAIL"
           )[[1]][2]),
         "|"
