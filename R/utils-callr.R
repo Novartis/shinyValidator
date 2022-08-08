@@ -67,10 +67,12 @@ reactlog_bg <- function() {
 #' \link{record_app}, ...
 #'
 #' @param fun Passed to \link[callr]{r_bg}.
+#' @param ... Pass extra parameters to run_app. This is useful
+#' if you work with packages like golem. 
 #'
 #' @return Process or error
 #' @keywords internal
-start_r_bg <- function(fun) {
+start_r_bg <- function(fun, ...) {
 
   func_name <- deparse(substitute(fun))
   parms <- if (func_name == "recorder_bg") {
@@ -85,7 +87,7 @@ start_r_bg <- function(fun) {
     func = fun,
     stderr= "",
     stdout = "",
-    args = parms
+    args = c(parms, ...)
   )
 
   while (any(is.na(pingr::ping_port("127.0.0.1", port)))) {
