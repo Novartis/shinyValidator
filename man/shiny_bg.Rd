@@ -4,7 +4,11 @@
 \alias{shiny_bg}
 \title{Start run_app as background process}
 \usage{
-shiny_bg()
+shiny_bg(...)
+}
+\arguments{
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \description{
 Required by \link{start_r_bg}.

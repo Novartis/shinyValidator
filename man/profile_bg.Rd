@@ -4,7 +4,11 @@
 \alias{profile_bg}
 \title{Start Shiny + profvis recorder in the background}
 \usage{
-profile_bg()
+profile_bg(...)
+}
+\arguments{
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \description{
 Required by \link{start_r_bg}.

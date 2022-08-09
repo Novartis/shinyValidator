@@ -4,7 +4,7 @@
 \alias{profile_app}
 \title{Profile a shiny app}
 \usage{
-profile_app(timeout = 5, headless_actions = NULL)
+profile_app(timeout = 5, headless_actions = NULL, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
@@ -14,6 +14,9 @@ how much time the app takes to load.}
 web browser, for instance
 \code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
 If NULL, the app will undergo a classic random Monkey test session.}
+
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \value{
 Write a .Rprof file to be reused by CI/CD to publish the report on GitLab pages

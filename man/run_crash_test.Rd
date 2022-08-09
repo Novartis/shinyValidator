@@ -4,7 +4,7 @@
 \alias{run_crash_test}
 \title{Crash test for Shiny app}
 \usage{
-run_crash_test(timeout = 5, headless_actions = NULL)
+run_crash_test(timeout = 5, headless_actions = NULL, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
@@ -14,6 +14,9 @@ how much time the app takes to load.}
 web browser, for instance
 \code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
 If NULL, the app will undergo a classic random Monkey test session.}
+
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \value{
 Errors if any of the step fails.

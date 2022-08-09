@@ -4,7 +4,7 @@
 \alias{record_app}
 \title{Record a Shiny session}
 \usage{
-record_app(timeout = 5, headless_actions = NULL, workers = 5)
+record_app(timeout = 5, headless_actions = NULL, workers = 5, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
@@ -16,6 +16,9 @@ web browser, for instance
 If NULL, the app will undergo a classic random Monkey test session.}
 
 \item{workers}{Number of workers for shinycannon. Default to 5.}
+
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \description{
 Start Shiny app as local R subprocess. Connect the

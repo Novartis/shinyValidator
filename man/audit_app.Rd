@@ -17,7 +17,8 @@ audit_app(
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = FALSE
+  flow = FALSE,
+  ...
 )
 }
 \arguments{
@@ -52,6 +53,9 @@ plots and htmlwidgets. Default to TRUE.}
 \item{check_reactivity}{Whether to check reactivity log. Default to TRUE.}
 
 \item{flow}{Whether to display project overview. Default to TRUE.}
+
+\item{...}{Pass extra parameters to run_app. This is useful
+if you work with packages like golem.}
 }
 \description{
 Run all specified tools and requirements to validate Shiny apps project.
