@@ -7,7 +7,7 @@
 shiny_bg <- function(...) {
   options(shiny.port = 3515)
   pkgload::load_all()
-  start_app_with_parms(...)
+  shinyValidator::start_app_with_parms(...)
 }
 
 #' Start shinyloadtest recorder in the background
@@ -41,7 +41,7 @@ profile_bg <- function(...) {
   profvis::profvis(
     {
       profvis::pause(0.2)
-      start_app_with_parms(...)
+      shinyValidator::start_app_with_parms(...)
     },
     simplify = FALSE,
     split = "v"
@@ -62,7 +62,7 @@ reactlog_bg <- function(...) {
   pkgload::load_all()
   .enable_reactlog <- TRUE
   reactlog::reactlog_enable()
-  start_app_with_parms(...)
+  shinyValidator::start_app_with_parms(...)
 }
 
 #' Start background R process
@@ -72,7 +72,7 @@ reactlog_bg <- function(...) {
 #'
 #' @param fun Passed to \link[callr]{r_bg}.
 #' @param ... Pass extra parameters to run_app. This is useful
-#' if you work with packages like golem. 
+#' if you work with packages like golem.
 #'
 #' @return Process or error
 #' @keywords internal
@@ -112,10 +112,10 @@ start_r_bg <- function(fun, ...) {
 #' Useful for \link{shiny_bg}, \link{profile_bg} and \link{reactlog_bg}.
 #'
 #' @param ... Pass extra parameters to run_app. This is useful
-#' if you work with packages like golem. 
+#' if you work with packages like golem.
 #'
 #' @return Starts a Shiny app.
-#' @keywords internal
+#' @export
 start_app_with_parms <- function(...) {
   parms <- list(...)
   if (length(parms) > 0 ) {

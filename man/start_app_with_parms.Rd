@@ -18,4 +18,3 @@ If not parms are provided, the app is started as usual. Otherwise,
 the app is called with \code{do.call} with the provided set of parameters.
 Useful for \link{shiny_bg}, \link{profile_bg} and \link{reactlog_bg}.
 }
-\keyword{internal}
