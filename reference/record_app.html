@@ -57,7 +57,7 @@ replays</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">record_app</span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span>, workers <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">record_app</span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span>, workers <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +76,11 @@ If NULL, the app will undergo a classic random Monkey test session.</p></dd>
 
 <dt>workers</dt>
 <dd><p>Number of workers for shinycannon. Default to 5.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Pass extra parameters to run_app. This is useful
+if you work with packages like golem.</p></dd>
 
 </dl></div>
 
