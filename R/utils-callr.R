@@ -7,7 +7,12 @@
 shiny_bg <- function(...) {
   options(shiny.port = 3515)
   pkgload::load_all()
-  shinyValidator::start_app_with_parms(...)
+  parms <- list(...)
+  if (length(parms) > 0) {
+    do.call(run_app, parms)
+  } else {
+    run_app()
+  }
 }
 
 #' Start shinyloadtest recorder in the background
@@ -41,7 +46,12 @@ profile_bg <- function(...) {
   profvis::profvis(
     {
       profvis::pause(0.2)
-      shinyValidator::start_app_with_parms(...)
+      parms <- list(...)
+      if (length(parms) > 0) {
+        do.call(run_app, parms)
+      } else {
+        run_app()
+      }
     },
     simplify = FALSE,
     split = "v"
@@ -62,7 +72,12 @@ reactlog_bg <- function(...) {
   pkgload::load_all()
   .enable_reactlog <- TRUE
   reactlog::reactlog_enable()
-  shinyValidator::start_app_with_parms(...)
+  parms <- list(...)
+  if (length(parms) > 0) {
+    do.call(run_app, parms)
+  } else {
+    run_app()
+  }
 }
 
 #' Start background R process
@@ -104,25 +119,4 @@ start_r_bg <- function(fun, ...) {
   if (!process$is_alive()) stop("Unable to launch the subprocess")
 
   process
-}
-
-
-#' Start Shiny app with list of parameters
-#'
-#' If not parms are provided, the app is started as usual. Otherwise,
-#' the app is called with \code{do.call} with the provided set of parameters.
-#' Useful for \link{shiny_bg}, \link{profile_bg} and \link{reactlog_bg}.
-#'
-#' @param ... Pass extra parameters to run_app. This is useful
-#' if you work with packages like golem.
-#'
-#' @return Starts a Shiny app.
-#' @export
-start_app_with_parms <- function(...) {
-  parms <- list(...)
-  if (length(parms) > 0 ) {
-    do.call(run_app, parms)
-  } else {
-    run_app()
-  }
 }
