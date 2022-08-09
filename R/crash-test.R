@@ -10,13 +10,14 @@
 #' would wait 5 seconds.
 #'
 #' @inheritParams audit_app
+#' @inheritParams start_r_bg
 #'
 #' @return Errors if any of the step fails.
 #'
 #' @export
-run_crash_test <- function(timeout = 5, headless_actions = NULL) {
+run_crash_test <- function(timeout = 5, headless_actions = NULL, ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
-  bg_app <- start_r_bg(shiny_bg)
+  bg_app <- start_r_bg(shiny_bg, ...)
   chrome <- shinytest2::AppDriver$new(
     "http://127.0.0.1:3515",
     load_timeout = timeout * 1000

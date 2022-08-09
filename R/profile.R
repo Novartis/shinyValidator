@@ -6,12 +6,13 @@
 #' folder needed for CI/CD.
 #'
 #' @inheritParams audit_app
+#' @inheritParams start_r_bg
 #'
 #' @return Write a .Rprof file to be reused by CI/CD to publish the report on GitLab pages
 #' @export
-profile_app <- function(timeout = 5, headless_actions = NULL) {
+profile_app <- function(timeout = 5, headless_actions = NULL, ...) {
   message("\n---- BEGIN CODE PROFILE ---- \n")
-  prof_app <- start_r_bg(profile_bg)
+  prof_app <- start_r_bg(profile_bg, ...)
   # chrome is just needed to trigger onSessionEnded callback from app_server
   chrome <- shinytest2::AppDriver$new(
     "http://127.0.0.1:3515",

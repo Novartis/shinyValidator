@@ -21,6 +21,7 @@
 #' @param profile_code Whether to profile R code. Default to TRUE.
 #' @param check_reactivity Whether to check reactivity log. Default to TRUE.
 #' @param flow Whether to display project overview. Default to TRUE.
+#' @inheritParams start_r_bg
 #'
 #' @export
 audit_app <- function(
@@ -36,7 +37,8 @@ audit_app <- function(
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = FALSE
+  flow = FALSE,
+  ...
 ) {
 
   # Technical requirements
@@ -49,7 +51,7 @@ audit_app <- function(
   # Run check
   tab_check <- check_package(cran, vignettes, error_on)
   # Run crash test
-  tab_crash_test <- run_crash_test(timeout, headless_actions)
+  tab_crash_test <- run_crash_test(timeout, headless_actions, ...)
   # Output validation
   tab_output_validation <- if (output_validation) {
     validate_outputs()
@@ -57,9 +59,9 @@ audit_app <- function(
     NULL
   }
   # Load test, profiling, reactlog
-  if (load_testing) record_app(timeout, headless_actions, workers)
-  if (profile_code) profile_app(timeout, headless_actions)
-  if (check_reactivity) upload_reactlog(timeout, headless_actions)
+  if (load_testing) record_app(timeout, headless_actions, workers, ...)
+  if (profile_code) profile_app(timeout, headless_actions, ...)
+  if (check_reactivity) upload_reactlog(timeout, headless_actions, ...)
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
     pkgload::load_all()

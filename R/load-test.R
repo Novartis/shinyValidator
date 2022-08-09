@@ -6,12 +6,13 @@
 #' replays
 #'
 #' @inheritParams audit_app
+#' @inheritParams start_r_bg
 #'
 #' @export
-record_app <- function(timeout = 5, headless_actions = NULL, workers = 5) {
+record_app <- function(timeout = 5, headless_actions = NULL, workers = 5, ...) {
   message("\n---- BEGIN LOAD-TEST ---- \n")
   # start app + recorder
-  target <- start_r_bg(shiny_bg)
+  target <- start_r_bg(shiny_bg, ...)
   recorder <- start_r_bg(recorder_bg)
 
   # start headless chrome (points to recorder!).

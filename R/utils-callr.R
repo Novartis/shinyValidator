@@ -1,12 +1,13 @@
 #' Start run_app as background process
 #'
 #' Required by \link{start_r_bg}.
+#' @inheritParams start_r_bg
 #'
 #' @keywords internal
-shiny_bg <- function() {
+shiny_bg <- function(...) {
   options(shiny.port = 3515)
   pkgload::load_all()
-  run_app()
+  start_app_with_parms(...)
 }
 
 #' Start shinyloadtest recorder in the background
@@ -30,16 +31,17 @@ recorder_bg <- function(shiny_port) {
 #' Start Shiny + profvis recorder in the background
 #'
 #' Required by \link{start_r_bg}.
+#' @inheritParams start_r_bg
 #'
 #' @keywords internal
-profile_bg <- function() {
+profile_bg <- function(...) {
   options(keep.source = TRUE, shiny.port = 3515)
   pkgload::load_all()
   .profile_code <- TRUE
   profvis::profvis(
     {
       profvis::pause(0.2)
-      run_app()
+      start_app_with_parms(...)
     },
     simplify = FALSE,
     split = "v"
@@ -52,13 +54,15 @@ profile_bg <- function() {
 #'
 #' Required by \link{start_r_bg}.
 #'
+#' @inheritParams start_r_bg
+#'
 #' @keywords internal
-reactlog_bg <- function() {
+reactlog_bg <- function(...) {
   options("shiny.port" = 3515)
   pkgload::load_all()
   .enable_reactlog <- TRUE
   reactlog::reactlog_enable()
-  run_app()
+  start_app_with_parms(...)
 }
 
 #' Start background R process
@@ -100,3 +104,23 @@ start_r_bg <- function(fun, ...) {
   process
 }
 
+
+#' Start Shiny app with list of parameters
+#'
+#' If not parms are provided, the app is started as usual. Otherwise,
+#' the app is called with \code{do.call} with the provided set of parameters.
+#' Useful for \link{shiny_bg}, \link{profile_bg} and \link{reactlog_bg}.
+#'
+#' @param ... Pass extra parameters to run_app. This is useful
+#' if you work with packages like golem. 
+#'
+#' @return Starts a Shiny app.
+#' @keywords internal
+start_app_with_parms <- function(...) {
+  parms <- list(...)
+  if (length(parms) > 0 ) {
+    do.call(run_app, parms)
+  } else {
+    run_app()
+  }
+}
