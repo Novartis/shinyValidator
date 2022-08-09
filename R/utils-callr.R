@@ -78,6 +78,8 @@ reactlog_bg <- function(...) {
 #' @keywords internal
 start_r_bg <- function(fun, ...) {
 
+  golem_pars <- list(...)
+
   func_name <- deparse(substitute(fun))
   parms <- if (func_name == "recorder_bg") {
     list(shiny_port = 3515)
@@ -91,7 +93,7 @@ start_r_bg <- function(fun, ...) {
     func = fun,
     stderr= "",
     stdout = "",
-    args = c(parms, ...)
+    args = c(parms, golem_pars)
   )
 
   while (any(is.na(pingr::ping_port("127.0.0.1", port)))) {
