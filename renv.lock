@@ -290,10 +290,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.0.1",
+      "Version": "3.3.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "e3ae5d68dea0c55a12ea12a9fda02e61",
+      "Hash": "23abf173c2b783dcc43379ab9bba00ee",
       "Requirements": [
         "glue"
       ]
