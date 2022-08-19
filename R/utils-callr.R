@@ -108,7 +108,7 @@ start_r_bg <- function(fun, ...) {
     func = fun,
     stderr= "",
     stdout = "",
-    args = c(parms, golem_pars)
+    args = if (func_name == "recorder_bg") parms else golem_pars
   )
 
   while (any(is.na(pingr::ping_port("127.0.0.1", port)))) {
