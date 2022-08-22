@@ -52,7 +52,7 @@
 <span>  cran <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  vignettes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  error_on <span class="op">=</span> <span class="st">"never"</span>,</span>
-<span>  timeout <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  workers <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,</span>
@@ -83,7 +83,8 @@
 
 <dt>timeout</dt>
 <dd><p>Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load.</p></dd>
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.</p></dd>
 
 
 <dt>headless_actions</dt>
