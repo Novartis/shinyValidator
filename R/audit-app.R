@@ -22,6 +22,7 @@
 #' @param profile_code Whether to profile R code. Default to TRUE.
 #' @param check_reactivity Whether to check reactivity log. Default to TRUE.
 #' @param flow Whether to display project overview. Default to TRUE.
+#' @param debug Special mode during which unit tests are skipped for faster output.
 #' @inheritParams start_r_bg
 #'
 #' @export
@@ -39,6 +40,7 @@ audit_app <- function(
   profile_code = TRUE,
   check_reactivity = TRUE,
   flow = FALSE,
+  debug = FALSE,
   ...
 ) {
 
@@ -54,10 +56,11 @@ audit_app <- function(
   process_scope(scope)
 
   # Run check
-  tab_check <- check_package(cran, vignettes, error_on)
+  tab_check <- check_package(cran, vignettes, error_on, debug)
   # Run crash test
   tab_crash_test <- run_crash_test(timeout, headless_actions, ...)
   # Output validation
+  if (debug) output_validation <- FALSE
   tab_output_validation <- if (output_validation) {
     validate_outputs()
   } else {

@@ -18,6 +18,7 @@ audit_app(
   profile_code = TRUE,
   check_reactivity = TRUE,
   flow = FALSE,
+  debug = FALSE,
   ...
 )
 }
@@ -54,6 +55,8 @@ plots and htmlwidgets. Default to TRUE.}
 \item{check_reactivity}{Whether to check reactivity log. Default to TRUE.}
 
 \item{flow}{Whether to display project overview. Default to TRUE.}
+
+\item{debug}{Special mode during which unit tests are skipped for faster output.}
 
 \item{...}{Pass extra parameters to run_app. This is useful
 if you work with packages like golem.}

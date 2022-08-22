@@ -4,7 +4,12 @@
 \alias{check_package}
 \title{Build and check package}
 \usage{
-check_package(cran = FALSE, vignettes = FALSE, error_on = "never")
+check_package(
+  cran = FALSE,
+  vignettes = FALSE,
+  error_on = "never",
+  debug = FALSE
+)
 }
 \arguments{
 \item{cran}{Whether to apply as CRAN check. Defaults to FALSE.}
@@ -13,6 +18,8 @@ check_package(cran = FALSE, vignettes = FALSE, error_on = "never")
 
 \item{error_on}{When to raise an error. Possible choices:
 \code{c("never", "error", "warning", "note")}. Defaults to never.}
+
+\item{debug}{Special mode during which unit tests are skipped for faster output.}
 }
 \value{
 Build and check package. Results are inserted into the

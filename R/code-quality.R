@@ -25,12 +25,13 @@ lint_code <- function(paths = "R", tolerance = 0) {
 #' main HTML report.
 #' @importFrom shiny tags HTML tagList
 #' @export
-check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
+check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never", debug = FALSE) {
   tmp_chk <- rcmdcheck::rcmdcheck(
     args = c(
       if (!vignettes) "--ignore-vignettes",
       "--no-manual",
-      if (cran) "--as-cran"
+      if (cran) "--as-cran",
+      if (debug) "--no-tests"
     ),
     build_args = c(if (!vignettes) "--no-build-vignettes"),
     error_on = error_on,
@@ -42,7 +43,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
   # Avoids any error if test folder does not exist.
   # It is possible that people don't have tests at the
   # begining but still want to run loadtest and profiling ...
-  if (dir.exists("tests")) {
+  if (dir.exists("tests") && !debug) {
     out_tmp <- readLines(
       file.path(
         sprintf(
@@ -53,7 +54,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
     )
   }
 
-  tests_out <- if (dir.exists("tests")) {
+  tests_out <- if (dir.exists("tests") && !debug) {
     HTML(paste(out_tmp, collapse = "\n"))
   } else {
     "No tests available."
@@ -71,7 +72,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never") {
   install_status <- !grepl("had non-zero exit status", check_res$install_out)
 
   # count failed tests if tests exist ...
-  n_failed_test <- if (dir.exists("tests")) {
+  n_failed_test <- if (dir.exists("tests") && !debug) {
     as.numeric(
       strsplit(
         trimws(
