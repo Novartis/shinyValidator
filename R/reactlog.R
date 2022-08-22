@@ -7,10 +7,14 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-upload_reactlog <- function(timeout = 5, headless_actions = NULL, ...) {
+upload_reactlog <- function(timeout = NULL, headless_actions = NULL, ...) {
   message("\n---- BEGIN REACTLOG ---- \n")
-  reactlog_app <- start_r_bg(reactlog_bg, ...)
 
+  if (is.null(timeout)) {
+    timeout <- if (on_ci()) 20 else 10
+  }
+
+  reactlog_app <- start_r_bg(reactlog_bg, ...)
   chrome <- shinytest2::AppDriver$new(
     "http://127.0.0.1:3515",
     load_timeout = timeout * 1000

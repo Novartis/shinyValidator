@@ -4,11 +4,12 @@
 \alias{record_app}
 \title{Record a Shiny session}
 \usage{
-record_app(timeout = 5, headless_actions = NULL, workers = 5, ...)
+record_app(timeout = NULL, headless_actions = NULL, workers = 5, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load.}
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.}
 
 \item{headless_actions}{Custom code passed as a string to manipulate the app with headless
 web browser, for instance

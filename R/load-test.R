@@ -9,8 +9,13 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-record_app <- function(timeout = 5, headless_actions = NULL, workers = 5, ...) {
+record_app <- function(timeout = NULL, headless_actions = NULL, workers = 5, ...) {
   message("\n---- BEGIN LOAD-TEST ---- \n")
+
+  if (is.null(timeout)) {
+    timeout <- if (on_ci()) 20 else 10
+  }
+
   # start app + recorder
   target <- start_r_bg(shiny_bg, ...)
   recorder <- start_r_bg(recorder_bg)

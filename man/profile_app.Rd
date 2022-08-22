@@ -4,11 +4,12 @@
 \alias{profile_app}
 \title{Profile a shiny app}
 \usage{
-profile_app(timeout = 5, headless_actions = NULL, ...)
+profile_app(timeout = NULL, headless_actions = NULL, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load.}
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.}
 
 \item{headless_actions}{Custom code passed as a string to manipulate the app with headless
 web browser, for instance

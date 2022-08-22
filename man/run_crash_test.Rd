@@ -4,11 +4,12 @@
 \alias{run_crash_test}
 \title{Crash test for Shiny app}
 \usage{
-run_crash_test(timeout = 5, headless_actions = NULL, ...)
+run_crash_test(timeout = NULL, headless_actions = NULL, ...)
 }
 \arguments{
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load.}
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.}
 
 \item{headless_actions}{Custom code passed as a string to manipulate the app with headless
 web browser, for instance

@@ -15,8 +15,13 @@
 #' @return Errors if any of the step fails.
 #'
 #' @export
-run_crash_test <- function(timeout = 5, headless_actions = NULL, ...) {
+run_crash_test <- function(timeout = NULL, headless_actions = NULL, ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
+
+  if (is.null(timeout)) {
+    timeout <- if (on_ci()) 20 else 10
+  }
+
   bg_app <- start_r_bg(shiny_bg, ...)
   chrome <- shinytest2::AppDriver$new(
     "http://127.0.0.1:3515",

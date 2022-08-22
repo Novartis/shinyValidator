@@ -8,7 +8,7 @@ audit_app(
   cran = FALSE,
   vignettes = FALSE,
   error_on = "never",
-  timeout = 5,
+  timeout = NULL,
   headless_actions = NULL,
   workers = 5,
   scope = c("manual", "DMC", "POC"),
@@ -30,7 +30,8 @@ audit_app(
 \code{c("never", "error", "warning", "note")}. Defaults to never.}
 
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load.}
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.}
 
 \item{headless_actions}{Custom code passed as a string to manipulate the app with headless
 web browser, for instance

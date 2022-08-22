@@ -7,7 +7,8 @@
 #' @param error_on When to raise an error. Possible choices:
 #' \code{c("never", "error", "warning", "note")}. Defaults to never.
 #' @param timeout Time to wait after starting the subprocess (s). Useful is you know
-#' how much time the app takes to load.
+#' how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+#' on CI/CD.
 #' @param headless_actions Custom code passed as a string to manipulate the app with headless
 #' web browser, for instance
 #' \code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
@@ -28,7 +29,7 @@ audit_app <- function(
   cran = FALSE,
   vignettes = FALSE,
   error_on = "never",
-  timeout = 5,
+  timeout = NULL,
   headless_actions = NULL,
   workers = 5,
   scope = c("manual", "DMC", "POC"),
@@ -40,6 +41,10 @@ audit_app <- function(
   flow = FALSE,
   ...
 ) {
+
+  if (is.null(timeout)) {
+    timeout <- if (on_ci()) 20 else 10
+  }
 
   # Technical requirements
   check_audit_requirements()
