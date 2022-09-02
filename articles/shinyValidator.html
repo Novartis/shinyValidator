@@ -163,13 +163,13 @@
 <p><code><a href="../reference/audit_app.html">audit_app()</a></code> is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span></span>
+<span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,</span>
+<span>  workers <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  cran <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  vignettes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  error_on <span class="op">=</span> <span class="st">"never"</span>,</span>
-<span>  timeout <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  workers <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,</span>
 <span>  output_validation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  coverage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  load_testing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -330,8 +330,13 @@ Coverage report available in {shinyValidator}
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/run_crash_test.html">run_crash_test</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a <strong>custom_horde</strong> parameter. As <code>{shinyValidator}</code> relies on <a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a>, we rely on the <code>set_inputs</code> method to manipulate the slider:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">custom_horde</span> <span class="op">&lt;-</span> <span class="st">"headless_app$set_inputs(obs = 200);</span></span>
-<span><span class="st">headless_app$set_inputs(obs = 1000);"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Path is an internal parameter you don't need to change. </span></span>
+<span><span class="co"># app refers to the headless app instance.</span></span>
+<span><span class="va">custom_horde</span> <span class="op">&lt;-</span> <span class="op">{</span></span>
+<span>  <span class="va">app</span><span class="op">$</span><span class="fu">set_inputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span>  <span class="va">app</span><span class="op">$</span><span class="fu">get_screenshot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"plop.png"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># ... pass any other commands from shinytest2 API</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Then, we can modify the <code>./.gitlab-ci.yml</code> file to account for this new element:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
@@ -419,7 +424,7 @@ Output validation example. Left: static plot. Right: htmlwidget data.
 </ul>
 <p>In theory, the recording step is manual. However, it is entirely possible to automate it with a headless web-browser. The idea being to provide a realistic set of instructions to manipulate the app. This is usually the trickiest part, but tools like the <code>{shinytest}2</code> recorder can generate the replay <a href="https://rstudio.github.io/shinytest/articles/in-depth.html" class="external-link">script</a>. <code>{shinyValidator}</code> offers both approaches with the <code><a href="../reference/record_app.html">record_app()</a></code> function:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/record_app.html">record_app</a></span><span class="op">(</span>workers <span class="op">=</span> <span class="fl">5</span>, timeout <span class="op">=</span> <span class="fl">5</span>, custom_horde <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/record_app.html">record_app</a></span><span class="op">(</span>custom_horde <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="fl">5</span>, workers <span class="op">=</span> <span class="fl">5</span>, <span class="op">)</span>;</span></code></pre></div>
 <p><strong>workers</strong> corresponds to the number of parallel sessions replayed by <code>shinycannon</code> in the background. <strong>timeout</strong> is the time taken the the app to be ready and <strong>custom_horde</strong> is a parameter to provide custom manipulations.</p>
 <p>In the following screenshot, we still play with the same demo app having only one slider input. The app is started locally on a R subprocess, then we connect the <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> recorder. We manipulate the app with the headless browser. The recorder is stopped as well as the headless browser and <code>shinycannon</code> replays the app (this is the longest part, depending on the number of workers).</p>
 <div class="figure" style="text-align: center">
@@ -449,7 +454,7 @@ Load test HTML report
 <p><code>{reaclog}</code> is the tool you were looking for. It offers a network representation of the app reactivity, allowing to quickly identify potential issues. The reader will refer to the comprehensive guide <a href="https://rstudio.github.io/reactlog/articles/reactlog.html#reactlog-in-detail-1" class="external-link">here</a>.</p>
 <p>In the background, <code>{shinyValidator}</code> automatically starts the app in the background, wait for Shiny to be available, stops the app and returns the reactlog object. The reactlog is in turn exported as a standalone HTML widget to be included in the validation report, as shown below. You may fine tune the <strong>timeout</strong> parameter to account for the app loading duration and also add custom manipulation through <strong>headless_actions</strong>:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/upload_reactlog.html">upload_reactlog</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">5</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/upload_reactlog.html">upload_reactlog</a></span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>;</span></code></pre></div>
 <p>In the below output, we notice an isolated output. This is generally an issue, meaning that something was hard coded in the code. Here, we deliberately removed the input feeding into the echarts plot causing this strange pattern.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-reactlog.png" alt="Shiny app reactivity graph. We see one output is not linked to any input. This is likely an issue. " width="75%"><p class="caption">

@@ -57,22 +57,25 @@ folder needed for CI/CD.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">profile_app</span><span class="op">(</span>timeout <span class="op">=</span> <span class="cn">NULL</span>, headless_actions <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">profile_app</span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>timeout</dt>
+    <dl><dt>headless_actions</dt>
+<dd><p>Custom code passed as an expression to manipulate the app with headless
+web browser, for instance
+<code>app$set_inputs(obs = 200); app$run_js('1+1');</code>.
+See https://rstudio.github.io/shinytest2/reference/AppDriver.html to
+get all available methods.
+If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
+right after loading and after the monkey test.</p></dd>
+
+
+<dt>timeout</dt>
 <dd><p>Time to wait after starting the subprocess (s). Useful is you know
 how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 on CI/CD.</p></dd>
-
-
-<dt>headless_actions</dt>
-<dd><p>Custom code passed as a string to manipulate the app with headless
-web browser, for instance
-<code>"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"</code>.
-If NULL, the app will undergo a classic random Monkey test session.</p></dd>
 
 
 <dt>...</dt>

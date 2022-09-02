@@ -51,17 +51,18 @@ to workaround any proxy settings</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">call_gremlins</span><span class="op">(</span><span class="va">headless_app</span>, screenshot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">call_gremlins</span><span class="op">(</span><span class="va">headless_app</span>, screenshot <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>headless_app</dt>
-<dd><p>Headless app R6 instance.</p></dd>
+    <dl><dt>screenshot</dt>
+<dd><p>Whether to take screenshot. Defaults to TRUE. Only works
+if headles_actions is NULL.</p></dd>
 
 
-<dt>screenshot</dt>
-<dd><p>Whether to take screenshot. Defaults to TRUE.</p></dd>
+<dt>path</dt>
+<dd><p>Screenshot path.</p></dd>
 
 </dl></div>
 
