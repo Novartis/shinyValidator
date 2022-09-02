@@ -88,8 +88,8 @@ validate_outputs <- function() {
     }
   })
 
+  message("\n---- END COMPARE OUTPUTS ---- \n")
+
   # Tag to display in the report
   create_output_tab(done)
-
-  message("\n---- END COMPARE OUTPUTS ---- \n")
 }

@@ -49,6 +49,8 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
   chrome$stop()
   if (bg_app$is_alive()) bg_app$kill()
 
+  message("\n---- END CRASH-TEST ---- \n")
+
   create_tab_content(
     tags$div(
       class = "ui equal width grid",
@@ -63,8 +65,6 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
     tab_name = "crash-test",
     title = "Crash test"
   )
-
-  message("\n---- END CRASH-TEST ---- \n")
 }
 
 
