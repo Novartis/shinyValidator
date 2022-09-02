@@ -52,9 +52,7 @@ audit_app <- function(
   }
 
   # Capture user defined expression if provided
-  if (!is.null(headless_actions)) {
-    headless_actions <- substitute(headless_actions)
-  }
+  headless_actions <- substitute(headless_actions)
 
   # Technical requirements
   check_audit_requirements()
