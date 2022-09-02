@@ -119,7 +119,7 @@ call_gremlins <- function(headless_app, screenshot = TRUE, path) {
   )
 
   if (screenshot) {
-    headless_app$get_screenshot(file.path(path, "2-gremlins.png"), delay = 3000)
+    headless_app$get_screenshot(file.path(path, "2-gremlins.png"), delay = 3)
   }
   # Wait remaining 7 seconds so that gremlins are over
   Sys.sleep(7)
