@@ -43,9 +43,6 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
   screenshots_path <- "public/crash-test"
   if (!dir.exists(screenshots_path)) dir.create(screenshots_path, recursive = TRUE)
   chrome$get_screenshot(file.path(screenshots_path, "1-init-crash.png"))
-  if (!is.null(headless_actions)) {
-    headless_actions <- substitute(headless_actions)
-  }
   run_monkey_test(chrome, headless_actions, path = screenshots_path)
 
   # cleanup ports

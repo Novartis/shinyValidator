@@ -24,7 +24,7 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
     load_timeout = timeout * 1000
   )
   if (!is.null(headless_actions)) {
-    run_monkey_test(chrome, substitute(headless_actions), screenshot = FALSE)
+    run_monkey_test(chrome, headless_actions, screenshot = FALSE)
   }
   chrome$stop()
   Sys.sleep(1) # required so that we can get_result()

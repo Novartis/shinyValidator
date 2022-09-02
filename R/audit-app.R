@@ -51,6 +51,11 @@ audit_app <- function(
     timeout <- if (on_ci()) 20 else 10
   }
 
+  # Capture user defined expression if provided
+  if (!is.null(headless_actions)) {
+    headless_actions <- substitute(headless_actions)
+  }
+
   # Technical requirements
   check_audit_requirements()
 
