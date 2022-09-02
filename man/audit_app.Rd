@@ -26,7 +26,7 @@ audit_app(
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless
 web browser, for instance
 \code{app$set_inputs(obs = 200); app$run_js('1+1');}.
-See \link{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
+See \url{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
 get all available methods.
 If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
 right after loading and after the monkey test.}
