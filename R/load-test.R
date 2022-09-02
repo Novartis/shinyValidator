@@ -9,7 +9,7 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-record_app <- function(timeout = NULL, headless_actions = NULL, workers = 5, ...) {
+record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...) {
   message("\n---- BEGIN LOAD-TEST ---- \n")
 
   if (is.null(timeout)) {
@@ -55,4 +55,6 @@ record_app <- function(timeout = NULL, headless_actions = NULL, workers = 5, ...
     self_contained = FALSE,
     open_browser = FALSE
   )
+
+  message("\n---- END LOAD-TEST ---- \n")
 }

@@ -4,17 +4,23 @@
 \alias{run_monkey_test}
 \title{Perform basic monkey testing}
 \usage{
-run_monkey_test(headless_app, headless_actions, screenshot = TRUE)
+run_monkey_test(app, headless_actions, screenshot = TRUE, path)
 }
 \arguments{
-\item{headless_app}{Headless app R6 instance.}
+\item{app}{Headless app R6 instance.}
 
-\item{headless_actions}{Custom code passed as a string to manipulate the app with headless
+\item{headless_actions}{Custom code passed as an expression to manipulate the app with headless
 web browser, for instance
-\code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
-If NULL, the app will undergo a classic random Monkey test session.}
+\code{app$set_inputs(obs = 200); app$run_js('1+1');}.
+See \link{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
+get all available methods.
+If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
+right after loading and after the monkey test.}
 
-\item{screenshot}{Whether to take screenshot. Defaults to TRUE.}
+\item{screenshot}{Whether to take screenshot. Defaults to TRUE. Only works
+if headles_actions is NULL.}
+
+\item{path}{Screenshot path.}
 }
 \description{
 Internally required by \link{record_app}, \link{run_crash_test}, ... after

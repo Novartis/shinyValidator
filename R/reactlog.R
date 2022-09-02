@@ -7,7 +7,7 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-upload_reactlog <- function(timeout = NULL, headless_actions = NULL, ...) {
+upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
   message("\n---- BEGIN REACTLOG ---- \n")
 
   if (is.null(timeout)) {
@@ -27,6 +27,8 @@ upload_reactlog <- function(timeout = NULL, headless_actions = NULL, ...) {
   Sys.sleep(1) # required so that we can get_result()
   # move reactlog artifacts
   process_reactlog(reactlog_app)
+
+  message("\n---- END REACTLOG ---- \n")
 }
 
 

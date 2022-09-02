@@ -4,17 +4,20 @@
 \alias{profile_app}
 \title{Profile a shiny app}
 \usage{
-profile_app(timeout = NULL, headless_actions = NULL, ...)
+profile_app(headless_actions = NULL, timeout = NULL, ...)
 }
 \arguments{
+\item{headless_actions}{Custom code passed as an expression to manipulate the app with headless
+web browser, for instance
+\code{app$set_inputs(obs = 200); app$run_js('1+1');}.
+See \link{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
+get all available methods.
+If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
+right after loading and after the monkey test.}
+
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
 how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 on CI/CD.}
-
-\item{headless_actions}{Custom code passed as a string to manipulate the app with headless
-web browser, for instance
-\code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
-If NULL, the app will undergo a classic random Monkey test session.}
 
 \item{...}{Pass extra parameters to run_app. This is useful
 if you work with packages like golem.}

@@ -15,7 +15,17 @@
 #' @return Errors if any of the step fails.
 #'
 #' @export
-run_crash_test <- function(timeout = NULL, headless_actions = NULL, ...) {
+#' @examples
+#' \dontrun{
+#'  # Assuming run_app is defined ...
+#'  run_crash_test(
+#'    headless_actions = {
+#'     app$set_inputs(obs = 1000)
+#'     app$get_screenshot("./plop.png")
+#'    }
+#'  )
+#' }
+run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
 
   if (is.null(timeout)) {
@@ -27,22 +37,22 @@ run_crash_test <- function(timeout = NULL, headless_actions = NULL, ...) {
     "http://127.0.0.1:3515",
     load_timeout = timeout * 1000
   )
+
   # By default AppDriver$new waits for shiny to be IDLE 200ms
   # after the initial timeout. No need for extra waiting here.
-  if (!dir.exists("public/crash-test")) dir.create("public/crash-test", recursive = TRUE)
-  chrome$get_screenshot("public/crash-test/1-init-crash.png")
-  run_monkey_test(chrome, headless_actions)
+  screenshots_path <- "public/crash-test"
+  if (!dir.exists(screenshots_path)) dir.create(screenshots_path, recursive = TRUE)
+  chrome$get_screenshot(file.path(screenshots_path, "1-init-crash.png"))
+  run_monkey_test(chrome, substitute(headless_actions), path = screenshots_path)
 
   # cleanup ports
   chrome$stop()
   if (bg_app$is_alive()) bg_app$kill()
 
-  screenshots <- list.files("public/crash-test")
-
   create_tab_content(
     tags$div(
       class = "ui equal width grid",
-      lapply(screenshots, function(screenshot) {
+      lapply(list.files(screenshots_path), function(screenshot) {
         tags$div(
           class = "eight wide column",
           tags$h2(class = "ui header", strsplit(screenshot, "\\.")[[1]][1]),
@@ -53,6 +63,8 @@ run_crash_test <- function(timeout = NULL, headless_actions = NULL, ...) {
     tab_name = "crash-test",
     title = "Crash test"
   )
+
+  message("\n---- END CRASH-TEST ---- \n")
 }
 
 
@@ -63,7 +75,7 @@ run_crash_test <- function(timeout = NULL, headless_actions = NULL, ...) {
 #'
 #' @inheritParams run_monkey_test
 #' @keywords internal
-call_gremlins <- function(headless_app, screenshot = TRUE) {
+call_gremlins <- function(headless_app, screenshot = TRUE, path) {
   message("Injecting gremlins.js script")
 
   # allows flexibility if running behind proxy
@@ -107,8 +119,7 @@ call_gremlins <- function(headless_app, screenshot = TRUE) {
   )
 
   if (screenshot) {
-    Sys.sleep(3)
-    headless_app$get_screenshot("public/crash-test/2-gremlins.png")
+    headless_app$get_screenshot(file.path(path, "2-gremlins.png"), delay = 3000)
   }
   # Wait remaining 7 seconds so that gremlins are over
   Sys.sleep(7)
@@ -121,19 +132,19 @@ call_gremlins <- function(headless_app, screenshot = TRUE) {
 #' Internally required by \link{record_app}, \link{run_crash_test}, ... after
 #' the headless connection is opened.
 #'
-#' @param headless_app Headless app R6 instance.
-#' @param screenshot Whether to take screenshot. Defaults to TRUE.
+#' @param app Headless app R6 instance.
+#' @param screenshot Whether to take screenshot. Defaults to TRUE. Only works
+#' if headles_actions is NULL.
+#' @param path Screenshot path.
 #' @inheritParams run_crash_test
 #' @keywords internal
-run_monkey_test <- function(headless_app, headless_actions, screenshot = TRUE) {
+run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
   if (is.null(headless_actions)) {
-    call_gremlins(headless_app, screenshot)
+    call_gremlins(app, screenshot, path)
   } else {
-    # Allow \n in case headless_actions had multiple lines
-    headless_actions <- gsub("\n", " ", headless_actions)
-    eval(parse(text = headless_actions))
-    if (screenshot) {
-      headless_app$get_screenshot("public/crash-test/2-gremlins.png")
-    }
+    eval(headless_actions)
   }
 }
+
+
+

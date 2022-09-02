@@ -4,12 +4,13 @@
 \alias{call_gremlins}
 \title{Inject and call gremlins}
 \usage{
-call_gremlins(headless_app, screenshot = TRUE)
+call_gremlins(headless_app, screenshot = TRUE, path)
 }
 \arguments{
-\item{headless_app}{Headless app R6 instance.}
+\item{screenshot}{Whether to take screenshot. Defaults to TRUE. Only works
+if headles_actions is NULL.}
 
-\item{screenshot}{Whether to take screenshot. Defaults to TRUE.}
+\item{path}{Screenshot path.}
 }
 \description{
 Internally required by \link{run_monkey_test}. Tries

@@ -45,6 +45,7 @@ create_output_tab <- function(done) {
 #' @export
 validate_outputs <- function() {
   message("\n---- BEGIN COMPARE OUTPUTS ---- \n")
+
   if (!dir.exists("tests/testthat/_snaps")) {
     stop(
       "No snapshot folder found. Make sure to use expect_snapshot_file within
@@ -89,4 +90,6 @@ validate_outputs <- function() {
 
   # Tag to display in the report
   create_output_tab(done)
+
+  message("\n---- END COMPARE OUTPUTS ---- \n")
 }

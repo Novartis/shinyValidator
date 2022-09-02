@@ -2,19 +2,22 @@
 #'
 #' Run all specified tools and requirements to validate Shiny apps project.
 #'
+#' @param headless_actions Custom code passed as an expression to manipulate the app with headless
+#' web browser, for instance
+#' \code{app$set_inputs(obs = 200); app$run_js('1+1');}.
+#' See \link{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
+#' get all available methods.
+#' If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
+#' right after loading and after the monkey test.
+#' @param timeout Time to wait after starting the subprocess (s). Useful is you know
+#' how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+#' on CI/CD.
+#' @param scope Project scope. Accepted values \code{c("manual", "DMC", "POC")}.
+#' @param workers Number of workers for shinycannon. Default to 5.
 #' @param cran Whether to apply as CRAN check. Defaults to FALSE.
 #' @param vignettes Whether to build vignettes. Defaults to FALSE.
 #' @param error_on When to raise an error. Possible choices:
 #' \code{c("never", "error", "warning", "note")}. Defaults to never.
-#' @param timeout Time to wait after starting the subprocess (s). Useful is you know
-#' how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
-#' on CI/CD.
-#' @param headless_actions Custom code passed as a string to manipulate the app with headless
-#' web browser, for instance
-#' \code{"headless_app$set_inputs(obs = 200); headless_app$run_js('1+1');"}.
-#' If NULL, the app will undergo a classic random Monkey test session.
-#' @param workers Number of workers for shinycannon. Default to 5.
-#' @param scope Project scope. Accepted values \code{c("manual", "DMC", "POC")}.
 #' @param output_validation Whether to compare output snapshots for
 #' plots and htmlwidgets. Default to TRUE.
 #' @param coverage Whether to perform coverage report. Default to TRUE.
@@ -27,11 +30,11 @@
 #'
 #' @export
 audit_app <- function(
+  headless_actions = NULL,
   cran = FALSE,
   vignettes = FALSE,
   error_on = "never",
   timeout = NULL,
-  headless_actions = NULL,
   workers = 5,
   scope = c("manual", "DMC", "POC"),
   output_validation = FALSE,
@@ -58,7 +61,7 @@ audit_app <- function(
   # Run check
   tab_check <- check_package(cran, vignettes, error_on, debug)
   # Run crash test
-  tab_crash_test <- run_crash_test(timeout, headless_actions, ...)
+  tab_crash_test <- run_crash_test(headless_actions, timeout, ...)
   # Output validation
   if (debug) output_validation <- FALSE
   tab_output_validation <- if (output_validation) {
@@ -67,9 +70,9 @@ audit_app <- function(
     NULL
   }
   # Load test, profiling, reactlog
-  if (load_testing) record_app(timeout, headless_actions, workers, ...)
-  if (profile_code) profile_app(timeout, headless_actions, ...)
-  if (check_reactivity) upload_reactlog(timeout, headless_actions, ...)
+  if (load_testing) record_app(headless_actions, timeout, workers, ...)
+  if (profile_code) profile_app(headless_actions, timeout, ...)
+  if (check_reactivity) upload_reactlog(headless_actions, timeout, ...)
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
     pkgload::load_all()
@@ -89,7 +92,7 @@ audit_app <- function(
     tab_output_validation = tab_output_validation,
     package_name = tab_check$package_name,
     package_version = sprintf(
-      "v: %s -- commit: %s", 
+      "v: %s -- commit: %s",
       tab_check$package_version,
       system("git rev-parse --short HEAD", intern = TRUE)
     ),

@@ -10,7 +10,7 @@
 #'
 #' @return Write a .Rprof file to be reused by CI/CD to publish the report on GitLab pages
 #' @export
-profile_app <- function(timeout = NULL, headless_actions = NULL, ...) {
+profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
   message("\n---- BEGIN CODE PROFILE ---- \n")
 
   if (is.null(timeout)) {
@@ -30,4 +30,6 @@ profile_app <- function(timeout = NULL, headless_actions = NULL, ...) {
   Sys.sleep(1) # required so that we can get_result()
 
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
+
+  message("\n---- END CODE PROFILE ---- \n")
 }
