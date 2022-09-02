@@ -90,7 +90,7 @@ audit_app <- function(
     package_name = tab_check$package_name,
     package_version = sprintf(
       "v: %s -- commit: %s", 
-      tab_check$package_version
+      tab_check$package_version,
       system("git rev-parse --short HEAD", intern = TRUE)
     ),
     tab_package_check = tab_check$tab_package_check,
