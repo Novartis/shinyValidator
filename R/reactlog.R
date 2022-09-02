@@ -20,7 +20,7 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
     load_timeout = timeout * 1000
   )
   if (!is.null(headless_actions)) {
-    run_monkey_test(chrome, headless_actions, screenshot = FALSE)
+    run_monkey_test(chrome, substitute(headless_actions), screenshot = FALSE)
   }
   # shutdown
   chrome$stop()

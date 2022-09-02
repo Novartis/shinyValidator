@@ -27,6 +27,9 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...
     load_timeout = timeout * 1000
   )
 
+  if (!is.null(headless_actions)) {
+    headless_actions <- substitute(headless_actions)
+  }
   run_monkey_test(chrome, headless_actions, screenshot = FALSE)
 
   # clean
