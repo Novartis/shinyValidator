@@ -88,7 +88,11 @@ audit_app <- function(
     flow,
     tab_output_validation = tab_output_validation,
     package_name = tab_check$package_name,
-    package_version = tab_check$package_version,
+    package_version = sprintf(
+      "v: %s -- commit: %s", 
+      tab_check$package_version
+      system("git rev-parse --short HEAD", intern = TRUE)
+    ),
     tab_package_check = tab_check$tab_package_check,
     tab_crash_test = tab_crash_test
   )
