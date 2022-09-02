@@ -1,20 +1,11 @@
 #' Run example app
 #'
-#' @param ... arguments to pass to golem_opts.
-#' See `?golem::get_golem_options` for more details.
-#' @inheritParams shiny::shinyApp
-#'
 #' @return A shiny app object
 #' @export
 #' @import shiny
-#' @importFrom golem with_golem_options
-run_app <- function(onStart = NULL, # nolint
-                    options = list(),
-                    enableBookmarking = NULL, # nolint
-                    uiPattern = "/", # nolint
-                    ...) {
+run_app <- function() { # nocov start
   # serve js tools for Monkey test (in case proxy blocks external scripts)
-  addResourcePath("gremlins", "inst/shinyValidator-js")
+  addResourcePath("gremlins", system.file("shinyValidator-js", package = "shinyValidator"))
   # DON'T CHANGE (INTERNAL TO SHINYVALIDATOR)
   p <- parent.frame(1)
   .enable_reactlog <- p[[".enable_reactlog"]]
@@ -33,17 +24,9 @@ run_app <- function(onStart = NULL, # nolint
   }
 
   runApp(
-    with_golem_options(
-      app = shinyApp(
-        ui = app_ui,
-        server = app_server,
-        onStart = onStart,
-        options = options,
-        enableBookmarking = enableBookmarking,
-        uiPattern = uiPattern
-      ),
-      golem_opts = list(...)
-    ),
+    shinyApp(app_ui, app_server),
     test.mode = TRUE
   )
-}
+} # nocov end
+
+globalVariables(c("app_ui", "app_server"))
