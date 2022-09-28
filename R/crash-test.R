@@ -37,6 +37,8 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
     "http://127.0.0.1:3515",
     load_timeout = timeout * 1000
   )
+  # wait the app to be ready before doing anything
+  chrome$wait_for_idle()
 
   # By default AppDriver$new waits for shiny to be IDLE 200ms
   # after the initial timeout. No need for extra waiting here.

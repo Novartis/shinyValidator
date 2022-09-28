@@ -27,6 +27,8 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...
     load_timeout = timeout * 1000
   )
 
+  chrome$wait_for_idle()
+
   run_monkey_test(
     chrome,
     headless_actions,

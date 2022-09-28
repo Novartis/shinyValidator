@@ -23,6 +23,9 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
     "http://127.0.0.1:3515",
     load_timeout = timeout * 1000
   )
+
+  chrome$wait_for_idle()
+
   if (!is.null(headless_actions)) {
     run_monkey_test(
       chrome,
@@ -30,8 +33,6 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
       screenshot = FALSE,
       path = "public/crash-test"
     )
-  } else {
-    chrome$wait_for_idle()
   }
   
   chrome$stop()
