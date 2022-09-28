@@ -29,7 +29,8 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
   }
   # shutdown
   chrome$stop()
-  Sys.sleep(2) # required so that we can get_result()
+  # required so that we can get_result()
+  wait_for_app_stop(3515)
   # move reactlog artifacts
   process_reactlog(reactlog_app)
 

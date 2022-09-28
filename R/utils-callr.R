@@ -111,12 +111,38 @@ start_r_bg <- function(fun, ...) {
     args = if (func_name == "recorder_bg") parms else golem_pars
   )
 
-  while (any(is.na(pingr::ping_port("127.0.0.1", port)))) {
-    message("Waiting for Shiny app to start...")
-    Sys.sleep(0.1)
-  }
+  wait_for_app_start(port)
 
   if (!process$is_alive()) stop("Unable to launch the subprocess")
 
   process
+}
+
+wait_for_app_start <- function(port) {
+  wait_for_app_action("start", port)
+}
+
+wait_for_app_stop <- function(port) {
+  wait_for_app_action("stop", port)
+}
+
+#' Wait for application action
+#'
+#' Ping the application port. If action is start,
+#' loop until the port is available, and inversely if action is stop.
+#'
+#' @param action Either "start" or "stop".
+#' @param port Running port to ping.
+#' @keywords internal
+wait_for_app_action <- function(action = c("start", "stop"), port) {
+  action <- match.arg(action)
+  cond <- switch(action,
+    "start" = quote(is.na(pingr::ping_port("127.0.0.1", port))),
+    "stop" = quote(!is.na(pingr::ping_port("127.0.0.1", port)))
+  )
+
+  while (any(eval(cond))) {
+    message(sprintf("Waiting for Shiny app to %s ...", action))
+    Sys.sleep(0.1)
+  }
 }

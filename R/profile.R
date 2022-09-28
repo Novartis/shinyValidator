@@ -30,10 +30,13 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
       screenshot = FALSE,
       path = "public/crash-test"
     )
+  } else {
+    chrome$wait_for_idle()
   }
   
   chrome$stop()
-  Sys.sleep(10) # required so that we can get_result()
+  # required so that we can get_result()
+  wait_for_app_stop(3515)
 
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
 
