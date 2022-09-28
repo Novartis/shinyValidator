@@ -33,9 +33,7 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
   }
   
   chrome$stop()
-  # Sometimes, chrome actually does not kill the app when closed ...
-  if (prof_app$is_alive()) prof_app$kill()
-  Sys.sleep(1) # required so that we can get_result()
+  Sys.sleep(2) # required so that we can get_result()
 
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
 
