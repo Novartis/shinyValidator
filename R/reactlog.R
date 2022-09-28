@@ -29,6 +29,8 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
   }
   # shutdown
   chrome$stop()
+  # Sometimes, chrome actually does not kill the app when closed ...
+  if (reactlog_app$is_alive()) reactlog_app$kill()
   Sys.sleep(1) # required so that we can get_result()
   # move reactlog artifacts
   process_reactlog(reactlog_app)
