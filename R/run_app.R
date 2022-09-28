@@ -18,7 +18,6 @@ run_app <- function() { # nocov start
     start <- length(tmp) + 1 # start just before the closing }
     body(app_server)[[start]] <- substitute(
       onSessionEnded(function() {
-        message("CI/CD callback: APP successfully stopped")
         stopApp(reactlog())
       })
     )

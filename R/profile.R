@@ -33,7 +33,7 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
   }
   
   chrome$stop()
-  Sys.sleep(2) # required so that we can get_result()
+  Sys.sleep(10) # required so that we can get_result()
 
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
 
