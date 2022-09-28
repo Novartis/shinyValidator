@@ -26,7 +26,10 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
       screenshot = FALSE,
       path = "public/crash-test"
     )
+  } else {
+    chrome$wait_for_idle()
   }
+  
   # shutdown
   chrome$stop()
   # required so that we can get_result()
