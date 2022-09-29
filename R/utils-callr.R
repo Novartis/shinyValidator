@@ -143,6 +143,6 @@ wait_for_app_action <- function(action = c("start", "stop"), port) {
 
   while (any(eval(cond))) {
     message(sprintf("Waiting for Shiny app to %s ...", action))
-    Sys.sleep(0.1)
+    Sys.sleep(0.2)
   }
 }
