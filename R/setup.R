@@ -30,7 +30,7 @@ use_validator <- function(cicd_platform = c("github", "gitlab-docker", "gitlab")
   # Add gremlins.js assets
   add_gremlins_assets()
 
-  # Copy R/run_app.R
+  # Copy R/run_app_audit.R
   copy_app_file()
 
   # treat .Rbuildignore

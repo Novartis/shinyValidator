@@ -1,4 +1,4 @@
-#' Start run_app as background process
+#' Start run_app_audit as background process
 #'
 #' Required by \link{start_r_bg}.
 #' @inheritParams start_r_bg
@@ -9,9 +9,9 @@ shiny_bg <- function(...) {
   pkgload::load_all()
   parms <- list(...)
   if (length(parms) > 0) {
-    do.call(run_app, parms)
+    do.call(run_app_audit, parms)
   } else {
-    run_app()
+    run_app_audit()
   }
 }
 
@@ -48,9 +48,9 @@ profile_bg <- function(...) {
       profvis::pause(0.2)
       parms <- list(...)
       if (length(parms) > 0) {
-        do.call(run_app, parms)
+        do.call(run_app_audit, parms)
       } else {
-        run_app()
+        run_app_audit()
       }
     },
     simplify = FALSE,
@@ -58,7 +58,7 @@ profile_bg <- function(...) {
   )
 }
 
-#' Start run_app as background process
+#' Start run_app_audit as background process
 #'
 #' Also enables reactlog.
 #'
@@ -74,9 +74,9 @@ reactlog_bg <- function(...) {
   reactlog::reactlog_enable()
   parms <- list(...)
   if (length(parms) > 0) {
-    do.call(run_app, parms)
+    do.call(run_app_audit, parms)
   } else {
-    run_app()
+    run_app_audit()
   }
 }
 
@@ -86,7 +86,7 @@ reactlog_bg <- function(...) {
 #' \link{record_app}, ...
 #'
 #' @param fun Passed to \link[callr]{r_bg}.
-#' @param ... Pass extra parameters to run_app. This is useful
+#' @param ... Pass extra parameters to run_app_audit. This is useful
 #' if you work with packages like golem.
 #'
 #' @return Process or error
@@ -143,6 +143,6 @@ wait_for_app_action <- function(action = c("start", "stop"), port) {
 
   while (any(eval(cond))) {
     message(sprintf("Waiting for Shiny app to %s ...", action))
-    Sys.sleep(0.2)
+    Sys.sleep(0.3)
   }
 }

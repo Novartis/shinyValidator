@@ -13,13 +13,14 @@ web browser, for instance
 See \url{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
 get all available methods.
 If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
-right after loading and after the monkey test.}
+right after loading and after the monkey test. We do not recommend running a monkey test
+if your app is pointing to a database, unless the pipeline CI/CD runs in a dedicated test environment.}
 
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
 how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 on CI/CD.}
 
-\item{...}{Pass extra parameters to run_app. This is useful
+\item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
 \value{
@@ -38,7 +39,7 @@ would wait 5 seconds.
 }
 \examples{
 \dontrun{
- # Assuming run_app is defined ...
+ # Assuming run_app_audit is defined ...
  run_crash_test(
    headless_actions = {
     app$set_inputs(obs = 1000)

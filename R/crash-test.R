@@ -17,7 +17,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'  # Assuming run_app is defined ...
+#'  # Assuming run_app_audit is defined ...
 #'  run_crash_test(
 #'    headless_actions = {
 #'     app$set_inputs(obs = 1000)

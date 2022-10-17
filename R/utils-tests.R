@@ -32,8 +32,8 @@ copy_shiny_app_files <- function() { # nocov start
     to = "./R/app_ui.R"
   )
   file.copy(
-    from = system.file("run-app/run_app.R", package = "shinyValidator"),
-    to = "./R/run_app.R"
+    from = system.file("run-app/run_app_audit.R", package = "shinyValidator"),
+    to = "./R/run_app_audit.R"
   )
   file.copy(
     from = system.file("tests/utils.R", package = "shinyValidator"),

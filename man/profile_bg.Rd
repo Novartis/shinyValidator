@@ -7,7 +7,7 @@
 profile_bg(...)
 }
 \arguments{
-\item{...}{Pass extra parameters to run_app. This is useful
+\item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
 \description{
