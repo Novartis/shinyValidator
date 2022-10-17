@@ -244,7 +244,6 @@ add_suggested_packages <- function() {
       )
     }
   )
-
 }
 
 #' Add local copy of gremlins.js

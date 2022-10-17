@@ -36,7 +36,6 @@ withr::with_dir(path, {
     expect_length(readLines("./.lintr"), 10)
 
     # app files
-    expect_true(file.exists("./R/run_app.R"))
     expect_true(file.exists("./R/run_app_audit.R"))
 
     # buildignore

@@ -36,7 +36,7 @@ Particularly, it expects to have these functions:
   - `app_ui()`.
   - `run_app()`.
   
-Under the hood, `{shinyValidator}` brings its own version of `run_app()` to inject various elements necessary to the validation steps. Your old `run_app()` will be renamed as `run_app-old()`. It also automatically creates a CI/CD file template so that the workflow is ready to run on Github Actions or Gitlab CI/CD. Other elements such as a custom `.lintr` file and package suggests are imported to reduce the amount of work you have to do. Finally, a few JavaScript (JS) assets are copied as they are necessary to run the [Monkey](https://en.wikipedia.org/wiki/Monkey_testing) tests (this avoids proxy issues blocking external JS assets in corporate environments).
+Under the hood, `{shinyValidator}` brings its own version of `run_app()`, namely `run_app_audit()` to inject various elements necessary to the validation steps. It also automatically creates a CI/CD file template so that the workflow is ready to run on Github Actions or Gitlab CI/CD. Other elements such as a custom `.lintr` file and package suggests are imported to reduce the amount of work you have to do. Finally, a few JavaScript (JS) assets are copied as they are necessary to run the [Monkey](https://en.wikipedia.org/wiki/Monkey_testing) tests, thereby preventing proxy issues from blocking external JS assets in corporate environments.
 
 ### Typical setup workflow with {golem}
 
@@ -133,7 +133,9 @@ audit_app(
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
-  flow = FALSE
+  flow = FALSE,
+  debug = FALSE,
+  ...
 )
 ```
 
@@ -317,14 +319,15 @@ This is where the crash test comes to play. It first:
   
 This step leverages R subprocesses, the idea being to start the app on a child process, connect to the app with a [headless](https://developers.google.com/web/updates/2017/04/headless-chrome) web-browser (without display). The `run_crash-test()` function has two parameters:
 
+  - __headless_actions__: required if you want to provide custom instructions to manipulate the app with a headless browser. By default, `{shinyValidator}` performs a [Monkey test](https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic) (see also [here](https://github.com/marmelab/gremlins.js/blob/master/README.md)), which consists of triggering random events on the app such as clicks, scroll, input change, ... for 10 seconds. 
   - __timeout__: if the app takes time to load, you have to adjust this value.
-  - __custom_horde__: required if you want to provide custom instructions to manipulate the app with a headless browser. By default, `{shinyValidator}` performs a [Monkey test](https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic) (see also [here](https://github.com/marmelab/gremlins.js/blob/master/README.md)), which consists of triggering random events on the app such as clicks, scroll, input change, ... for 10 seconds. 
+  - __...__: to pass any parameter to `run_app_audit()`.
 
 ```{r, eval=FALSE}
-shinyValidator::run_crash_test(timeout = 5, custom_horde = NULL)
+shinyValidator::run_crash_test(headless_actions = NULL, timeout = 5)
 ```
 
-In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a __custom_horde__ parameter. As `{shinyValidator}` relies on `{shinytest2}`, we rely on the `set_inputs` method to manipulate the slider:
+In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a __headless_actions__ parameter. As `{shinyValidator}` relies on `{shinytest2}`, we rely on the `set_inputs` method to manipulate the slider:
 
 ```{r, eval=FALSE}
 # Path is an internal parameter you don't need to change. 
@@ -434,10 +437,10 @@ From a technical point of view, there are 2 pieces of software:
 In theory, the recording step is manual. However, it is entirely possible to automate it with a headless web-browser. The idea being to provide a realistic set of instructions to manipulate the app. This is usually the trickiest part, but tools like the `{shinytest}2` recorder can generate the replay [script](https://rstudio.github.io/shinytest/articles/in-depth.html). `{shinyValidator}` offers both approaches with the `record_app()` function:
 
 ```{r, eval=FALSE}
-shinyValidator::record_app(custom_horde = NULL, timeout = 5, workers = 5, );
+shinyValidator::record_app(headless_actions = NULL, timeout = 5, workers = 5, ...);
 ```
 
-__workers__ corresponds to the number of parallel sessions replayed by `shinycannon` in the background. __timeout__ is the time taken the the app to be ready and __custom_horde__ is a parameter to provide custom manipulations. 
+__workers__ corresponds to the number of parallel sessions replayed by `shinycannon` in the background. __timeout__ is the time taken the the app to be ready and __headless_actions__ is a parameter to provide custom manipulations with the `{shinytest2}` API. 
 
 In the following screenshot, we still play with the same demo app having only one slider input.
 The app is started locally on a R subprocess, then we connect the `{shinyloadtest}` recorder. We manipulate the app with the headless browser. The recorder is stopped as well as the headless browser and `shinycannon` replays the app (this is the longest part, depending on the number of workers).
@@ -478,7 +481,7 @@ Have you already experienced situations where a reactive expression did not upda
 In the background, `{shinyValidator}` automatically starts the app in the background, wait for Shiny to be available, stops the app and returns the reactlog object. The reactlog is in turn exported as a standalone HTML widget to be included in the validation report, as shown below. You may fine tune the __timeout__ parameter to account for the app loading duration and also add custom manipulation through __headless_actions__:
 
 ```{r, eval=FALSE}
-shinyValidator::upload_reactlog(headless_actions = NULL, timeout = 5);
+shinyValidator::upload_reactlog(headless_actions = NULL, timeout = 5, ...);
 ```
 
 In the below output, we notice an isolated output. This is generally an issue, meaning that something was hard coded in the code. Here, we deliberately removed the input feeding into the echarts plot causing this strange pattern. 
