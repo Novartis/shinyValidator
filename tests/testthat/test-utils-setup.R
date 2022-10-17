@@ -37,7 +37,7 @@ withr::with_dir(path, {
 
     # app files
     expect_true(file.exists("./R/run_app.R"))
-    expect_true(file.exists("./R/run_app-old.R"))
+    expect_true(file.exists("./R/run_app_audit.R"))
 
     # buildignore
     expect_true(file.exists("./.Rbuildignore"))
