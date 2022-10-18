@@ -50,5 +50,6 @@ Imports:
     desc
 Remotes: 
     rstudio/shinytest2
+    moodymudskipper/flow
 VignetteBuilder: knitr
 Config/testthat/edition: 3
