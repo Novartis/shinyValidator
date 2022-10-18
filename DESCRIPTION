@@ -49,7 +49,7 @@ Imports:
     flow,
     desc
 Remotes: 
-    rstudio/shinytest2
+    rstudio/shinytest2,
     moodymudskipper/flow
 VignetteBuilder: knitr
 Config/testthat/edition: 3
