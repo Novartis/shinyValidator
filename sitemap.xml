@@ -153,4 +153,7 @@
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/validate_outputs.html</loc>
   </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/wait_for_app_action.html</loc>
+  </url>
 </urlset>
