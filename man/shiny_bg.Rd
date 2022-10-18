@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils-callr.R
 \name{shiny_bg}
 \alias{shiny_bg}
-\title{Start run_app as background process}
+\title{Start run_app_audit as background process}
 \usage{
 shiny_bg(...)
 }
 \arguments{
-\item{...}{Pass extra parameters to run_app. This is useful
+\item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
 \description{

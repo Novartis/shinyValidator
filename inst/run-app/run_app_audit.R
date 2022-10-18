@@ -8,7 +8,7 @@
 #' @export
 #' @import shiny
 #' @importFrom golem with_golem_options
-run_app <- function(onStart = NULL, # nolint
+run_app_audit <- function(onStart = NULL, # nolint
                     options = list(),
                     enableBookmarking = NULL, # nolint
                     uiPattern = "/", # nolint

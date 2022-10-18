@@ -15,7 +15,8 @@ web browser, for instance
 See \url{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
 get all available methods.
 If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
-right after loading and after the monkey test.}
+right after loading and after the monkey test. We do not recommend running a monkey test
+if your app is pointing to a database, unless the pipeline CI/CD runs in a dedicated test environment.}
 
 \item{screenshot}{Whether to take screenshot. Defaults to TRUE. Only works
 if headles_actions is NULL.}

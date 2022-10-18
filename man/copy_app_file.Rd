@@ -2,11 +2,11 @@
 % Please edit documentation in R/utils-setup.R
 \name{copy_app_file}
 \alias{copy_app_file}
-\title{Copy and rename app helpers}
+\title{Copy run_app_audit}
 \usage{
 copy_app_file()
 }
 \description{
-Copy and rename app helpers
+Copy run_app_audit
 }
 \keyword{internal}

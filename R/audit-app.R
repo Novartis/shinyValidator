@@ -80,7 +80,7 @@ audit_app <- function(
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
     pkgload::load_all()
-    flow::flow_view_shiny(run_app, out = "public/flow.html")
+    flow::flow_view_shiny(run_app_audit, out = "public/flow.html")
   }
 
   message("\n---- BEGIN REPORT GENERATION ---- \n")

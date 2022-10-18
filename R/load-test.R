@@ -41,7 +41,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...
   # needed to avoid
   # java.lang.IllegalStateException: last event in log not a
   # WS_CLOSE (did you close the tab after recording?)
-  wait_for_app_stop(3515)
+  Sys.sleep(2)
 
   # shinycannon (maybe expose other params later ...)
   target_url <- "http://127.0.0.1:3515"

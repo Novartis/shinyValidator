@@ -9,7 +9,7 @@ start_r_bg(fun, ...)
 \arguments{
 \item{fun}{Passed to \link[callr]{r_bg}.}
 
-\item{...}{Pass extra parameters to run_app. This is useful
+\item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
 \value{

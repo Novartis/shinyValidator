@@ -174,21 +174,14 @@ check_if_validator_installed <- function(cicd_platform) {
   }
 }
 
-#' Copy and rename app helpers
+#' Copy run_app_audit
 #'
 #' @keywords internal
 copy_app_file <- function() {
-  message("Copying run_app.R and archive old run_app.R function")
-  file.rename("./R/run_app.R", "./R/run_app-old.R")
+  message("Copying run_app_audit function ... ")
   file.copy(
-    system.file("run-app/run_app.R", package = "shinyValidator"),
-    "./R/run_app.R"
-  )
-  # Comment out old files
-  old_file <- readLines("./R/run_app-old.R")
-  write(
-    unlist(lapply(old_file, sub, pattern = "^", replacement = "# ")),
-    "./R/run_app-old.R"
+    system.file("run-app/run_app_audit.R", package = "shinyValidator"),
+    "./R/run_app_audit.R"
   )
 }
 

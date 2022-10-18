@@ -29,7 +29,8 @@ web browser, for instance
 See \url{https://rstudio.github.io/shinytest2/reference/AppDriver.html} to
 get all available methods.
 If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
-right after loading and after the monkey test.}
+right after loading and after the monkey test. We do not recommend running a monkey test
+if your app is pointing to a database, unless the pipeline CI/CD runs in a dedicated test environment.}
 
 \item{cran}{Whether to apply as CRAN check. Defaults to FALSE.}
 
@@ -61,7 +62,7 @@ plots and htmlwidgets. Default to TRUE.}
 
 \item{debug}{Special mode during which unit tests are skipped for faster output.}
 
-\item{...}{Pass extra parameters to run_app. This is useful
+\item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
 \description{
