@@ -3,7 +3,7 @@
 #' @return A shiny app object
 #' @export
 #' @import shiny
-run_app <- function() { # nocov start
+run_app_audit <- function() { # nocov start
   # serve js tools for Monkey test (in case proxy blocks external scripts)
   addResourcePath("gremlins", system.file("shinyValidator-js", package = "shinyValidator"))
   # DON'T CHANGE (INTERNAL TO SHINYVALIDATOR)
@@ -18,6 +18,7 @@ run_app <- function() { # nocov start
     start <- length(tmp) + 1 # start just before the closing }
     body(app_server)[[start]] <- substitute(
       onSessionEnded(function() {
+        message("CI/CD callback: APP successfully stopped by chrome")
         stopApp(reactlog())
       })
     )

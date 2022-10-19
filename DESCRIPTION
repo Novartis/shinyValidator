@@ -47,7 +47,8 @@ Imports:
     rcmdcheck,
     covr,
     flow,
-    desc
+    desc,
+    jsonlite
 Remotes: 
     rstudio/shinytest2,
     moodymudskipper/flow

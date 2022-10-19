@@ -124,7 +124,7 @@ test_that("Inject JS helpers works", {
 })
 
 test_that("Steps number correct", {
-  expect_length(steps_doc, 8)
+  expect_length(steps_doc, 9)
 })
 
 test_that("create_tabs_menu works", {

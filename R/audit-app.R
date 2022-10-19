@@ -27,6 +27,11 @@
 #' @param check_reactivity Whether to check reactivity log. Default to TRUE.
 #' @param flow Whether to display project overview. Default to TRUE.
 #' @param debug Special mode during which unit tests are skipped for faster output.
+#' @param r_version R version supported by your IT.
+#' @param locked_deps List of packages supported by your IT. For instance you
+#' can pass a dataframe like
+#' \code{available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")},
+#' or read a csv file with the same structure.
 #' @inheritParams start_r_bg
 #'
 #' @export
@@ -45,6 +50,8 @@ audit_app <- function(
   check_reactivity = TRUE,
   flow = FALSE,
   debug = FALSE,
+  r_version = NULL,
+  locked_deps = NULL,
   ...
 ) {
 
@@ -82,6 +89,7 @@ audit_app <- function(
     pkgload::load_all()
     flow::flow_view_shiny(run_app_audit, out = "public/flow.html")
   }
+  tab_deps <- check_dependencies(r_version, locked_deps)
 
   message("\n---- BEGIN REPORT GENERATION ---- \n")
 
@@ -101,7 +109,8 @@ audit_app <- function(
       system("git rev-parse --short HEAD", intern = TRUE)
     ),
     tab_package_check = tab_check$tab_package_check,
-    tab_crash_test = tab_crash_test
+    tab_crash_test = tab_crash_test,
+    tab_deps = tab_deps
   )
 
   message("\n---- ALL GOOD ---- \n")

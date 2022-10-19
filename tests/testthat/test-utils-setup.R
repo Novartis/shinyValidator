@@ -204,6 +204,7 @@ withr::with_dir(path, {
     load_test_tab <- grep("data-tab=\"load-test\"", tmp)
     profile_tab <- grep("data-tab=\"code-profile\"", tmp)
     reactivity_tab <- grep("data-tab=\"reactlog\"", tmp)
+    dependencies_tab <- grep("data-tab=\"dependencies\"", tmp)
     # Must match the tab menu item + tab content + the JS helper
     expect_length(check_tab, 3)
     expect_length(crash_tab, 3)
@@ -211,6 +212,7 @@ withr::with_dir(path, {
     expect_length(load_test_tab, 3)
     expect_length(profile_tab, 3)
     expect_length(reactivity_tab, 3)
+    expect_length(dependencies_tab, 3)
 
     # TO DO: more checks ... Maybe convert to Shiny tags and inspect structure ...
   })
