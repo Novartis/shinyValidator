@@ -34,11 +34,12 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, ...) {
       path = "public/crash-test"
     )
   }
-  
+
   chrome$stop()
   # required so that we can get_result()
   wait_for_app_stop(3515)
 
+  message("Saving profile report ... this may take a while")
   htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
 
   message("\n---- END CODE PROFILE ---- \n")
