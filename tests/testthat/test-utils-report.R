@@ -100,7 +100,7 @@ test_that("create_report_steps works", {
     check_reactivity = FALSE,
     flow = FALSE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 0)
 })
 
