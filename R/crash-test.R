@@ -145,6 +145,12 @@ run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
     call_gremlins(app, screenshot, path)
   } else {
     message("Running custom headless crash test ...")
+    # In case we don't call run_audit but
+    # run_crash_test directly... we need
+    # to substitute since it is made in run_audit
+    if (!is.language(headless_actions)) {
+      headless_actions <- substitute(headless_actions)
+    }
     # Capture expression and convert to string
     tmp <- deparse(headless_actions)
     # Modify any app$screenshot

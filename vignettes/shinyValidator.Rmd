@@ -330,13 +330,12 @@ shinyValidator::run_crash_test(headless_actions = NULL, timeout = 5)
 In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a __headless_actions__ parameter. As `{shinyValidator}` relies on `{shinytest2}`, we rely on the `set_inputs` method to manipulate the slider:
 
 ```{r, eval=FALSE}
-# Path is an internal parameter you don't need to change. 
 # app refers to the headless app instance.
-custom_horde <- {
+shinyValidator::run_crash_test({
   app$set_inputs(obs = 30)
-  app$get_screenshot(file.path(path, "plop.png"))
+  app$get_screenshot("plop.png")
   # ... pass any other commands from shinytest2 API
-}
+})
 ```
 
 Then, we can modify the `./.gitlab-ci.yml` file to account for this new element:
