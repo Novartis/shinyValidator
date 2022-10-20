@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_app.R
 \name{run_app_audit}
 \alias{run_app_audit}
-\title{Run example app}
+\title{Run example app for audit}
 \usage{
 run_app_audit()
 }
@@ -10,5 +10,5 @@ run_app_audit()
 A shiny app object
 }
 \description{
-Run example app
+Run example app for audit
 }
