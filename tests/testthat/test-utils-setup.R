@@ -14,7 +14,10 @@ withr::with_dir(path, {
     # Missing renv (maybe to remove...)
     expect_error(use_validator())
 
-    file.create("renv.lock")
+    file.copy(
+      from = system.file("./renv.lock", package = "shinyValidator"),
+      to = "./renv.lock"
+    )
     # Missing app_server.R
     expect_error(use_validator())
 

@@ -5,6 +5,18 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.0/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.0/dist/semantic.min.js"></script>
+    <style>
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .link.step .content {
+        height: 200px;
+        overflow-y: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .link.step .content::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
     <title>shinyValidator</title>
   </head>
   <body>
