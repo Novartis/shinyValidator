@@ -86,8 +86,24 @@ audit_app <- function(
   if (check_reactivity) upload_reactlog(headless_actions, timeout, ...)
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
-    pkgload::load_all()
-    flow::flow_view_shiny(run_app_audit, out = "public/flow.html")
+    flow_widget <- flow::flow_view_shiny(run_app)
+    # see https://rstudio.github.io/nomnoml/reference/nomnoml.html:
+    # svg does not seem to work well. We can either act on the JS side with this:
+    # $(function() {
+    #   var iframe = $("#flow-iframe");
+    #   var HTMLWidgets = $(iframe)[0].contentWindow.HTMLWidgets;
+    #   var flowWidget = $(iframe).contents().find("#flow-widget");
+    # });
+    # However I don't like this code. R approach is better.
+    flow_widget$x$svg <- FALSE
+    flow_widget$width <- "100%"
+    flow_widget$height <- "100%"
+    # Give it an id just in case ...
+    flow_widget$elementId <- "flow-widget"
+    htmlwidgets::saveWidget(
+      flow_widget,
+      "public/flow.html"
+    )
   }
   tab_deps <- check_dependencies(r_version, locked_deps)
 

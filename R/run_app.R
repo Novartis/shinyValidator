@@ -1,4 +1,4 @@
-#' Run example app
+#' Run example app for audit
 #'
 #' @return A shiny app object
 #' @export
@@ -28,6 +28,11 @@ run_app_audit <- function() { # nocov start
     shinyApp(app_ui, app_server),
     test.mode = TRUE
   )
+} # nocov end
+
+#' Run the Shiny Application
+run_app <- function() { # nocov start
+  shinyApp(app_ui, app_server)
 } # nocov end
 
 globalVariables(c("app_ui", "app_server"))
