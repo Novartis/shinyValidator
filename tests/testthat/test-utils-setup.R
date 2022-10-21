@@ -3,6 +3,7 @@ dir.create(path)
 
 # use withr to change directory
 withr::with_dir(path, {
+  message("\n---- TESTING SETUP ---- \n")
   test_that("Requirements", {
     # Missing description
     expect_error(use_validator())
@@ -15,7 +16,7 @@ withr::with_dir(path, {
     expect_error(use_validator())
 
     file.copy(
-      from = system.file("./renv.lock", package = "shinyValidator"),
+      from = system.file("tests/renv.lock", package = "shinyValidator"),
       to = "./renv.lock"
     )
     # Missing app_server.R
@@ -52,7 +53,6 @@ withr::with_dir(path, {
     )
 
     # Suggested pkgs
-    system("cat DESCRIPTION")
     suggests <- find_pkg_suggests()
     suggests_test <- sum(suggested_pkgs_names %in% suggests)
     expect_true(length(suggests) == suggests_test)
@@ -222,4 +222,4 @@ withr::with_dir(path, {
 })
 
 # cleanup
-#unlink(path)
+unlink(path)
