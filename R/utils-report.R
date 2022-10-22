@@ -102,7 +102,8 @@ create_report_steps <- function(
   dynamic_steps <- c(
     "Package check" = "check",
     "Crash test" = "crash-test",
-    "Output validation" = if (output_validation) "output" else NULL
+    "Output validation" = if (output_validation) "output" else NULL,
+    "Dependencies" = "dependencies"
   )
 
   # Steps for which report is just iframe
@@ -198,6 +199,9 @@ steps_doc <- c(
   "Output validation" = "The report shows noticed output differences found during unit testing.
   It is the business user responsibility to decide whether to accept the
   difference(s).",
+  "Dependencies" = "This returns the R dependencies used by your package in a nicer
+  UI. If you pass r_version and a list of locked packages, you can see if your package
+  is compliant against a locked environment.",
   "Coverage" = "Code coverage shows the amounts of code covered by unit tests.
   The higher the coverage, the higher the package reliability
   (assuming relevant unit tests).",

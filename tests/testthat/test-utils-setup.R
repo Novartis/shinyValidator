@@ -3,6 +3,7 @@ dir.create(path)
 
 # use withr to change directory
 withr::with_dir(path, {
+  message("\n---- TESTING SETUP ---- \n")
   test_that("Requirements", {
     # Missing description
     expect_error(use_validator())
@@ -14,7 +15,10 @@ withr::with_dir(path, {
     # Missing renv (maybe to remove...)
     expect_error(use_validator())
 
-    file.create("renv.lock")
+    file.copy(
+      from = system.file("tests/renv.lock", package = "shinyValidator"),
+      to = "./renv.lock"
+    )
     # Missing app_server.R
     expect_error(use_validator())
 
@@ -49,7 +53,6 @@ withr::with_dir(path, {
     )
 
     # Suggested pkgs
-    system("cat DESCRIPTION")
     suggests <- find_pkg_suggests()
     suggests_test <- sum(suggested_pkgs_names %in% suggests)
     expect_true(length(suggests) == suggests_test)
@@ -204,6 +207,7 @@ withr::with_dir(path, {
     load_test_tab <- grep("data-tab=\"load-test\"", tmp)
     profile_tab <- grep("data-tab=\"code-profile\"", tmp)
     reactivity_tab <- grep("data-tab=\"reactlog\"", tmp)
+    dependencies_tab <- grep("data-tab=\"dependencies\"", tmp)
     # Must match the tab menu item + tab content + the JS helper
     expect_length(check_tab, 3)
     expect_length(crash_tab, 3)
@@ -211,10 +215,11 @@ withr::with_dir(path, {
     expect_length(load_test_tab, 3)
     expect_length(profile_tab, 3)
     expect_length(reactivity_tab, 3)
+    expect_length(dependencies_tab, 3)
 
     # TO DO: more checks ... Maybe convert to Shiny tags and inspect structure ...
   })
 })
 
 # cleanup
-#unlink(path)
+unlink(path)

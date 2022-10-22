@@ -90,7 +90,7 @@ check_package <- function(cran = FALSE, vignettes = FALSE, error_on = "never", d
   # Prepare check tab UI
   package_check_tab_ui <- create_tab_content(
     tags$div(
-      class = "ui mini steps",
+      class = "ui mini fluid steps",
       lapply(seq_along(steps), function(i) {
         tags$div(
           class = "link step",

@@ -28,7 +28,7 @@ test_that("create_report_steps works", {
     flow = TRUE
   )
   expect_true(class(tmp) == "list")
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 4)
   expect_length(tmp[[2]], 5)
 
   # Disable output
@@ -40,7 +40,7 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 5)
 
   # Disable coverage
@@ -52,7 +52,7 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 4)
 
   # Disable load testing
@@ -64,7 +64,7 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 3)
 
   # Disable profiling
@@ -76,7 +76,7 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 2)
 
   # Disable reactlog
@@ -88,7 +88,7 @@ test_that("create_report_steps works", {
     check_reactivity = FALSE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 1)
 
   # Disable flow
@@ -100,7 +100,7 @@ test_that("create_report_steps works", {
     check_reactivity = FALSE,
     flow = FALSE
   )
-  expect_length(tmp[[1]], 2)
+  expect_length(tmp[[1]], 3)
   expect_length(tmp[[2]], 0)
 })
 
@@ -124,7 +124,7 @@ test_that("Inject JS helpers works", {
 })
 
 test_that("Steps number correct", {
-  expect_length(steps_doc, 8)
+  expect_length(steps_doc, 9)
 })
 
 test_that("create_tabs_menu works", {

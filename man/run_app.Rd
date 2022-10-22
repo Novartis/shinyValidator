@@ -2,13 +2,10 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{Run example app}
+\title{Run the Shiny Application}
 \usage{
 run_app()
 }
-\value{
-A shiny app object
-}
 \description{
-Run example app
+Run the Shiny Application
 }

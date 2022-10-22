@@ -144,7 +144,33 @@ run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
   if (is.null(headless_actions)) {
     call_gremlins(app, screenshot, path)
   } else {
-    eval(headless_actions)
+    message("Running custom headless crash test ...")
+    # In case we don't call run_audit but
+    # run_crash_test directly... we need
+    # to substitute since it is made in run_audit
+    if (!is.language(headless_actions)) {
+      headless_actions <- substitute(headless_actions)
+    }
+    # Capture expression and convert to string
+    tmp <- deparse(headless_actions)
+    # Modify any app$screenshot
+    line_to_modify <- grep(
+      "app$get_screenshot",
+      tmp,
+      fixed = TRUE
+    )
+    tmp <- gsub(
+      "app$get_screenshot(",
+      "if (screenshot) app$get_screenshot(file.path(path, ",
+      tmp,
+      fixed = TRUE
+    )
+    # Add closing ) after for file.path
+    for (line in line_to_modify) {
+      tmp[[line]] <- paste0(tmp[[line]], ")")
+    }
+    # Parse + eval
+    eval(parse(text = tmp))
   }
 }
 

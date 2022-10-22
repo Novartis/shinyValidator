@@ -19,6 +19,8 @@ audit_app(
   check_reactivity = TRUE,
   flow = FALSE,
   debug = FALSE,
+  r_version = NULL,
+  locked_deps = NULL,
   ...
 )
 }
@@ -61,6 +63,13 @@ plots and htmlwidgets. Default to TRUE.}
 \item{flow}{Whether to display project overview. Default to TRUE.}
 
 \item{debug}{Special mode during which unit tests are skipped for faster output.}
+
+\item{r_version}{R version supported by your IT.}
+
+\item{locked_deps}{List of packages supported by your IT. For instance you
+can pass a dataframe like
+\code{available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")},
+or read a csv file with the same structure.}
 
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}

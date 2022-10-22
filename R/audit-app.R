@@ -27,6 +27,11 @@
 #' @param check_reactivity Whether to check reactivity log. Default to TRUE.
 #' @param flow Whether to display project overview. Default to TRUE.
 #' @param debug Special mode during which unit tests are skipped for faster output.
+#' @param r_version R version supported by your IT.
+#' @param locked_deps List of packages supported by your IT. For instance you
+#' can pass a dataframe like
+#' \code{available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")},
+#' or read a csv file with the same structure.
 #' @inheritParams start_r_bg
 #'
 #' @export
@@ -45,6 +50,8 @@ audit_app <- function(
   check_reactivity = TRUE,
   flow = FALSE,
   debug = FALSE,
+  r_version = NULL,
+  locked_deps = NULL,
   ...
 ) {
 
@@ -79,9 +86,26 @@ audit_app <- function(
   if (check_reactivity) upload_reactlog(headless_actions, timeout, ...)
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
-    pkgload::load_all()
-    flow::flow_view_shiny(run_app_audit, out = "public/flow.html")
+    flow_widget <- flow::flow_view_shiny(run_app)
+    # see https://rstudio.github.io/nomnoml/reference/nomnoml.html:
+    # svg does not seem to work well. We can either act on the JS side with this:
+    # $(function() {
+    #   var iframe = $("#flow-iframe");
+    #   var HTMLWidgets = $(iframe)[0].contentWindow.HTMLWidgets;
+    #   var flowWidget = $(iframe).contents().find("#flow-widget");
+    # });
+    # However I don't like this code. R approach is better.
+    flow_widget$x$svg <- FALSE
+    flow_widget$width <- "100%"
+    flow_widget$height <- "100%"
+    # Give it an id just in case ...
+    flow_widget$elementId <- "flow-widget"
+    htmlwidgets::saveWidget(
+      flow_widget,
+      "public/flow.html"
+    )
   }
+  tab_deps <- check_dependencies(r_version, locked_deps)
 
   message("\n---- BEGIN REPORT GENERATION ---- \n")
 
@@ -101,7 +125,8 @@ audit_app <- function(
       system("git rev-parse --short HEAD", intern = TRUE)
     ),
     tab_package_check = tab_check$tab_package_check,
-    tab_crash_test = tab_crash_test
+    tab_crash_test = tab_crash_test,
+    tab_deps = tab_deps
   )
 
   message("\n---- ALL GOOD ---- \n")

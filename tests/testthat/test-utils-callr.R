@@ -3,6 +3,7 @@ dir.create(path)
 
 # use withr to change directory
 withr::with_dir(path, {
+  message("\n---- TESTING CALLR ---- \n")
   test_that("Start R bg works", {
     # Copy assets
     file.copy(

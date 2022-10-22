@@ -20,6 +20,7 @@ By default, `{shinyValidator}`:
 - Records an overall code profiling with `{profvis}`.
 - Audits reactivity with `{reactlog}`.
 - Provides overview of project structure with `{flow}`. 
+- Review all package dependencies against a locked environment (if provided) and show if versions are compliant.
 
 Another goal of `{shinyValidator}` is to promote testing and automation (CI/CD) to deliver better Shiny apps in production. 
 
