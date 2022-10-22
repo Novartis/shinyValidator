@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9630</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9900</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,8 @@
 <span>  check_reactivity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  flow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  r_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locked_deps <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -134,6 +136,17 @@ plots and htmlwidgets. Default to TRUE.</p></dd>
 
 <dt>debug</dt>
 <dd><p>Special mode during which unit tests are skipped for faster output.</p></dd>
+
+
+<dt>r_version</dt>
+<dd><p>R version supported by your IT.</p></dd>
+
+
+<dt>locked_deps</dt>
+<dd><p>List of packages supported by your IT. For instance you
+can pass a dataframe like
+<code>available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")</code>,
+or read a csv file with the same structure.</p></dd>
 
 
 <dt>...</dt>

@@ -43,6 +43,9 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/check_audit_requirements.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/check_dependencies.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/check_if_validator_installed.html</loc>
   </url>
   <url>
@@ -85,7 +88,13 @@
     <loc>http://opensource.nibr.com/shinyValidator/reference/find_branch.html</loc>
   </url>
   <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/find_imports.html</loc>
+  </url>
+  <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/find_main_branch.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/get_package_data.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/has_git_remote.html</loc>
@@ -131,6 +140,9 @@
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/run_app.html</loc>
+  </url>
+  <url>
+    <loc>http://opensource.nibr.com/shinyValidator/reference/run_app_audit.html</loc>
   </url>
   <url>
     <loc>http://opensource.nibr.com/shinyValidator/reference/run_crash_test.html</loc>
