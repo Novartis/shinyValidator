@@ -34,3 +34,6 @@ withr::with_dir(path, {
     file.remove("recording.log")
   })
 })
+
+# cleanup
+unlink(path)
