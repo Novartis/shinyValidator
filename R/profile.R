@@ -17,12 +17,13 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, port, ...) {
     timeout <- if (on_ci()) 20 else 10
   }
 
-  prof_app <- start_r_bg(profile_bg, port, ...)
+  bg_app <- start_r_bg(profile_bg, port, ...)
   # chrome is just needed to trigger onSessionEnded callback from app_server
   chrome <- shinytest2::AppDriver$new(
     sprintf("http://127.0.0.1:%s", port),
     load_timeout = timeout * 1000
   )
+  cleanup_on_exit(bg_app, chrome)
 
   chrome$wait_for_idle()
 
@@ -40,7 +41,7 @@ profile_app <- function(headless_actions = NULL, timeout = NULL, port, ...) {
   wait_for_app_stop(3515)
 
   message("Saving profile report ... this may take a while")
-  htmlwidgets::saveWidget(prof_app$get_result(), "public/code-profile.html")
+  htmlwidgets::saveWidget(bg_app$get_result(), "public/code-profile.html")
 
   message("\n---- END CODE PROFILE ---- \n")
 }

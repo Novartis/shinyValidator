@@ -56,27 +56,6 @@ audit_app <- function(
     ...
 ) {
 
-  # Kill process running on port in case the audit crashed
-  on.exit({
-    #shiny_process <- system(
-    #  sprintf(
-    #    "netstat -tlnp | awk '/:%s */ {split($NF,a,\"/\"); print a[2],a[1]}'",
-    #    port
-    #  ),
-    #  intern = TRUE
-    #)
-    #system(
-    #  sprintf(
-    #    "kill -9 %s",
-    #    trimws(strsplit(shiny_process, "R")[[1]][2])
-    #  )
-    #)
-    #chrome_processes <- system(
-    #  "",
-    #  intern = TRUE
-    #)
-  })
-
   if (is.null(timeout)) {
     timeout <- if (on_ci()) 20 else 10
   }

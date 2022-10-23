@@ -149,3 +149,21 @@ wait_for_app_action <- function(action = c("start", "stop"), port) {
     if (action == "start") Sys.sleep(0.5) else Sys.sleep(4)
   }
 }
+
+#' Kill ports on exit
+#'
+#' Avoid to have port taken when audit fails
+#' for any reasons
+#'
+#' @param bg_app Shiny app background process.
+#' @param chrome Chrome background process.
+#' @param recorder Recorder app background process. For shinyloadtest...
+#
+#' @keywords internal
+cleanup_on_exit <- function(bg_app, chrome, recorder = NULL) {
+  on.exit({
+    bg_app$kill()
+    chrome$stop()
+    if (!is.null(recorder)) recorder$kill()
+  })
+}

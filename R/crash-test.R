@@ -37,6 +37,7 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL, port, ...) {
     sprintf("http://127.0.0.1:%s", port),
     load_timeout = timeout * 1000
   )
+  cleanup_on_exit(bg_app, chrome)
   # wait the app to be ready before doing anything
   chrome$wait_for_idle()
 

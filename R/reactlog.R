@@ -14,11 +14,12 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, port, ...) 
     timeout <- if (on_ci()) 20 else 10
   }
 
-  reactlog_app <- start_r_bg(reactlog_bg, port, ...)
+  bg_app <- start_r_bg(reactlog_bg, port, ...)
   chrome <- shinytest2::AppDriver$new(
     sprintf("http://127.0.0.1:%s", port),
     load_timeout = timeout * 1000
   )
+  cleanup_on_exit(bg_app, chrome)
 
   chrome$wait_for_idle()
 
@@ -36,7 +37,7 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, port, ...) 
   # required so that we can get_result()
   wait_for_app_stop(3515)
   # move reactlog artifacts
-  process_reactlog(reactlog_app)
+  process_reactlog(bg_app)
 
   message("\n---- END REACTLOG ---- \n")
 }

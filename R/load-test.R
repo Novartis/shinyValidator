@@ -18,7 +18,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
   }
 
   # start app + recorder
-  target <- start_r_bg(shiny_bg, port, ...)
+  bg_app <- start_r_bg(shiny_bg, port, ...)
   recorder <- start_r_bg(recorder_bg, port)
 
   # start headless chrome (points to recorder!).
@@ -27,6 +27,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
     "http://127.0.0.1:8600",
     load_timeout = timeout * 1000
   )
+  cleanup_on_exit(bg_app, chrome, recorder)
 
   chrome$wait_for_idle()
 
@@ -53,7 +54,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
     )
   )
 
-  target$kill()
+  bg_app$kill()
 
   # Treat data and generate report
   df <- shinyloadtest::load_runs("run1")
