@@ -19,7 +19,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
 
   # start app + recorder
   bg_app <- start_r_bg(shiny_bg, port, ...)
-  recorder <- start_r_bg(recorder_bg, port)
+  recorder <- start_r_bg(recorder_bg)
 
   # start headless chrome (points to recorder!).
   # AppDriver also support remote urls.

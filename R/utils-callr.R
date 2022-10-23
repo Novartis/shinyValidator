@@ -96,8 +96,9 @@ reactlog_bg <- function(shiny_port, ...) {
 #'
 #' @return Process or error
 #' @keywords internal
-start_r_bg <- function(fun, port, ...) {
+start_r_bg <- function(fun, port = NULL, ...) {
 
+  if (is.null(port)) port <- httpuv::randomPort()
   parms <- list(shiny_port = port)
 
   func_name <- deparse(substitute(fun))
