@@ -25,16 +25,16 @@
 #'    }
 #'  )
 #' }
-run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
+run_crash_test <- function(headless_actions = NULL, timeout = NULL, port, ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
 
   if (is.null(timeout)) {
     timeout <- if (on_ci()) 20 else 10
   }
 
-  bg_app <- start_r_bg(shiny_bg, ...)
+  bg_app <- start_r_bg(shiny_bg, port, ...)
   chrome <- shinytest2::AppDriver$new(
-    "http://127.0.0.1:3515",
+    sprintf("http://127.0.0.1:%s", port),
     load_timeout = timeout * 1000
   )
   # wait the app to be ready before doing anything

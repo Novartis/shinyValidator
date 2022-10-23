@@ -4,7 +4,7 @@
 \alias{upload_reactlog}
 \title{Generate Shiny app reactlog}
 \usage{
-upload_reactlog(headless_actions = NULL, timeout = NULL, ...)
+upload_reactlog(headless_actions = NULL, timeout = NULL, port, ...)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless
@@ -19,6 +19,8 @@ if your app is pointing to a database, unless the pipeline CI/CD runs in a dedic
 \item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
 how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 on CI/CD.}
+
+\item{port}{Port to start the app, default to \code{httpuv::randomPort()}.}
 
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}

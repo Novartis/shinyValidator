@@ -7,16 +7,16 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
+upload_reactlog <- function(headless_actions = NULL, timeout = NULL, port, ...) {
   message("\n---- BEGIN REACTLOG ---- \n")
 
   if (is.null(timeout)) {
     timeout <- if (on_ci()) 20 else 10
   }
 
-  reactlog_app <- start_r_bg(reactlog_bg, ...)
+  reactlog_app <- start_r_bg(reactlog_bg, port, ...)
   chrome <- shinytest2::AppDriver$new(
-    "http://127.0.0.1:3515",
+    sprintf("http://127.0.0.1:%s", port),
     load_timeout = timeout * 1000
   )
 
@@ -29,8 +29,8 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL, ...) {
       screenshot = FALSE,
       path = "public/crash-test"
     )
-  } 
-  
+  }
+
   # shutdown
   chrome$stop()
   # required so that we can get_result()

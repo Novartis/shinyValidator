@@ -21,6 +21,7 @@ audit_app(
   debug = FALSE,
   r_version = NULL,
   locked_deps = NULL,
+  port = httpuv::randomPort(),
   ...
 )
 }
@@ -70,6 +71,8 @@ plots and htmlwidgets. Default to TRUE.}
 can pass a dataframe like
 \code{available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")},
 or read a csv file with the same structure.}
+
+\item{port}{Port to start the app, default to \code{httpuv::randomPort()}.}
 
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}

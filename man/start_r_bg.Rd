@@ -4,10 +4,12 @@
 \alias{start_r_bg}
 \title{Start background R process}
 \usage{
-start_r_bg(fun, ...)
+start_r_bg(fun, port, ...)
 }
 \arguments{
 \item{fun}{Passed to \link[callr]{r_bg}.}
+
+\item{port}{Port to start the app, default to \code{httpuv::randomPort()}.}
 
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}

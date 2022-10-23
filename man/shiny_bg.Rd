@@ -4,9 +4,12 @@
 \alias{shiny_bg}
 \title{Start run_app_audit as background process}
 \usage{
-shiny_bg(...)
+shiny_bg(shiny_port, ...)
 }
 \arguments{
+\item{shiny_port}{Port where runs the shiny apps. This is automatically
+detected in \link{start_r_bg}.}
+
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }

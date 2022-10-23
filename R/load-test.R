@@ -9,7 +9,8 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...) {
+record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
+                       port, ...) {
   message("\n---- BEGIN LOAD-TEST ---- \n")
 
   if (is.null(timeout)) {
@@ -17,8 +18,8 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...
   }
 
   # start app + recorder
-  target <- start_r_bg(shiny_bg, ...)
-  recorder <- start_r_bg(recorder_bg)
+  target <- start_r_bg(shiny_bg, port, ...)
+  recorder <- start_r_bg(recorder_bg, port)
 
   # start headless chrome (points to recorder!).
   # AppDriver also support remote urls.
@@ -44,7 +45,7 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5, ...
   Sys.sleep(2)
 
   # shinycannon (maybe expose other params later ...)
-  target_url <- "http://127.0.0.1:3515"
+  target_url <- sprintf("http://127.0.0.1:%s", port)
   system(
     sprintf(
       "shinycannon recording.log %s --workers %s --loaded-duration-minutes 2 --output-dir run1",

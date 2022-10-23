@@ -4,9 +4,12 @@
 \alias{profile_bg}
 \title{Start Shiny + profvis recorder in the background}
 \usage{
-profile_bg(...)
+profile_bg(shiny_port, ...)
 }
 \arguments{
+\item{shiny_port}{Port where runs the shiny apps. This is automatically
+detected in \link{start_r_bg}.}
+
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}
 }
