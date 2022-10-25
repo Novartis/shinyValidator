@@ -37,7 +37,7 @@ profile_app <- function(headless_actions = NULL, timeout = NULL,
 
     chrome$stop()
     # required so that we can get_result()
-    wait_for_app_stop(3515)
+    wait_for_app_stop(port)
 
     message("Saving profile report ... this may take a while")
     htmlwidgets::saveWidget(bg_app$get_result(), "public/code-profile.html")
