@@ -16,7 +16,7 @@ or targeted actions."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,12 @@ or targeted actions.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_crash_test</span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_crash_test</span><span class="op">(</span></span>
+<span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  port <span class="op">=</span> <span class="fu">httpuv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">randomPort</a></span><span class="op">(</span>max <span class="op">=</span> <span class="fl">3500</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,6 +82,10 @@ if your app is pointing to a database, unless the pipeline CI/CD runs in a dedic
 <dd><p>Time to wait after starting the subprocess (s). Useful is you know
 how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 on CI/CD.</p></dd>
+
+
+<dt>port</dt>
+<dd><p>Port to start the app, default to <code><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">httpuv::randomPort()</a></code>.</p></dd>
 
 
 <dt>...</dt>

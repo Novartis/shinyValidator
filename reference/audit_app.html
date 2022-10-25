@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,7 @@
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  r_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  locked_deps <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  port <span class="op">=</span> <span class="fu">httpuv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">randomPort</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">3000</span>, max <span class="op">=</span> <span class="fl">3500</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -147,6 +148,10 @@ plots and htmlwidgets. Default to TRUE.</p></dd>
 can pass a dataframe like
 <code>available.packages(repos = "https://cran.microsoft.com/snapshot/2017-01-19/")</code>,
 or read a csv file with the same structure.</p></dd>
+
+
+<dt>port</dt>
+<dd><p>Port to start the app, default to <code><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">httpuv::randomPort()</a></code>.</p></dd>
 
 
 <dt>...</dt>

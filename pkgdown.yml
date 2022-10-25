@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   shinyValidator: shinyValidator.html
-last_built: 2022-10-22T05:33Z
+last_built: 2022-10-25T05:48Z
 urls:
   reference: http://opensource.nibr.com/shinyValidator/reference
   article: http://opensource.nibr.com/shinyValidator/articles

@@ -12,7 +12,7 @@ record_app, ..."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,13 +51,17 @@ record_app, ..."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">start_r_bg</span><span class="op">(</span><span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">start_r_bg</span><span class="op">(</span><span class="va">fun</span>, <span class="va">port</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>fun</dt>
 <dd><p>Passed to <a href="https://callr.r-lib.org/reference/r_bg.html" class="external-link">r_bg</a>.</p></dd>
+
+
+<dt>port</dt>
+<dd><p>Port to start the app, default to <code><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">httpuv::randomPort()</a></code>.</p></dd>
 
 
 <dt>...</dt>
