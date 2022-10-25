@@ -4,7 +4,13 @@
 \alias{record_app}
 \title{Record a Shiny session}
 \usage{
-record_app(headless_actions = NULL, timeout = NULL, workers = 5, ...)
+record_app(
+  headless_actions = NULL,
+  timeout = NULL,
+  workers = 5,
+  port = httpuv::randomPort(max = 3500),
+  ...
+)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless
@@ -21,6 +27,8 @@ how much time the app takes to load. Defaults to 10 seconds locally and 20 secon
 on CI/CD.}
 
 \item{workers}{Number of workers for shinycannon. Default to 5.}
+
+\item{port}{Port to start the app, default to \code{httpuv::randomPort()}.}
 
 \item{...}{Pass extra parameters to run_app_audit. This is useful
 if you work with packages like golem.}

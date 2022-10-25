@@ -1,6 +1,6 @@
 Package: shinyValidator
 Title: Audit Shiny apps in few steps
-Version: 0.0.0.9900
+Version: 0.0.1.9000
 Authors@R: 
     person(given = "David",
            family = "Granjon",
@@ -48,7 +48,8 @@ Imports:
     covr,
     flow,
     desc,
-    jsonlite
+    jsonlite,
+    httpuv
 Remotes: 
     rstudio/shinytest2,
     moodymudskipper/flow

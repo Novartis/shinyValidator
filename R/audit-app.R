@@ -36,23 +36,24 @@
 #'
 #' @export
 audit_app <- function(
-  headless_actions = NULL,
-  cran = FALSE,
-  vignettes = FALSE,
-  error_on = "never",
-  timeout = NULL,
-  workers = 5,
-  scope = c("manual", "DMC", "POC"),
-  output_validation = FALSE,
-  coverage = TRUE,
-  load_testing = TRUE,
-  profile_code = TRUE,
-  check_reactivity = TRUE,
-  flow = FALSE,
-  debug = FALSE,
-  r_version = NULL,
-  locked_deps = NULL,
-  ...
+    headless_actions = NULL,
+    cran = FALSE,
+    vignettes = FALSE,
+    error_on = "never",
+    timeout = NULL,
+    workers = 5,
+    scope = c("manual", "DMC", "POC"),
+    output_validation = FALSE,
+    coverage = TRUE,
+    load_testing = TRUE,
+    profile_code = TRUE,
+    check_reactivity = TRUE,
+    flow = FALSE,
+    debug = FALSE,
+    r_version = NULL,
+    locked_deps = NULL,
+    port = httpuv::randomPort(min = 3000, max = 3500),
+    ...
 ) {
 
   if (is.null(timeout)) {
@@ -72,7 +73,7 @@ audit_app <- function(
   # Run check
   tab_check <- check_package(cran, vignettes, error_on, debug)
   # Run crash test
-  tab_crash_test <- run_crash_test(headless_actions, timeout, ...)
+  tab_crash_test <- run_crash_test(headless_actions, timeout, port, ...)
   # Output validation
   if (debug) output_validation <- FALSE
   tab_output_validation <- if (output_validation) {
@@ -81,9 +82,9 @@ audit_app <- function(
     NULL
   }
   # Load test, profiling, reactlog
-  if (load_testing) record_app(headless_actions, timeout, workers, ...)
-  if (profile_code) profile_app(headless_actions, timeout, ...)
-  if (check_reactivity) upload_reactlog(headless_actions, timeout, ...)
+  if (load_testing) record_app(headless_actions, timeout, workers, port, ...)
+  if (profile_code) profile_app(headless_actions, timeout, port, ...)
+  if (check_reactivity) upload_reactlog(headless_actions, timeout, port, ...)
   if (coverage) covr::gitlab(quiet = FALSE, file = "public/coverage.html")
   if (flow) {
     flow_widget <- flow::flow_view_shiny(run_app)
@@ -149,7 +150,7 @@ check_audit_requirements <- function() {
 
   has_web_browser <- suppressWarnings(
     length(system("which google-chrome", intern = TRUE)) +
-    length(system("which chromium", intern = TRUE))
+      length(system("which chromium", intern = TRUE))
   )
   if (has_web_browser == 0) {
     stop("Missing Chrome browser ...")

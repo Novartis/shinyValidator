@@ -25,48 +25,53 @@
 #'    }
 #'  )
 #' }
-run_crash_test <- function(headless_actions = NULL, timeout = NULL, ...) {
+run_crash_test <- function(headless_actions = NULL, timeout = NULL,
+                           port = httpuv::randomPort(max = 3500), ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
 
   if (is.null(timeout)) {
     timeout <- if (on_ci()) 20 else 10
   }
 
-  bg_app <- start_r_bg(shiny_bg, ...)
-  chrome <- shinytest2::AppDriver$new(
-    "http://127.0.0.1:3515",
-    load_timeout = timeout * 1000
-  )
-  # wait the app to be ready before doing anything
-  chrome$wait_for_idle()
+  tryCatch({
+    bg_app <- start_r_bg(shiny_bg, port, ...)
+    chrome <- shinytest2::AppDriver$new(
+      sprintf("http://127.0.0.1:%s", port),
+      load_timeout = timeout * 1000,
+      view = FALSE
+    )
 
-  # By default AppDriver$new waits for shiny to be IDLE 200ms
-  # after the initial timeout. No need for extra waiting here.
-  screenshots_path <- "public/crash-test"
-  if (!dir.exists(screenshots_path)) dir.create(screenshots_path, recursive = TRUE)
-  chrome$get_screenshot(file.path(screenshots_path, "1-init-crash.png"))
-  run_monkey_test(chrome, headless_actions, path = screenshots_path)
+    # By default AppDriver$new waits for shiny to be IDLE 200ms
+    # after the initial timeout. No need for extra waiting here.
+    screenshots_path <- "public/crash-test"
+    if (!dir.exists(screenshots_path)) dir.create(screenshots_path, recursive = TRUE)
+    chrome$get_screenshot(file.path(screenshots_path, "1-init-crash.png"))
+    run_monkey_test(chrome, headless_actions, path = screenshots_path)
 
-  # cleanup ports
-  chrome$stop()
-  if (bg_app$is_alive()) bg_app$kill()
+    # cleanup ports
+    chrome$stop()
+    if (bg_app$is_alive()) bg_app$kill()
 
-  message("\n---- END CRASH-TEST ---- \n")
+    message("\n---- END CRASH-TEST ---- \n")
 
-  create_tab_content(
-    tags$div(
-      class = "ui equal width grid",
-      lapply(list.files(screenshots_path), function(screenshot) {
-        tags$div(
-          class = "eight wide column",
-          tags$h2(class = "ui header", strsplit(screenshot, "\\.")[[1]][1]),
-          tags$img(src = file.path("./crash-test", screenshot), width="100%")
-        )
-      })
-    ),
-    tab_name = "crash-test",
-    title = "Crash test"
-  )
+    create_tab_content(
+      tags$div(
+        class = "ui equal width grid",
+        lapply(list.files(screenshots_path), function(screenshot) {
+          tags$div(
+            class = "eight wide column",
+            tags$h2(class = "ui header", strsplit(screenshot, "\\.")[[1]][1]),
+            tags$img(src = file.path("./crash-test", screenshot), width="100%")
+          )
+        })
+      ),
+      tab_name = "crash-test",
+      title = "Crash test"
+    )
+  }, error = function(e) {
+    message(e)
+    cleanup_on_exit(bg_app, chrome)
+  })
 }
 
 

@@ -2,12 +2,13 @@
 #'
 #' Required by \link{start_r_bg}.
 #' @inheritParams start_r_bg
+#' @inheritParams recorder_bg
 #'
 #' @keywords internal
-shiny_bg <- function(...) {
-  options(shiny.port = 3515)
+shiny_bg <- function(shiny_port, ...) {
   pkgload::load_all()
   parms <- list(...)
+  options(shiny.port = shiny_port)
   if (length(parms) > 0) {
     do.call(run_app_audit, parms)
   } else {
@@ -37,10 +38,11 @@ recorder_bg <- function(shiny_port) {
 #'
 #' Required by \link{start_r_bg}.
 #' @inheritParams start_r_bg
+#' @inheritParams recorder_bg
 #'
 #' @keywords internal
-profile_bg <- function(...) {
-  options(keep.source = TRUE, shiny.port = 3515)
+profile_bg <- function(shiny_port, ...) {
+  options(keep.source = TRUE, shiny.port = shiny_port)
   pkgload::load_all()
   .profile_code <- TRUE
   profvis::profvis(
@@ -65,13 +67,15 @@ profile_bg <- function(...) {
 #' Required by \link{start_r_bg}.
 #'
 #' @inheritParams start_r_bg
+#' @inheritParams recorder_bg
 #'
 #' @keywords internal
-reactlog_bg <- function(...) {
-  options("shiny.port" = 3515)
+reactlog_bg <- function(shiny_port, ...) {
   pkgload::load_all()
+  app_options <- list(port = shiny_port)
   .enable_reactlog <- TRUE
   reactlog::reactlog_enable()
+  options(shiny.port = shiny_port)
   parms <- list(...)
   if (length(parms) > 0) {
     do.call(run_app_audit, parms)
@@ -86,29 +90,26 @@ reactlog_bg <- function(...) {
 #' \link{record_app}, ...
 #'
 #' @param fun Passed to \link[callr]{r_bg}.
+#' @param port Port to start the app, default to \code{httpuv::randomPort()}.
 #' @param ... Pass extra parameters to run_app_audit. This is useful
 #' if you work with packages like golem.
 #'
 #' @return Process or error
 #' @keywords internal
-start_r_bg <- function(fun, ...) {
+start_r_bg <- function(fun, port, ...) {
 
-  golem_pars <- list(...)
+  parms <- list(shiny_port = port)
 
   func_name <- deparse(substitute(fun))
-  parms <- if (func_name == "recorder_bg") {
-    list(shiny_port = 3515)
-  } else {
-    list()
+  if (func_name != "recorder_bg") {
+    parms <- c(parms, list(...))
   }
-
-  port <- if (func_name == "recorder_bg") 8600 else 3515
 
   process <- callr::r_bg(
     func = fun,
     stderr= "",
     stdout = "",
-    args = if (func_name == "recorder_bg") parms else golem_pars
+    args = parms
   )
 
   wait_for_app_start(port)
@@ -145,4 +146,23 @@ wait_for_app_action <- function(action = c("start", "stop"), port) {
     message(sprintf("Waiting for Shiny app to %s ...", action))
     if (action == "start") Sys.sleep(0.5) else Sys.sleep(4)
   }
+}
+
+#' Kill ports on exit
+#'
+#' Avoid to have port taken when audit fails
+#' for any reasons
+#'
+#' @param bg_app Shiny app background process.
+#' @param chrome Chrome background process.
+#' @param recorder Recorder app background process. For shinyloadtest...
+#
+#' @keywords internal
+cleanup_on_exit <- function(bg_app, chrome, recorder = NULL) {
+  on.exit({
+    bg_app$kill()
+    #chrome$stop() TO DO: find way to clean chrome
+    if (!is.null(recorder)) recorder$kill()
+    message("SESSION CLEANED")
+  }, add = TRUE)
 }
