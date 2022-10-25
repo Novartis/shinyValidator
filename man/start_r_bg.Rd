@@ -4,7 +4,7 @@
 \alias{start_r_bg}
 \title{Start background R process}
 \usage{
-start_r_bg(fun, port = NULL, ...)
+start_r_bg(fun, port, ...)
 }
 \arguments{
 \item{fun}{Passed to \link[callr]{r_bg}.}

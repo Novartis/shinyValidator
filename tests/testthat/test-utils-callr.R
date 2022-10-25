@@ -19,12 +19,12 @@ withr::with_dir(path, {
     # Recorder needs a running shiny app in the background
     # on the provided port
     expect_error(recorder_bg("3515"))
-    shiny_app <- start_r_bg(shiny_bg)
+    shiny_app <- start_r_bg(shiny_bg, port = 3515)
     expect_s3_class(shiny_app, c("r_process", "process", "R6"))
     shiny_process <- system("netstat -plnt | grep ':3515'", intern = TRUE)
     expect_true(length(shiny_process) > 0)
 
-    recorder_app <- start_r_bg(recorder_bg)
+    recorder_app <- start_r_bg(recorder_bg, port = 3515)
     recorder_process <- system("netstat -plnt | grep ':8600'", intern = TRUE)
     expect_true(length(recorder_process) > 0)
 

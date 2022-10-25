@@ -4,7 +4,12 @@
 \alias{profile_app}
 \title{Profile a shiny app}
 \usage{
-profile_app(headless_actions = NULL, timeout = NULL, port, ...)
+profile_app(
+  headless_actions = NULL,
+  timeout = NULL,
+  port = httpuv::randomPort(max = 3500),
+  ...
+)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless

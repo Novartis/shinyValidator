@@ -4,7 +4,12 @@
 \alias{upload_reactlog}
 \title{Generate Shiny app reactlog}
 \usage{
-upload_reactlog(headless_actions = NULL, timeout = NULL, port, ...)
+upload_reactlog(
+  headless_actions = NULL,
+  timeout = NULL,
+  port = httpuv::randomPort(max = 3500),
+  ...
+)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless

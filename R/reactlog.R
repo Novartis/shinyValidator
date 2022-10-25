@@ -7,39 +7,41 @@
 #' @inheritParams start_r_bg
 #'
 #' @export
-upload_reactlog <- function(headless_actions = NULL, timeout = NULL, port, ...) {
+upload_reactlog <- function(headless_actions = NULL, timeout = NULL,
+                            port = httpuv::randomPort(max = 3500), ...) {
   message("\n---- BEGIN REACTLOG ---- \n")
 
   if (is.null(timeout)) {
     timeout <- if (on_ci()) 20 else 10
   }
 
-  bg_app <- start_r_bg(reactlog_bg, port, ...)
-  chrome <- shinytest2::AppDriver$new(
-    sprintf("http://127.0.0.1:%s", port),
-    load_timeout = timeout * 1000
-  )
-  cleanup_on_exit(bg_app, chrome)
-
-  chrome$wait_for_idle()
-
-  if (!is.null(headless_actions)) {
-    run_monkey_test(
-      chrome,
-      headless_actions,
-      screenshot = FALSE,
-      path = "public/crash-test"
+  tryCatch({
+    bg_app <- start_r_bg(reactlog_bg, port, ...)
+    chrome <- shinytest2::AppDriver$new(
+      sprintf("http://127.0.0.1:%s", port),
+      load_timeout = timeout * 1000
     )
-  }
 
-  # shutdown
-  chrome$stop()
-  # required so that we can get_result()
-  wait_for_app_stop(3515)
-  # move reactlog artifacts
-  process_reactlog(bg_app)
+    if (!is.null(headless_actions)) {
+      run_monkey_test(
+        chrome,
+        headless_actions,
+        screenshot = FALSE,
+        path = "public/crash-test"
+      )
+    }
 
-  message("\n---- END REACTLOG ---- \n")
+    # shutdown
+    chrome$stop()
+    # required so that we can get_result()
+    wait_for_app_stop(3515)
+    # move reactlog artifacts
+    process_reactlog(bg_app)
+
+    message("\n---- END REACTLOG ---- \n")
+  }, error = function(e) {
+    cleanup_on_exit(bg_app, chrome)
+  })
 }
 
 

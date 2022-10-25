@@ -4,7 +4,12 @@
 \alias{run_crash_test}
 \title{Crash test for Shiny app}
 \usage{
-run_crash_test(headless_actions = NULL, timeout = NULL, port, ...)
+run_crash_test(
+  headless_actions = NULL,
+  timeout = NULL,
+  port = httpuv::randomPort(max = 3500),
+  ...
+)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless

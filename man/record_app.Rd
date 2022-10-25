@@ -4,7 +4,13 @@
 \alias{record_app}
 \title{Record a Shiny session}
 \usage{
-record_app(headless_actions = NULL, timeout = NULL, workers = 5, port, ...)
+record_app(
+  headless_actions = NULL,
+  timeout = NULL,
+  workers = 5,
+  port = httpuv::randomPort(max = 3500),
+  ...
+)
 }
 \arguments{
 \item{headless_actions}{Custom code passed as an expression to manipulate the app with headless

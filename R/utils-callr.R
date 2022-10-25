@@ -96,17 +96,14 @@ reactlog_bg <- function(shiny_port, ...) {
 #'
 #' @return Process or error
 #' @keywords internal
-start_r_bg <- function(fun, port = NULL, ...) {
+start_r_bg <- function(fun, port, ...) {
 
-  if (is.null(port)) port <- httpuv::randomPort()
   parms <- list(shiny_port = port)
 
   func_name <- deparse(substitute(fun))
   if (func_name != "recorder_bg") {
     parms <- c(parms, list(...))
   }
-
-  port <- if (func_name == "recorder_bg") 8600 else port
 
   process <- callr::r_bg(
     func = fun,
@@ -164,7 +161,8 @@ wait_for_app_action <- function(action = c("start", "stop"), port) {
 cleanup_on_exit <- function(bg_app, chrome, recorder = NULL) {
   on.exit({
     bg_app$kill()
-    chrome$stop()
+    #chrome$stop() TO DO: find way to clean chrome
     if (!is.null(recorder)) recorder$kill()
-  })
+    message("SESSION CLEANED")
+  }, add = TRUE)
 }
