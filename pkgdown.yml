@@ -1,9 +1,9 @@
-pandoc: 2.14.2
+pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   shinyValidator: shinyValidator.html
-last_built: 2022-10-25T05:48Z
+last_built: 2022-10-28T11:49Z
 urls:
   reference: http://opensource.nibr.com/shinyValidator/reference
   article: http://opensource.nibr.com/shinyValidator/articles

@@ -78,13 +78,16 @@
 <div class="section level3">
 <h3 id="project-structure">Project structure<a class="anchor" aria-label="anchor" href="#project-structure"></a>
 </h3>
-<p><code>{shinyValidator}</code> requires the Shiny app to belong to a package. We believe that packages are relevant for a Shiny app:</p>
+<p><code>{shinyValidator}</code> requires the Shiny app to belong to a
+package. We believe that packages are relevant for a Shiny app:</p>
 <ul>
 <li>Offers easy <strong>documentation</strong>.</li>
 <li>Unit-tests.</li>
 <li>Easier to maintain.</li>
 </ul>
-<p><code>{shinyValidator}</code> has been built with <a href="https://github.com/ThinkR-open/golem" class="external-link">golem</a> in mind. Particularly, it expects to have these functions:</p>
+<p><code>{shinyValidator}</code> has been built with
+<a href="https://github.com/ThinkR-open/golem" class="external-link">golem</a> in mind. Particularly, it expects to have these
+functions:</p>
 <ul>
 <li>
 <code>app_server()</code>.</li>
@@ -93,7 +96,16 @@
 <li>
 <code><a href="../reference/run_app.html">run_app()</a></code>.</li>
 </ul>
-<p>Under the hood, <code>{shinyValidator}</code> brings its own version of <code><a href="../reference/run_app.html">run_app()</a></code>, namely <code><a href="../reference/run_app_audit.html">run_app_audit()</a></code> to inject various elements necessary to the validation steps. It also automatically creates a CI/CD file template so that the workflow is ready to run on Github Actions or Gitlab CI/CD. Other elements such as a custom <code>.lintr</code> file and package suggests are imported to reduce the amount of work you have to do. Finally, a few JavaScript (JS) assets are copied as they are necessary to run the <a href="https://en.wikipedia.org/wiki/Monkey_testing" class="external-link">Monkey</a> tests, thereby preventing proxy issues from blocking external JS assets in corporate environments.</p>
+<p>Under the hood, <code>{shinyValidator}</code> brings its own version
+of <code><a href="../reference/run_app.html">run_app()</a></code>, namely <code><a href="../reference/run_app_audit.html">run_app_audit()</a></code> to inject
+various elements necessary to the validation steps. It also
+automatically creates a CI/CD file template so that the workflow is
+ready to run on Github Actions or Gitlab CI/CD. Other elements such as a
+custom <code>.lintr</code> file and package suggests are imported to
+reduce the amount of work you have to do. Finally, a few JavaScript (JS)
+assets are copied as they are necessary to run the <a href="https://en.wikipedia.org/wiki/Monkey_testing" class="external-link">Monkey</a> tests,
+thereby preventing proxy issues from blocking external JS assets in
+corporate environments.</p>
 </div>
 <div class="section level3">
 <h3 id="typical-setup-workflow-with-golem">Typical setup workflow with {golem}<a class="anchor" aria-label="anchor" href="#typical-setup-workflow-with-golem"></a>
@@ -114,17 +126,25 @@
 <div class="section level4">
 <h4 id="prepare-renv">Prepare {renv}<a class="anchor" aria-label="anchor" href="#prepare-renv"></a>
 </h4>
-<p>Before using <a href="https://rstudio.github.io/renv/" class="external-link">renv</a>, we suggest to create a <code>.Renviron</code> file containing:</p>
+<p>Before using <a href="https://rstudio.github.io/renv/" class="external-link">renv</a>, we suggest to create a
+<code>.Renviron</code> file containing:</p>
 <pre class="shell"><code>RENV_PATHS_LIBRARY_ROOT = ~/.renv/library</code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"echo 'RENV_PATHS_LIBRARY_ROOT = ~/.renv/library' &gt;&gt; .Renviron"</span><span class="op">)</span></span></code></pre></div>
 <p>and restart R.</p>
-<p>Overall, this options creates the <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> library outside the current Shiny app project folder, which avoids delays during <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> and <code><a href="https://devtools.r-lib.org/reference/build.html" class="external-link">devtools::build()</a></code>.</p>
+<p>Overall, this options creates the <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> library outside
+the current Shiny app project folder, which avoids delays during
+<code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> and <code><a href="https://devtools.r-lib.org/reference/build.html" class="external-link">devtools::build()</a></code>.</p>
 </div>
 <div class="section level4">
 <h4 id="setting-up-renv">Setting up {renv}<a class="anchor" aria-label="anchor" href="#setting-up-renv"></a>
 </h4>
-<p>Before initializing <code>{shinyValidator}</code>, <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> must be activated in your project. It allows you to properly maintain your dependencies and isolate each project. This way, it prevents from accidentally breaking the code after installing a new package version that could be incompatible with your current code base. While this is more efforts, it is a game changer in the long run.</p>
+<p>Before initializing <code>{shinyValidator}</code>,
+<a href="https://rstudio.github.io/renv/" class="external-link">renv</a> must be activated in your project. It allows you to
+properly maintain your dependencies and isolate each project. This way,
+it prevents from accidentally breaking the code after installing a new
+package version that could be incompatible with your current code base.
+While this is more efforts, it is a game changer in the long run.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DaVinci renv</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/renv/" class="external-link">renv</a></span><span class="op">)</span></span>
@@ -137,7 +157,11 @@
 <span></span>
 <span><span class="co"># Capture new dependencies after package installation</span></span>
 <span><span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>As a side note, <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> may also be used during <a href="https://rstudio.github.io/renv/articles/ci.html" class="external-link">CI/CD</a> (see an example <a href="https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv" class="external-link">here</a>). To have faster package restoration with <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> during CI/CD, you may replace the CRAN repository and point to binaries, below for Linux:</p>
+<p>As a side note, <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> may also be used during <a href="https://rstudio.github.io/renv/articles/ci.html" class="external-link">CI/CD</a> (see an
+example <a href="https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv" class="external-link">here</a>).
+To have faster package restoration with <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> during
+CI/CD, you may replace the CRAN repository and point to binaries, below
+for Linux:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="er">"R":</span> <span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"Version"</span><span class="fu">:</span> <span class="st">"4.1.0"</span><span class="fu">,</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"Repositories"</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -151,7 +175,9 @@
 <div class="section level4">
 <h4 id="shinyvalidator-setup">{shinyValidator} setup<a class="anchor" aria-label="anchor" href="#shinyvalidator-setup"></a>
 </h4>
-<p>If your are using Github, don’t forget to connect the remote repository to the local one before initializing <code>{shinyValidator}</code>.</p>
+<p>If your are using Github, don’t forget to connect the remote
+repository to the local one before initializing
+<code>{shinyValidator}</code>.</p>
 <p>Below shows how to activate <code>{shinyValidator}</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Novartis/shinyValidator"</span><span class="op">)</span></span>
@@ -160,7 +186,8 @@
 <span><span class="fu"><a href="../reference/use_validator.html">use_validator</a></span><span class="op">(</span><span class="st">"github"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># update help</span></span>
 <span><span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/audit_app.html">audit_app()</a></code> is the main package function. It essentially runs a series of tests based on the predefined parameters or scope:</p>
+<p><code><a href="../reference/audit_app.html">audit_app()</a></code> is the main package function. It essentially
+runs a series of tests based on the predefined parameters or scope:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span></span>
 <span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -179,22 +206,36 @@
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Although primarily meant to be called from CI/CD, it may also run locally, provided that you have <code>shinycannon</code>and a Chrome-based browser. Fortunately, <code><a href="../reference/audit_app.html">audit_app()</a></code> is able to detect any compatibility issue and accordingly warn you.</p>
-<p><code><a href="../reference/audit_app.html">audit_app()</a></code> gives you the flexibility to choose whatever level of testing you want. The following code will only enable basic check and linting:</p>
+<p>Although primarily meant to be called from CI/CD, it may also run
+locally, provided that you have <code>shinycannon</code>and a
+Chrome-based browser. Fortunately, <code><a href="../reference/audit_app.html">audit_app()</a></code> is able to
+detect any compatibility issue and accordingly warn you.</p>
+<p><code><a href="../reference/audit_app.html">audit_app()</a></code> gives you the flexibility to choose whatever
+level of testing you want. The following code will only enable basic
+check and linting:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span>scope <span class="op">=</span> <span class="st">"POC"</span><span class="op">)</span> <span class="co"># Proof of concept</span></span></code></pre></div>
 <p>At the moment, 3 predefined scopes exist:</p>
 <ul>
-<li>manual: You have full control on the level of testing you want to apply. This is the default choice.</li>
-<li>DMC: setup validation tools for DMC apps (data monitoring committee, an independent group responsible to assess the efficacy and safety for patients in a clinical trial), where testing expectations are very high.</li>
-<li>POC: setup validation tools for proof of concept apps, where minor testing is required.</li>
+<li>manual: You have full control on the level of testing you want to
+apply. This is the default choice.</li>
+<li>DMC: setup validation tools for DMC apps (data monitoring committee,
+an independent group responsible to assess the efficacy and safety for
+patients in a clinical trial), where testing expectations are very
+high.</li>
+<li>POC: setup validation tools for proof of concept apps, where minor
+testing is required.</li>
 </ul>
 </div>
 </div>
 <div class="section level3">
 <h3 id="what-you-still-have-to-do">What you still have to do<a class="anchor" aria-label="anchor" href="#what-you-still-have-to-do"></a>
 </h3>
-<p>Even though <code>{shinyValidator}</code> offers many helpers, there is still some work to be done, particularly for output validation (plots, htmlwidgets, …), and testing in general. Importantly, <code>{shinyValidator}</code> <strong>will not</strong> automatically write such tests for you, like unit tests.</p>
+<p>Even though <code>{shinyValidator}</code> offers many helpers, there
+is still some work to be done, particularly for output validation
+(plots, htmlwidgets, …), and testing in general. Importantly,
+<code>{shinyValidator}</code> <strong>will not</strong> automatically
+write such tests for you, like unit tests.</p>
 <p>As a reminder, to initialize tests in a package, you run:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">use_testthat</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Init tests folder structure</span></span>
@@ -202,7 +243,13 @@
 <div class="section level4">
 <h4 id="note-about-shiny-server-testing">Note about Shiny server testing<a class="anchor" aria-label="anchor" href="#note-about-shiny-server-testing"></a>
 </h4>
-<p>Shiny server function <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">testing</a> consists of simulating a mock session, thereby providing access to reactive values, inputs and outputs, like you would have in a real session. This is very convenient to check how Shiny modules interact together for instance. However, none of this can be automated, which means these tests will have to be written by someone. As an example, assume a Shiny app with this server function:</p>
+<p>Shiny server function <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">testing</a>
+consists of simulating a mock session, thereby providing access to
+reactive values, inputs and outputs, like you would have in a real
+session. This is very convenient to check how Shiny modules interact
+together for instance. However, none of this can be automated, which
+means these tests will have to be written by someone. As an example,
+assume a Shiny app with this server function:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">app_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Your application server logic</span></span>
@@ -219,8 +266,12 @@
 <span>  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Notice how inputs are set. This is because the test is run without the UI part. Therefore, it is the developer’s responsibility to drive the UI.</p>
-<p>Important note: if you had to test Shiny modules, server testing only works with the <code>moduleServer()</code> API (new API). For instance, let’s rewrite the previous server function as a module:</p>
+<p>Notice how inputs are set. This is because the test is run without
+the UI part. Therefore, it is the developer’s responsibility to drive
+the UI.</p>
+<p>Important note: if you had to test Shiny modules, server testing only
+works with the <code>moduleServer()</code> API (new API). For instance,
+let’s rewrite the previous server function as a module:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_base_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">extra</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
@@ -236,7 +287,8 @@
 <span>  <span class="va">session</span><span class="op">$</span><span class="fu">setInputs</span><span class="op">(</span>obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span>  <span class="fu">expect_error</span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">distPlot</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>We leave the reader refer to the official <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">documentation</a> for further use cases.</p>
+<p>We leave the reader refer to the official <a href="https://shiny.rstudio.com/articles/server-function-testing.html" class="external-link">documentation</a>
+for further use cases.</p>
 </div>
 </div>
 <div class="section level3">
@@ -246,22 +298,38 @@
 <div class="section level4">
 <h4 id="lint">Lint<a class="anchor" aria-label="anchor" href="#lint"></a>
 </h4>
-<p>We believe that a good R project has consistent R style. This is particularly relevant when many people contribute to the same code base. Assuming we all have slightly different preferences, how do we maintain consistency after each commit?</p>
-<p>Tools like <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a>, a static code reviewer for R, help doing this with a pretty straightforward API. The first step of the <code>{shinyValidator}</code> pipeline utilizes <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> to quickly analyse the <code>./R</code> folder (default):</p>
+<p>We believe that a good R project has consistent R style. This is
+particularly relevant when many people contribute to the same code base.
+Assuming we all have slightly different preferences, how do we maintain
+consistency after each commit?</p>
+<p>Tools like <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a>, a static code reviewer for R, help
+doing this with a pretty straightforward API. The first step of the
+<code>{shinyValidator}</code> pipeline utilizes <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> to
+quickly analyse the <code>./R</code> folder (default):</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="st">"R"</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p>If you had to check more than one folder, you can pass a vector instead:</p>
+<p>If you had to check more than one folder, you can pass a vector
+instead:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/lint_code.html">lint_code</a></span><span class="op">(</span>paths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"tests/testthat"</span><span class="op">)</span>, tolerance <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p>The tolerance is the number or errors to allow, which defaults to 0. We recommend not changing it and play the game!</p>
-<p>This function may be called locally and we strongly suggest doing so since it may ease the debugging process (rather than on CI/CD). As shown in the following figure, the lintr found an issue in the <code>app_server.R</code> file , line 6 with an extra white space, which has to be removed.</p>
+<p>The tolerance is the number or errors to allow, which defaults to 0.
+We recommend not changing it and play the game!</p>
+<p>This function may be called locally and we strongly suggest doing so
+since it may ease the debugging process (rather than on CI/CD). As shown
+in the following figure, the lintr found an issue in the
+<code>app_server.R</code> file , line 6 with an extra white space, which
+has to be removed.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-lintr.png" alt="Example of linting output during CI/CD." width="75%"><p class="caption">
 Example of linting output during CI/CD.
 </p>
 </div>
-<p>We strongly encourage to use <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> at the beginning of a project since the number of errors after 1 year of coding might be important and frustrating to debug.</p>
-<p>If you think that <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> is too strict, you may fine tune its <a href="https://github.com/r-lib/lintr#available-linters" class="external-link">behavior</a> by changing the <code>.lintr</code> file:</p>
+<p>We strongly encourage to use <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> at the beginning of
+a project since the number of errors after 1 year of coding might be
+important and frustrating to debug.</p>
+<p>If you think that <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> is too strict, you may fine
+tune its <a href="https://github.com/r-lib/lintr#available-linters" class="external-link">behavior</a> by
+changing the <code>.lintr</code> file:</p>
 <pre class="shell"><code><span><span class="va">linters</span><span class="op">:</span></span>
 <span>  <span class="fu">with_defaults</span><span class="op">(</span></span>
 <span>    line_length_linter <span class="op">=</span> <span class="fu">line_length_linter</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
@@ -276,7 +344,8 @@ Example of linting output during CI/CD.
 <div class="section level4">
 <h4 id="package-check-and-build">Package check and build<a class="anchor" aria-label="anchor" href="#package-check-and-build"></a>
 </h4>
-<p>While <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> analyses R code, <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> audits the overall package quality:</p>
+<p>While <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> analyses R code,
+<code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> audits the overall package quality:</p>
 <ul>
 <li>Check that package can be built.</li>
 <li>Check for non standard files/folder.</li>
@@ -291,8 +360,17 @@ Example of linting output during CI/CD.
 Package check report for {shinyValidator}.
 </p>
 </div>
-<p>Pretty much any error may be captured, which ultimately guarantees a high quality project, easy to maintain. Each potential issue is labelled as either NOTE, WARNING or in the worse case ERROR. In general, you don’t want to see ERROR nor WARNING. Few NOTES may be tolerated (in theory), although in practice, NOTES are most of the time rejected from CRAN submissions.</p>
-<p>This step is crucial since it ensures global package quality. By default, <code>{shinyValidator}</code> will not check vignettes nor CRAN. This may however be customized depending on needs in the CI/CD file. For instance, in the <code>./.gitlab-ci.yml</code>, we can control what parameter to pass to <code><a href="../reference/audit_app.html">audit_app()</a></code>:</p>
+<p>Pretty much any error may be captured, which ultimately guarantees a
+high quality project, easy to maintain. Each potential issue is labelled
+as either NOTE, WARNING or in the worse case ERROR. In general, you
+don’t want to see ERROR nor WARNING. Few NOTES may be tolerated (in
+theory), although in practice, NOTES are most of the time rejected from
+CRAN submissions.</p>
+<p>This step is crucial since it ensures global package quality. By
+default, <code>{shinyValidator}</code> will not check vignettes nor
+CRAN. This may however be customized depending on needs in the CI/CD
+file. For instance, in the <code>./.gitlab-ci.yml</code>, we can control
+what parameter to pass to <code><a href="../reference/audit_app.html">audit_app()</a></code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
@@ -301,11 +379,14 @@ Package check report for {shinyValidator}.
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> public</span></span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
-<p>For GitHub Actions, you’ll have to modify the <code>.github/workflows/shiny-validator.yaml</code> file:</p>
+<p>For GitHub Actions, you’ll have to modify the
+<code>.github/workflows/shiny-validator.yaml</code> file:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Audit app 🏥</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">run</span><span class="kw">:</span><span class="at"> shinyValidator::audit_app()</span><span class="co"> # Customize here ...</span></span></code></pre></div>
-<p><code>{shinyValidator}</code> automatically generate a coverage report (See <a href="https://covr.r-lib.org/" class="external-link">{covr}</a>), which gives a rather good idea of the code testing state.</p>
+<p><code>{shinyValidator}</code> automatically generate a coverage
+report (See <a href="https://covr.r-lib.org/" class="external-link">{covr}</a>), which gives a
+rather good idea of the code testing state.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-coverage.png" alt="Coverage report available in {shinyValidator}" width="75%"><p class="caption">
 Coverage report available in {shinyValidator}
@@ -315,24 +396,43 @@ Coverage report available in {shinyValidator}
 <div class="section level4">
 <h4 id="crash-test">Crash test<a class="anchor" aria-label="anchor" href="#crash-test"></a>
 </h4>
-<p>If the two previous steps ensure global code quality, it does not check whether the application starts properly and remains alive after basic usage.</p>
+<p>If the two previous steps ensure global code quality, it does not
+check whether the application starts properly and remains alive after
+basic usage.</p>
 <p>This is where the crash test comes to play. It first:</p>
 <ul>
 <li>Checks whether the app starts.</li>
-<li>Manipulates the app and checks if it remains alive after some time.</li>
+<li>Manipulates the app and checks if it remains alive after some
+time.</li>
 </ul>
-<p>This step leverages R subprocesses, the idea being to start the app on a child process, connect to the app with a <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" class="external-link">headless</a> web-browser (without display). The <code>run_crash-test()</code> function has two parameters:</p>
+<p>This step leverages R subprocesses, the idea being to start the app
+on a child process, connect to the app with a <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" class="external-link">headless</a>
+web-browser (without display). The <code>run_crash-test()</code>
+function has two parameters:</p>
 <ul>
 <li>
-<strong>headless_actions</strong>: required if you want to provide custom instructions to manipulate the app with a headless browser. By default, <code>{shinyValidator}</code> performs a <a href="https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic" class="external-link">Monkey test</a> (see also <a href="https://github.com/marmelab/gremlins.js/blob/master/README.md" class="external-link">here</a>), which consists of triggering random events on the app such as clicks, scroll, input change, … for 10 seconds.</li>
+<strong>headless_actions</strong>: required if you want to provide
+custom instructions to manipulate the app with a headless browser. By
+default, <code>{shinyValidator}</code> performs a <a href="https://engineering-shiny.org/build-yourself-safety-net.html#testing-the-interactive-logic" class="external-link">Monkey
+test</a> (see also <a href="https://github.com/marmelab/gremlins.js/blob/master/README.md" class="external-link">here</a>),
+which consists of triggering random events on the app such as clicks,
+scroll, input change, … for 10 seconds.</li>
 <li>
-<strong>timeout</strong>: if the app takes time to load, you have to adjust this value.</li>
+<strong>timeout</strong>: if the app takes time to load, you have to
+adjust this value.</li>
 <li>
-<strong>…</strong>: to pass any parameter to <code><a href="../reference/run_app_audit.html">run_app_audit()</a></code>.</li>
+<strong>…</strong>: to pass any parameter to
+<code><a href="../reference/run_app_audit.html">run_app_audit()</a></code>.</li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/run_crash_test.html">run_crash_test</a></span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p>In the following screenshot, since the app is not particularly complex (there is only one slider input), there is no need for a Monkey test. Therefore, we start the app and change the slider input value to 200. This requires to pass a <strong>headless_actions</strong> parameter. As <code>{shinyValidator}</code> relies on <a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a>, we rely on the <code>set_inputs</code> method to manipulate the slider:</p>
+<p>In the following screenshot, since the app is not particularly
+complex (there is only one slider input), there is no need for a Monkey
+test. Therefore, we start the app and change the slider input value to
+200. This requires to pass a <strong>headless_actions</strong>
+parameter. As <code>{shinyValidator}</code> relies on
+<a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a>, we rely on the <code>set_inputs</code> method
+to manipulate the slider:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app refers to the headless app instance.</span></span>
 <span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/run_crash_test.html">run_crash_test</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -340,7 +440,8 @@ Coverage report available in {shinyValidator}
 <span>  <span class="va">app</span><span class="op">$</span><span class="fu">get_screenshot</span><span class="op">(</span><span class="st">"plop.png"</span><span class="op">)</span></span>
 <span>  <span class="co"># ... pass any other commands from shinytest2 API</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Then, we can modify the <code>./.gitlab-ci.yml</code> file to account for this new element:</p>
+<p>Then, we can modify the <code>./.gitlab-ci.yml</code> file to account
+for this new element:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auditing</span><span class="kw">:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> audit</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
@@ -351,14 +452,21 @@ Coverage report available in {shinyValidator}
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">expire_in</span><span class="kw">:</span><span class="at"> 30 days</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-crashtest.png" alt="Crash test. Left: a snapshot is taken after initial app loading. Right: app undergo some usage, another snapshot is taken." width="75%"><p class="caption">
-Crash test. Left: a snapshot is taken after initial app loading. Right: app undergo some usage, another snapshot is taken.
+Crash test. Left: a snapshot is taken after initial app loading. Right:
+app undergo some usage, another snapshot is taken.
 </p>
 </div>
 </div>
 <div class="section level4">
 <h4 id="output-validation">Output validation<a class="anchor" aria-label="anchor" href="#output-validation"></a>
 </h4>
-<p>During CI/CD, <code>{shinyValidator}</code> runs a global output snapshot comparison to check whether the current commit shows similar results as the current snapshot (as a reminder, you have to initialize a first snapshot locally, which will server as reference for future comparison). This however requires to have predefined tests, for instance in <code>test-basic-plot.R</code> for a static base plot (work similarly for <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>):</p>
+<p>During CI/CD, <code>{shinyValidator}</code> runs a global output
+snapshot comparison to check whether the current commit shows similar
+results as the current snapshot (as a reminder, you have to initialize a
+first snapshot locally, which will server as reference for future
+comparison). This however requires to have predefined tests, for
+instance in <code>test-basic-plot.R</code> for a static base plot (work
+similarly for <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>):</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">make_hist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">val</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">val</span><span class="op">)</span><span class="op">)</span></span>
@@ -367,7 +475,8 @@ Crash test. Left: a snapshot is taken after initial app loading. Right: app unde
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> <span class="co"># to avoid the test from failing due to randomness :)</span></span>
 <span>  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"Base graphics histogram"</span>, <span class="fu">make_hist</span><span class="op">(</span><span class="fl">500</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>and <code>test-echarts4r.R</code> for an <a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a> powered graph (htmlwidget):</p>
+<p>and <code>test-echarts4r.R</code> for an <a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a>
+powered graph (htmlwidget):</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"echarts4r ok"</span>, <span class="op">{</span></span>
 <span>  <span class="va">snapshot_widget</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">{</span></span>
@@ -377,7 +486,10 @@ Crash test. Left: a snapshot is taken after initial app loading. Right: app unde
 <span>  </span>
 <span>  <span class="fu">expect_snapshot_file</span><span class="op">(</span><span class="fu">snapshot_widget</span><span class="op">(</span><span class="st">"tmp_echarts_plot.html"</span><span class="op">)</span>, <span class="st">"echarts_plot.html"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>Don’t forget to account for random number generation if you are using <code>rnorm</code> for instance. Whenever you modify the app, you have to run <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> locally to create snapshots of the plots. If any difference is detected, the test will fail:</p>
+<p>Don’t forget to account for random number generation if you are using
+<code>rnorm</code> for instance. Whenever you modify the app, you have
+to run <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> locally to create snapshots of the
+plots. If any difference is detected, the test will fail:</p>
 <pre class="shell"><code>x |   0 1     | basic-plot [0.1 s]                       
 ─────────────────────────────────────────────────────────
 Failure (test-basic-plot.R:3:3): Base plot OK
@@ -394,7 +506,11 @@ Duration: 33.0 s
 [ FAIL 3 | WARN 1 | SKIP 0 | PASS 1 ]
 
 Keep trying!</code></pre>
-<p><code>{shinyValidator}</code> displays a visual widgets (based on <a href="https://diffviewer.r-lib.org" class="external-link">diffviewer</a>) for each detected snapshot difference, allowing the developer to compare the current outputs to reference snapshot. It is the developer’s responsibility to decide whether to accept the changes. This may be done locally with:</p>
+<p><code>{shinyValidator}</code> displays a visual widgets (based on
+<a href="https://diffviewer.r-lib.org" class="external-link">diffviewer</a>) for each detected snapshot difference,
+allowing the developer to compare the current outputs to reference
+snapshot. It is the developer’s responsibility to decide whether to
+accept the changes. This may be done locally with:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/snapshot_accept.html" class="external-link">snapshot_review</a></span><span class="op">(</span><span class="st">'basic-plot'</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -407,35 +523,64 @@ Output validation example. Left: static plot. Right: htmlwidget data.
 <div class="section level3">
 <h3 id="performance-audit">Performance audit<a class="anchor" aria-label="anchor" href="#performance-audit"></a>
 </h3>
-<p>The following tests are not as important as the app validation. Yet, if you want to offer optimized user experience, they are of great help.</p>
+<p>The following tests are not as important as the app validation. Yet,
+if you want to offer optimized user experience, they are of great
+help.</p>
 <div class="section level4">
 <h4 id="load-test">Load test<a class="anchor" aria-label="anchor" href="#load-test"></a>
 </h4>
-<p>A load test consists of checking whether a Shiny app handles multiple concurrent users without suffering from major performance issues. To the best of our knowledge, there is currently only one package allowing to audit Shiny apps load, that is <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">{shinyloadtest}</a>.</p>
+<p>A load test consists of checking whether a Shiny app handles multiple
+concurrent users without suffering from major performance issues. To the
+best of our knowledge, there is currently only one package allowing to
+audit Shiny apps load, that is <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">{shinyloadtest}</a>.</p>
 <p>A load tests is composed of 3 steps:</p>
 <ul>
-<li>The end user (or the developer) records a realistic user session.</li>
-<li>This session is replayed in parallel to simulate simultaneous users.</li>
+<li>The end user (or the developer) records a realistic user
+session.</li>
+<li>This session is replayed in parallel to simulate simultaneous
+users.</li>
 <li>Results are analyzed.</li>
 </ul>
 <p>From a technical point of view, there are 2 pieces of software:</p>
 <ul>
 <li>
-<a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> provides the session recorder, stores logs and returns an HTML report.</li>
+<a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> provides the session recorder, stores
+logs and returns an HTML report.</li>
 <li>
-<strong>shinycannon</strong> is a cli tool that replays sessions in parallel.</li>
+<strong>shinycannon</strong> is a cli tool that replays sessions in
+parallel.</li>
 </ul>
-<p>In theory, the recording step is manual. However, it is entirely possible to automate it with a headless web-browser. The idea being to provide a realistic set of instructions to manipulate the app. This is usually the trickiest part, but tools like the <code>{shinytest}2</code> recorder can generate the replay <a href="https://rstudio.github.io/shinytest/articles/in-depth.html" class="external-link">script</a>. <code>{shinyValidator}</code> offers both approaches with the <code><a href="../reference/record_app.html">record_app()</a></code> function:</p>
+<p>In theory, the recording step is manual. However, it is entirely
+possible to automate it with a headless web-browser. The idea being to
+provide a realistic set of instructions to manipulate the app. This is
+usually the trickiest part, but tools like the <code>{shinytest}2</code>
+recorder can generate the replay <a href="https://rstudio.github.io/shinytest/articles/in-depth.html" class="external-link">script</a>.
+<code>{shinyValidator}</code> offers both approaches with the
+<code><a href="../reference/record_app.html">record_app()</a></code> function:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/record_app.html">record_app</a></span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="fl">5</span>, workers <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span>;</span></code></pre></div>
-<p><strong>workers</strong> corresponds to the number of parallel sessions replayed by <code>shinycannon</code> in the background. <strong>timeout</strong> is the time taken the the app to be ready and <strong>headless_actions</strong> is a parameter to provide custom manipulations with the <a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a> API.</p>
-<p>In the following screenshot, we still play with the same demo app having only one slider input. The app is started locally on a R subprocess, then we connect the <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> recorder. We manipulate the app with the headless browser. The recorder is stopped as well as the headless browser and <code>shinycannon</code> replays the app (this is the longest part, depending on the number of workers).</p>
+<p><strong>workers</strong> corresponds to the number of parallel
+sessions replayed by <code>shinycannon</code> in the background.
+<strong>timeout</strong> is the time taken the the app to be ready and
+<strong>headless_actions</strong> is a parameter to provide custom
+manipulations with the <a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a> API.</p>
+<p>In the following screenshot, we still play with the same demo app
+having only one slider input. The app is started locally on a R
+subprocess, then we connect the <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> recorder.
+We manipulate the app with the headless browser. The recorder is stopped
+as well as the headless browser and <code>shinycannon</code> replays the
+app (this is the longest part, depending on the number of workers).</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-loadtest-cicd.png" alt="Load test during CICD" width="75%"><p class="caption">
 Load test during CICD
 </p>
 </div>
-<p>At the end, an HTML report with relevant results is generated. Overall, the blue area represent calculations. Ultimately, you want to see as less blue area as possible, compared to the grey area (time the app is resting). We leave the reader fallback to the official <a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> <a href="https://rstudio.github.io/shinyloadtest/articles/analyzing-load-test-logs.html" class="external-link">documentation</a> to get a thorough overview of load testing interpretation.</p>
+<p>At the end, an HTML report with relevant results is generated.
+Overall, the blue area represent calculations. Ultimately, you want to
+see as less blue area as possible, compared to the grey area (time the
+app is resting). We leave the reader fallback to the official
+<a href="https://rstudio.github.io/shinyloadtest/" class="external-link">shinyloadtest</a> <a href="https://rstudio.github.io/shinyloadtest/articles/analyzing-load-test-logs.html" class="external-link">documentation</a>
+to get a thorough overview of load testing interpretation.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-loadtest-report.png" alt="Load test HTML report" width="75%"><p class="caption">
 Load test HTML report
@@ -445,32 +590,65 @@ Load test HTML report
 <pre class="shell"><code>load-test - HTTP Latency [====&gt;----------------------------------------------------------] 2/26 eta: 
 0sError in svglite_(filename, bg, width, height, pointsize, standalone,  : 
   Graphics API version mismatch</code></pre>
-<p>This is a known <a href="https://github.com/r-lib/svglite/issues/71" class="external-link">issue</a>. Reinstall <a href="https://svglite.r-lib.org" class="external-link">svglite</a> from source:</p>
+<p>This is a known <a href="https://github.com/r-lib/svglite/issues/71" class="external-link">issue</a>. Reinstall
+<a href="https://svglite.r-lib.org" class="external-link">svglite</a> from source:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"svglite"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="reactivity-analysis">Reactivity analysis<a class="anchor" aria-label="anchor" href="#reactivity-analysis"></a>
 </h4>
-<p><a href="https://shiny.rstudio.com/" class="external-link">shiny</a> is built on top the reactive programming concept. While it has many advantages (like caching), it is fairly straightforward to get lost in the reactive inferno, leading to very unstable apps.</p>
-<p>Have you already experienced situations where a reactive expression did not update, an output did not react to the related input change or a reactive expression changed when a supposedly non-related input was changed? Don’t lie. I am sure you did …</p>
-<p><code>{reaclog}</code> is the tool you were looking for. It offers a network representation of the app reactivity, allowing to quickly identify potential issues. The reader will refer to the comprehensive guide <a href="https://rstudio.github.io/reactlog/articles/reactlog.html#reactlog-in-detail-1" class="external-link">here</a>.</p>
-<p>In the background, <code>{shinyValidator}</code> automatically starts the app in the background, wait for Shiny to be available, stops the app and returns the reactlog object. The reactlog is in turn exported as a standalone HTML widget to be included in the validation report, as shown below. You may fine tune the <strong>timeout</strong> parameter to account for the app loading duration and also add custom manipulation through <strong>headless_actions</strong>:</p>
+<p><a href="https://shiny.rstudio.com/" class="external-link">shiny</a> is built on top the reactive programming
+concept. While it has many advantages (like caching), it is fairly
+straightforward to get lost in the reactive inferno, leading to very
+unstable apps.</p>
+<p>Have you already experienced situations where a reactive expression
+did not update, an output did not react to the related input change or a
+reactive expression changed when a supposedly non-related input was
+changed? Don’t lie. I am sure you did …</p>
+<p><code>{reaclog}</code> is the tool you were looking for. It offers a
+network representation of the app reactivity, allowing to quickly
+identify potential issues. The reader will refer to the comprehensive
+guide <a href="https://rstudio.github.io/reactlog/articles/reactlog.html#reactlog-in-detail-1" class="external-link">here</a>.</p>
+<p>In the background, <code>{shinyValidator}</code> automatically starts
+the app in the background, wait for Shiny to be available, stops the app
+and returns the reactlog object. The reactlog is in turn exported as a
+standalone HTML widget to be included in the validation report, as shown
+below. You may fine tune the <strong>timeout</strong> parameter to
+account for the app loading duration and also add custom manipulation
+through <strong>headless_actions</strong>:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyValidator</span><span class="fu">::</span><span class="fu"><a href="../reference/upload_reactlog.html">upload_reactlog</a></span><span class="op">(</span>headless_actions <span class="op">=</span> <span class="cn">NULL</span>, timeout <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span>;</span></code></pre></div>
-<p>In the below output, we notice an isolated output. This is generally an issue, meaning that something was hard coded in the code. Here, we deliberately removed the input feeding into the echarts plot causing this strange pattern.</p>
+<p>In the below output, we notice an isolated output. This is generally
+an issue, meaning that something was hard coded in the code. Here, we
+deliberately removed the input feeding into the echarts plot causing
+this strange pattern.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-reactlog.png" alt="Shiny app reactivity graph. We see one output is not linked to any input. This is likely an issue. " width="75%"><p class="caption">
-Shiny app reactivity graph. We see one output is not linked to any input. This is likely an issue.
+Shiny app reactivity graph. We see one output is not linked to any
+input. This is likely an issue.
 </p>
 </div>
 </div>
 <div class="section level4">
 <h4 id="code-profiling">Code profiling<a class="anchor" aria-label="anchor" href="#code-profiling"></a>
 </h4>
-<p>Finally, in addition to the load test, it is good to have an idea of how much time your R code takes to run in the Shiny app, especially if you planned to provide some <a href="https://engineering-shiny.org/need-for-optimization.html" class="external-link">optimization</a>. For instance, this might help to understand why there are many blue areas in the load test report.</p>
-<p><code>{shinyValidator}</code> leverages the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> R package to audit the Shiny app starting time. The app is also started in the background, a headless connection is then established and closed, which subsequently terminate the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> recorder. Like for the previous tests, it is possible to fine tune the app actions by passing them within <strong>headless_actions</strong>.</p>
-<p>We leave the reader to review the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> <a href="https://rstudio.github.io/profvis/" class="external-link">documentation</a> to get a better understanding of the report. Overall, as shown in the following figure, the left panel displays the time and memory taken by each code block. On the right side is a flame graph to explore the call stack in depth. Display options may be changed in the top right corner.</p>
+<p>Finally, in addition to the load test, it is good to have an idea of
+how much time your R code takes to run in the Shiny app, especially if
+you planned to provide some <a href="https://engineering-shiny.org/need-for-optimization.html" class="external-link">optimization</a>.
+For instance, this might help to understand why there are many blue
+areas in the load test report.</p>
+<p><code>{shinyValidator}</code> leverages the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> R
+package to audit the Shiny app starting time. The app is also started in
+the background, a headless connection is then established and closed,
+which subsequently terminate the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> recorder. Like
+for the previous tests, it is possible to fine tune the app actions by
+passing them within <strong>headless_actions</strong>.</p>
+<p>We leave the reader to review the <a href="https://rstudio.github.io/profvis/" class="external-link">profvis</a> <a href="https://rstudio.github.io/profvis/" class="external-link">documentation</a> to get a
+better understanding of the report. Overall, as shown in the following
+figure, the left panel displays the time and memory taken by each code
+block. On the right side is a flame graph to explore the call stack in
+depth. Display options may be changed in the top right corner.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/shinyValidator-profile.png" alt="Shiny app profiling at start." width="75%"><p class="caption">
 Shiny app profiling at start.
