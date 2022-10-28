@@ -46,6 +46,12 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL,
     screenshots_path <- "public/crash-test"
     if (!dir.exists(screenshots_path)) dir.create(screenshots_path, recursive = TRUE)
     chrome$get_screenshot(file.path(screenshots_path, "1-init-crash.png"))
+    # In case we don't call run_audit but
+    # run_crash_test directly... we need
+    # to substitute since it is made in run_audit
+    if (sys.nframe() == 1) {
+      headless_actions <- substitute(headless_actions)
+    }
     run_monkey_test(chrome, headless_actions, path = screenshots_path)
 
     # cleanup ports
@@ -150,12 +156,6 @@ run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
     call_gremlins(app, screenshot, path)
   } else {
     message("Running custom headless crash test ...")
-    # In case we don't call run_audit but
-    # run_crash_test directly... we need
-    # to substitute since it is made in run_audit
-    if (!is.language(headless_actions)) {
-      headless_actions <- substitute(headless_actions)
-    }
     # Capture expression and convert to string
     tmp <- deparse(headless_actions)
     # Modify any app$screenshot
@@ -164,20 +164,39 @@ run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
       tmp,
       fixed = TRUE
     )
-    tmp <- gsub(
-      "app$get_screenshot(",
-      "if (screenshot) app$get_screenshot(file.path(path, ",
-      tmp,
-      fixed = TRUE
-    )
-    # Add closing ) after for file.path
+    # Change string
     for (line in line_to_modify) {
-      tmp[[line]] <- paste0(tmp[[line]], ")")
+      tmp_line <- strsplit(
+        tmp[[line]],
+        ","
+      )[[1]]
+      if (length(tmp_line) == 1) {
+        tmp[[line]] <- replace_line(tmp[[line]])
+      } else {
+        tmp_line[1] <- replace_line(tmp_line[1])
+        tmp[[line]] <- paste(
+          tmp_line[1],
+          paste(tmp_line[2:length(tmp_line)], collapse = ","),
+          sep = ","
+        )
+      }
     }
     # Parse + eval
     eval(parse(text = tmp))
   }
 }
 
+#' @keywords internal
+replace_line <- function(line) {
+  paste0(
+    gsub(
+      "app$get_screenshot(",
+      "if (screenshot) app$get_screenshot(file.path(path, ",
+      line,
+      fixed = TRUE
+    ),
+    ")"
+  )
+}
 
 

@@ -26,6 +26,13 @@ profile_app <- function(headless_actions = NULL, timeout = NULL,
       load_timeout = timeout * 1000
     )
 
+    # In case we don't call run_audit but
+    # profile_app directly... we need
+    # to substitute since it is made in run_audit
+    if (sys.nframe() == 1) {
+      headless_actions <- substitute(headless_actions)
+    }
+
     if (!is.null(headless_actions)) {
       run_monkey_test(
         chrome,
