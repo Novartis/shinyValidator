@@ -80,7 +80,8 @@ library(renv)
 renv::init()
 
 # install missing packages
-renv::install("<PACKAGE>")
+renv::install(c("DT, lubridate, vdiffr"))
+renv::install("<OTHER_PKG>")
 
 # Capture new dependencies after package installation
 renv::snapshot()

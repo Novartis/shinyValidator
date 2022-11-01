@@ -164,7 +164,8 @@ run_monkey_test <- function(app, headless_actions, screenshot = TRUE, path) {
       tmp,
       fixed = TRUE
     )
-    # Change string
+    # Change string. This may break if
+    # people pass file = as first argument.
     for (line in line_to_modify) {
       tmp_line <- strsplit(
         tmp[[line]],

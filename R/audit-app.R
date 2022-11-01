@@ -150,7 +150,8 @@ check_audit_requirements <- function() {
 
   has_web_browser <- suppressWarnings(
     length(system("which google-chrome", intern = TRUE)) +
-      length(system("which chromium", intern = TRUE))
+    length(system("which chromium", intern = TRUE)) +
+    length(system("which chromium-browser", intern = TRUE))
   )
   if (has_web_browser == 0) {
     stop("Missing Chrome browser ...")
