@@ -1,12 +1,15 @@
 Package: shinyValidator
 Title: Audit Shiny apps in few steps
-Version: 0.0.1.9001
+Version: 0.0.1.9010
 Authors@R: 
-    person(given = "David",
+    c(
+      person(given = "David",
            family = "Granjon",
            role = c("aut", "cre"),
            email = "david.granjon@novartis.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "YOUR-ORCID-ID")),
+      person(given = "Posit/RStudio", role = c("cph"), comment = "find_chrome related functions.")
+    )
 Description: Audit your Shiny apps at each commit. 
     Multiple levels of testings are offered: startup and crash tests, 
     performance tests (load test and global code profiling), reactivity audit as well as output tests.

@@ -19,7 +19,8 @@ upload_reactlog <- function(headless_actions = NULL, timeout = NULL,
     bg_app <- start_r_bg(reactlog_bg, port, ...)
     chrome <- shinytest2::AppDriver$new(
       sprintf("http://127.0.0.1:%s", port),
-      load_timeout = timeout * 1000
+      load_timeout = timeout * 1000,
+      view = FALSE
     )
 
     # In case we don't call run_audit but

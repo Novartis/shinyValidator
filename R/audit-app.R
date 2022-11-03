@@ -148,12 +148,8 @@ check_audit_requirements <- function() {
     stop("Missing shinycannon: https://github.com/rstudio/shinycannon")
   }
 
-  has_web_browser <- suppressWarnings(
-    length(system("which google-chrome", intern = TRUE)) +
-    length(system("which chromium", intern = TRUE)) +
-    length(system("which chromium-browser", intern = TRUE))
-  )
-  if (has_web_browser == 0) {
+  has_web_browser <- !is.null(find_chrome())
+  if (!has_web_browser) {
     stop("Missing Chrome browser ...")
   }
 

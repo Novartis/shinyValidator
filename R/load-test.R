@@ -26,7 +26,8 @@ record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
     # AppDriver also support remote urls.
     chrome <- shinytest2::AppDriver$new(
       "http://127.0.0.1:8600",
-      load_timeout = timeout * 1000
+      load_timeout = timeout * 1000,
+      view = FALSE
     )
 
     # In case we don't call run_audit but
