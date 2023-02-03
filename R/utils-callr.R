@@ -163,6 +163,6 @@ cleanup_on_exit <- function(bg_app, chrome, recorder = NULL) {
     bg_app$kill()
     #chrome$stop() TO DO: find way to clean chrome
     if (!is.null(recorder)) recorder$kill()
-    message("SESSION CLEANED")
+    message("\n---- SESSION CLEANED ---- \n")
   }, add = TRUE)
 }
