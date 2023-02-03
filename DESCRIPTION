@@ -1,6 +1,6 @@
 Package: shinyValidator
 Title: Audit Shiny apps in few steps
-Version: 0.0.1.9010
+Version: 0.0.1.9011
 Authors@R: 
     c(
       person(given = "David",
