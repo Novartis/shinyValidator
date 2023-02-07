@@ -34,8 +34,6 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL,
   }
 
   tryCatch({
-    message(sprintf("NOPROXY is %s", Sys.getenv("noproxy")))
-    message(sprintf("HTTP_PROXY is %s", Sys.getenv("http_proxy")))
     bg_app <- start_r_bg(shiny_bg, port, ...)
     chrome <- shinytest2::AppDriver$new(
       sprintf("http://127.0.0.1:%s", port),
