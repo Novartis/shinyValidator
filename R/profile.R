@@ -52,6 +52,8 @@ profile_app <- function(headless_actions = NULL, timeout = NULL,
 
     message("\n---- END CODE PROFILE ---- \n")
   }, error = function(e) {
+    message(e)
     cleanup_on_exit(bg_app, chrome)
+    stop("\n---- FOUND ERROR(S) WHILE PROFILING THE APP... ---- \n")
   })
 }

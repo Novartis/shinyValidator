@@ -27,7 +27,7 @@ run_app_audit <- function(onStart = NULL, # nolint
     start <- length(tmp) + 1 # start just before the closing }
     body(app_server)[[start]] <- substitute(
       onSessionEnded(function() {
-        message("CI/CD callback: APP successfully stopped by chrome")
+        message("\n---- CI/CD callback: APP successfully stopped by chrome ---- \n")
         stopApp(reactlog())
       })
     )

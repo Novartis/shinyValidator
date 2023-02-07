@@ -77,6 +77,7 @@ run_crash_test <- function(headless_actions = NULL, timeout = NULL,
   }, error = function(e) {
     message(e)
     cleanup_on_exit(bg_app, chrome)
+    stop("\n---- APP DID NOT PASS THE CRASH TEST... ---- \n")
   })
 }
 
