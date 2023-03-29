@@ -8,7 +8,7 @@ record_app(
   headless_actions = NULL,
   timeout = NULL,
   workers = 5,
-  port = httpuv::randomPort(max = 3500),
+  port = randomPort(max = 3500),
   ...
 )
 }

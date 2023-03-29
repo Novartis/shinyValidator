@@ -54,7 +54,7 @@ audit_app <- function(
     flow = FALSE,
     r_version = NULL,
     locked_deps = NULL,
-    port = httpuv::randomPort(min = 3000, max = 3500),
+    port = randomPort(min = 3000, max = 3500),
     ...
 ) {
 

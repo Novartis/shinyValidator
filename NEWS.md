@@ -4,7 +4,7 @@
 - Reorder parameters in `audit_app()`.
 
 ## Minor change
-- Crash test can be disabled in `audit_app()`
+- Crash test can be disabled in `audit_app()`.
 
 # shinyValidator 0.0.0.9600
 

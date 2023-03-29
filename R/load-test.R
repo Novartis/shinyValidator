@@ -10,7 +10,7 @@
 #'
 #' @export
 record_app <- function(headless_actions = NULL, timeout = NULL, workers = 5,
-                       port = httpuv::randomPort(max = 3500), ...) {
+                       port = randomPort(max = 3500), ...) {
   message("\n---- BEGIN LOAD-TEST ---- \n")
 
   if (is.null(timeout)) {

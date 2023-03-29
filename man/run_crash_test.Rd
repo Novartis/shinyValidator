@@ -7,7 +7,7 @@
 run_crash_test(
   headless_actions = NULL,
   timeout = NULL,
-  port = httpuv::randomPort(max = 3500),
+  port = randomPort(max = 3500),
   ...
 )
 }
