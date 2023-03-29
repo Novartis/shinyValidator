@@ -86,11 +86,12 @@ create_tabs_menu <- function(steps, pkg_name, pkg_version) {
 #'
 #' Useful for \link{create_audit_report}.
 #'
-#' @inheritParams use_validator
+#' @inheritParams audit_app
 #'
 #' @return A list composed of dynamic and static steps.
 #' @keywords internal
 create_report_steps <- function(
+  crash_test = TRUE,
   output_validation = TRUE,
   coverage = TRUE,
   load_testing = TRUE,
@@ -101,7 +102,7 @@ create_report_steps <- function(
   # Steps that are programmatically generated
   dynamic_steps <- c(
     "Package check" = "check",
-    "Crash test" = "crash-test",
+    "Crash test" = if (crash_test) "crash-test" else NULL,
     "Output validation" = if (output_validation) "output" else NULL,
     "Dependencies" = "dependencies"
   )
@@ -221,13 +222,14 @@ globalVariables("steps_doc")
 
 #' Create a tab menu for HTML report
 #'
-#' @inheritParams use_validator
+#' @inheritParams audit_app
 #' @param ... To pass extra parameters to \link{edit_html_report}.
 #'
 #' @return A tab menu used to navigate through \link{create_tab_content}
 #' elements.
 #' @keywords internal
 create_audit_report <- function(
+  crash_test = TRUE,
   output_validation = TRUE,
   coverage = TRUE,
   load_testing = TRUE,
@@ -240,6 +242,7 @@ create_audit_report <- function(
   items <- list(...)
 
   steps <- create_report_steps(
+    crash_test,
     output_validation,
     coverage,
     load_testing,

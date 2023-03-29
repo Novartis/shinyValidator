@@ -3,6 +3,7 @@ pkg_name <- "Dummy"
 pkg_version <- "0.0.0.9000"
 
 steps <- create_report_steps(
+  crash_test = TRUE,
   output_validation = FALSE,
   coverage = TRUE,
   load_testing = TRUE,
@@ -20,6 +21,7 @@ static_tabs <- create_static_tabs(static_steps)
 test_that("create_report_steps works", {
   # full steps
   tmp <- create_report_steps(
+    crash_test = TRUE,
     output_validation = TRUE,
     coverage = TRUE,
     load_testing = TRUE,
@@ -33,7 +35,8 @@ test_that("create_report_steps works", {
 
   # Disable output
   tmp <- create_report_steps(
-    output_validation = FALSE,
+    crash_test = FALSE,
+    output_validation = TRUE,
     coverage = TRUE,
     load_testing = TRUE,
     profile_code = TRUE,
@@ -45,6 +48,7 @@ test_that("create_report_steps works", {
 
   # Disable coverage
   tmp <- create_report_steps(
+    crash_test = FALSE,
     output_validation = FALSE,
     coverage = FALSE,
     load_testing = TRUE,
@@ -52,11 +56,12 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 2)
   expect_length(tmp[[2]], 4)
 
   # Disable load testing
   tmp <- create_report_steps(
+    crash_test = FALSE,
     output_validation = FALSE,
     coverage = FALSE,
     load_testing = FALSE,
@@ -64,11 +69,12 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 2)
   expect_length(tmp[[2]], 3)
 
   # Disable profiling
   tmp <- create_report_steps(
+    crash_test = FALSE,
     output_validation = FALSE,
     coverage = FALSE,
     load_testing = FALSE,
@@ -76,11 +82,12 @@ test_that("create_report_steps works", {
     check_reactivity = TRUE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 2)
   expect_length(tmp[[2]], 2)
 
   # Disable reactlog
   tmp <- create_report_steps(
+    crash_test = FALSE,
     output_validation = FALSE,
     coverage = FALSE,
     load_testing = FALSE,
@@ -88,11 +95,12 @@ test_that("create_report_steps works", {
     check_reactivity = FALSE,
     flow = TRUE
   )
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 2)
   expect_length(tmp[[2]], 1)
 
   # Disable flow
   tmp <- create_report_steps(
+    crash_test = FALSE,
     output_validation = FALSE,
     coverage = FALSE,
     load_testing = FALSE,
@@ -100,7 +108,7 @@ test_that("create_report_steps works", {
     check_reactivity = FALSE,
     flow = FALSE
   )
-  expect_length(tmp[[1]], 3)
+  expect_length(tmp[[1]], 2)
   expect_length(tmp[[2]], 0)
 })
 
