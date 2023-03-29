@@ -266,15 +266,10 @@
     },
     "chromote": {
       "Package": "chromote",
-      "Version": "0.0.0.9003",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "chromote",
-      "RemoteUsername": "rstudio",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "865e24e2270afab07e587909499c4e06f03bbedf",
-      "Hash": "551f93685a12d17d43e06ebfcccc813a",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "bb5817af24a2d8e6e33e758eb54978be",
       "Requirements": [
         "R6",
         "curl",
@@ -290,13 +285,11 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.3.0",
+      "Version": "3.4.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "23abf173c2b783dcc43379ab9bba00ee",
-      "Requirements": [
-        "glue"
-      ]
+      "Hash": "0d297d01734d2bcea40197bd4971a764",
+      "Requirements": []
     },
     "clipr": {
       "Package": "clipr",
@@ -617,8 +610,8 @@
       "RemoteRepo": "flow",
       "RemoteUsername": "moodymudskipper",
       "RemoteRef": "HEAD",
-      "RemoteSha": "9d88f82838bbaccf85d2f71f028a0297f376df4f",
-      "Hash": "aa55a0ab4e44d15944b983ac42557bec",
+      "RemoteSha": "4e2c8dc9d932b58269c62cf6a89d4a93beb245c8",
+      "Hash": "35e95e0520885e606b56f892a0e0c41f",
       "Requirements": [
         "here",
         "htmlwidgets",
@@ -711,6 +704,16 @@
       "Repository": "CRAN",
       "Hash": "f3aefccc1cc50de6338146b62f115de8",
       "Requirements": []
+    },
+    "globals": {
+      "Package": "globals",
+      "Version": "0.16.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "e14798793892c6bebdbe2f144aacf6e6",
+      "Requirements": [
+        "codetools"
+      ]
     },
     "glue": {
       "Package": "glue",
@@ -1501,24 +1504,25 @@
     },
     "shinytest2": {
       "Package": "shinytest2",
-      "Version": "0.0.0.9001",
+      "Version": "0.2.0",
       "Source": "GitHub",
       "RemoteType": "github",
-      "Remotes": "rstudio/chromote, rstudio/shiny, rstudio/shinyvalidate",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "shinytest2",
       "RemoteUsername": "rstudio",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "61d51d9e96640bfae3eeefa12c4b685099b584c8",
-      "Hash": "298d739da852467dbad307ea87638b53",
+      "RemoteRepo": "shinytest2",
+      "RemoteRef": "main",
+      "RemoteSha": "1941033c34d6095b39a4f03158242f98e10e3de5",
+      "Hash": "f0a3fbd81289b606d0b03fcf13f35ff9",
       "Requirements": [
         "R6",
         "callr",
         "checkmate",
         "chromote",
+        "cpp11",
         "crayon",
         "ellipsis",
         "fs",
+        "globals",
         "httr",
         "jsonlite",
         "pingr",
@@ -1608,21 +1612,15 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.1.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "testthat",
-      "RemoteUsername": "r-lib",
-      "RemoteRef": "v3.1.2",
-      "RemoteSha": "bef1e3064bbc37abf13e47d4431b218abdd22be1",
-      "Hash": "266e90d93a272b5810c1820a27a64f6a",
+      "Version": "3.1.5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "6e3c4843f1ed0d3d90f35498671a001c",
       "Requirements": [
         "R6",
         "brio",
         "callr",
         "cli",
-        "crayon",
         "desc",
         "digest",
         "ellipsis",
@@ -1819,10 +1817,10 @@
     },
     "waldo": {
       "Package": "waldo",
-      "Version": "0.2.5",
+      "Version": "0.4.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "20c45f1d511a3f730b7b469f4d11e104",
+      "Hash": "035fba89d0c86e2113120f93301b98ad",
       "Requirements": [
         "cli",
         "diffobj",

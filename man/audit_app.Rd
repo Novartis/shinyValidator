@@ -6,19 +6,20 @@
 \usage{
 audit_app(
   headless_actions = NULL,
+  scope = c("manual", "DMC", "POC"),
+  debug = FALSE,
+  timeout = NULL,
   cran = FALSE,
   vignettes = FALSE,
   error_on = "never",
-  timeout = NULL,
   workers = 5,
-  scope = c("manual", "DMC", "POC"),
+  crash_test = TRUE,
   output_validation = FALSE,
   coverage = TRUE,
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
   flow = FALSE,
-  debug = FALSE,
   r_version = NULL,
   locked_deps = NULL,
   port = httpuv::randomPort(min = 3000, max = 3500),
@@ -35,6 +36,14 @@ If NULL, the app will undergo a classic random Monkey test session, taking a scr
 right after loading and after the monkey test. We do not recommend running a monkey test
 if your app is pointing to a database, unless the pipeline CI/CD runs in a dedicated test environment.}
 
+\item{scope}{Project scope. Accepted values \code{c("manual", "DMC", "POC")}.}
+
+\item{debug}{Special mode during which unit tests are skipped for faster output.}
+
+\item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
+how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
+on CI/CD.}
+
 \item{cran}{Whether to apply as CRAN check. Defaults to FALSE.}
 
 \item{vignettes}{Whether to build vignettes. Defaults to FALSE.}
@@ -42,13 +51,9 @@ if your app is pointing to a database, unless the pipeline CI/CD runs in a dedic
 \item{error_on}{When to raise an error. Possible choices:
 \code{c("never", "error", "warning", "note")}. Defaults to never.}
 
-\item{timeout}{Time to wait after starting the subprocess (s). Useful is you know
-how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
-on CI/CD.}
-
 \item{workers}{Number of workers for shinycannon. Default to 5.}
 
-\item{scope}{Project scope. Accepted values \code{c("manual", "DMC", "POC")}.}
+\item{crash_test}{Whether to enable crash test of Shiny app. Default to TRUE.}
 
 \item{output_validation}{Whether to compare output snapshots for
 plots and htmlwidgets. Default to TRUE.}
@@ -62,8 +67,6 @@ plots and htmlwidgets. Default to TRUE.}
 \item{check_reactivity}{Whether to check reactivity log. Default to TRUE.}
 
 \item{flow}{Whether to display project overview. Default to TRUE.}
-
-\item{debug}{Special mode during which unit tests are skipped for faster output.}
 
 \item{r_version}{R version supported by your IT.}
 
