@@ -118,6 +118,7 @@ audit_app <- function(
 
   # Generate report with tabs
   create_audit_report(
+    crash_test,
     output_validation,
     coverage,
     load_testing,
