@@ -10,15 +10,17 @@
 #' If NULL, the app will undergo a classic random Monkey test session, taking a screenshot
 #' right after loading and after the monkey test. We do not recommend running a monkey test
 #' if your app is pointing to a database, unless the pipeline CI/CD runs in a dedicated test environment.
+#' @param scope Project scope. Accepted values \code{c("manual", "DMC", "POC")}.
+#' @param debug Special mode during which unit tests are skipped for faster output.
 #' @param timeout Time to wait after starting the subprocess (s). Useful is you know
 #' how much time the app takes to load. Defaults to 10 seconds locally and 20 seconds
 #' on CI/CD.
-#' @param scope Project scope. Accepted values \code{c("manual", "DMC", "POC")}.
-#' @param workers Number of workers for shinycannon. Default to 5.
 #' @param cran Whether to apply as CRAN check. Defaults to FALSE.
 #' @param vignettes Whether to build vignettes. Defaults to FALSE.
 #' @param error_on When to raise an error. Possible choices:
 #' \code{c("never", "error", "warning", "note")}. Defaults to never.
+#' @param workers Number of workers for shinycannon. Default to 5.
+#' @param crash_test Whether to enable crash test of Shiny app. Default to TRUE.
 #' @param output_validation Whether to compare output snapshots for
 #' plots and htmlwidgets. Default to TRUE.
 #' @param coverage Whether to perform coverage report. Default to TRUE.
@@ -26,7 +28,6 @@
 #' @param profile_code Whether to profile R code. Default to TRUE.
 #' @param check_reactivity Whether to check reactivity log. Default to TRUE.
 #' @param flow Whether to display project overview. Default to TRUE.
-#' @param debug Special mode during which unit tests are skipped for faster output.
 #' @param r_version R version supported by your IT.
 #' @param locked_deps List of packages supported by your IT. For instance you
 #' can pass a dataframe like
@@ -37,22 +38,23 @@
 #' @export
 audit_app <- function(
     headless_actions = NULL,
+    scope = c("manual", "DMC", "POC"),
+    debug = FALSE,
+    timeout = NULL,
     cran = FALSE,
     vignettes = FALSE,
     error_on = "never",
-    timeout = NULL,
     workers = 5,
-    scope = c("manual", "DMC", "POC"),
+    crash_test = TRUE,
     output_validation = FALSE,
     coverage = TRUE,
     load_testing = TRUE,
     profile_code = TRUE,
     check_reactivity = TRUE,
     flow = FALSE,
-    debug = FALSE,
     r_version = NULL,
     locked_deps = NULL,
-    port = httpuv::randomPort(min = 3000, max = 3500),
+    port = randomPort(min = 3000, max = 3500),
     ...
 ) {
 
@@ -73,7 +75,11 @@ audit_app <- function(
   # Run check
   tab_check <- check_package(cran, vignettes, error_on, debug)
   # Run crash test
-  tab_crash_test <- run_crash_test(headless_actions, timeout, port, ...)
+  tab_crash_test <- if (crash_test) {
+    run_crash_test(headless_actions, timeout, port, ...)
+  } else {
+    NULL
+  }
   # Output validation
   if (debug) output_validation <- FALSE
   tab_output_validation <- if (output_validation) {
@@ -112,6 +118,7 @@ audit_app <- function(
 
   # Generate report with tabs
   create_audit_report(
+    crash_test,
     output_validation,
     coverage,
     load_testing,

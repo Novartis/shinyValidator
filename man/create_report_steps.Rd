@@ -5,6 +5,7 @@
 \title{Helper to process audit steps}
 \usage{
 create_report_steps(
+  crash_test = TRUE,
   output_validation = TRUE,
   coverage = TRUE,
   load_testing = TRUE,
@@ -12,6 +13,22 @@ create_report_steps(
   check_reactivity = TRUE,
   flow = TRUE
 )
+}
+\arguments{
+\item{crash_test}{Whether to enable crash test of Shiny app. Default to TRUE.}
+
+\item{output_validation}{Whether to compare output snapshots for
+plots and htmlwidgets. Default to TRUE.}
+
+\item{coverage}{Whether to perform coverage report. Default to TRUE.}
+
+\item{load_testing}{Whether to perform load test. Default to TRUE.}
+
+\item{profile_code}{Whether to profile R code. Default to TRUE.}
+
+\item{check_reactivity}{Whether to check reactivity log. Default to TRUE.}
+
+\item{flow}{Whether to display project overview. Default to TRUE.}
 }
 \value{
 A list composed of dynamic and static steps.

@@ -271,8 +271,8 @@ add_gremlins_assets <- function() {
 initialize_cicd <- function(cicd_platform) {
   message(sprintf("Initialized %s CI/CD template", cicd_platform))
   file_name <- switch(cicd_platform,
-    "gitlab" = ".gitlab-ci.yml",
-    "gitlab-docker" = "docker/.gitlab-ci.yml",
+    "gitlab" = "dot.gitlab-ci.yml",
+    "gitlab-docker" = "docker/dot.gitlab-ci.yml",
     "github" = "shiny-validator.yaml"
   )
 

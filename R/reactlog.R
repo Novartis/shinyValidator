@@ -8,7 +8,7 @@
 #'
 #' @export
 upload_reactlog <- function(headless_actions = NULL, timeout = NULL,
-                            port = httpuv::randomPort(max = 3500), ...) {
+                            port = randomPort(max = 3500), ...) {
   message("\n---- BEGIN REACTLOG ---- \n")
 
   if (is.null(timeout)) {

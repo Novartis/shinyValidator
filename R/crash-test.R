@@ -26,7 +26,7 @@
 #'  )
 #' }
 run_crash_test <- function(headless_actions = NULL, timeout = NULL,
-                           port = httpuv::randomPort(max = 3500), ...) {
+                           port = randomPort(max = 3500), ...) {
   message("\n---- BEGIN CRASH-TEST ---- \n")
 
   if (is.null(timeout)) {

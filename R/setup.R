@@ -25,7 +25,7 @@ use_validator <- function(cicd_platform = c("github", "gitlab-docker", "gitlab")
   initialize_cicd(cicd_platform)
 
   # Add lintr
-  file.copy(system.file("lintr/.lintr", package = "shinyValidator"), ".")
+  file.copy(system.file("lintr/dot.lintr", package = "shinyValidator"), "./.lintr")
 
   # Add gremlins.js assets
   add_gremlins_assets()

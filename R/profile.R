@@ -11,7 +11,7 @@
 #' @return Write a .Rprof file to be reused by CI/CD to publish the report on GitLab pages
 #' @export
 profile_app <- function(headless_actions = NULL, timeout = NULL,
-                        port = httpuv::randomPort(max = 3500), ...) {
+                        port = randomPort(max = 3500), ...) {
   message("\n---- BEGIN CODE PROFILE ---- \n")
 
   if (is.null(timeout)) {

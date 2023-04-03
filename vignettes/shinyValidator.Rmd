@@ -89,7 +89,7 @@ renv::snapshot()
 
 As a side note, `{renv}` may also be used during [CI/CD](https://rstudio.github.io/renv/articles/ci.html) (see an example [here](https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv)). 
 To have faster package restoration with `{renv}` during CI/CD, you may
-replace the CRAN repository and point to binaries, below for Linux:
+replace the CRAN repository and point to binaries, below for Linux Focal (Ubuntu 20.04 LTS):
 
 ```json
 "R": {
@@ -123,19 +123,23 @@ renv::snapshot()
 ```{r, eval=FALSE}
 audit_app(
   headless_actions = NULL,
-  timeout = 5,
   scope = c("manual", "DMC", "POC"),
-  workers = 5,
+  debug = FALSE,
+  timeout = NULL,
   cran = FALSE,
   vignettes = FALSE,
   error_on = "never",
+  workers = 5,
+  crash_test = TRUE,
   output_validation = FALSE,
   coverage = TRUE,
   load_testing = TRUE,
   profile_code = TRUE,
   check_reactivity = TRUE,
   flow = FALSE,
-  debug = FALSE,
+  r_version = NULL,
+  locked_deps = NULL,
+  port = httpuv::randomPort(min = 3000, max = 3500)
   ...
 )
 ```
