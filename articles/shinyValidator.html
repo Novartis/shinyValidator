@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,7 +162,7 @@ While this is more efforts, it is a game changer in the long run.</p>
 example <a href="https://github.com/r-lib/actions/tree/a242ddd768e3acf4e8b2e44ad7f345cdbe388a57/setup-renv" class="external-link">here</a>).
 To have faster package restoration with <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> during
 CI/CD, you may replace the CRAN repository and point to binaries, below
-for Linux:</p>
+for Linux Focal (Ubuntu 20.04 LTS):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="er">"R":</span> <span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"Version"</span><span class="fu">:</span> <span class="st">"4.1.0"</span><span class="fu">,</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"Repositories"</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -189,24 +189,27 @@ repository to the local one before initializing
 <span><span class="fu">renv</span><span class="fu">::</span><span class="fu">snapshot</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/audit_app.html">audit_app()</a></code> is the main package function. It essentially
 runs a series of tests based on the predefined parameters or scope:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/audit_app.html">audit_app</a></span><span class="op">(</span></span>
-<span>  headless_actions <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  timeout <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span><span class="op">)</span>,</span>
-<span>  workers <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  cran <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  vignettes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  error_on <span class="op">=</span> <span class="st">"never"</span>,</span>
-<span>  output_validation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  coverage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  load_testing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  profile_code <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  check_reactivity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  flow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">audit_app</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">headless_actions =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">scope =</span> <span class="fu">c</span>(<span class="st">"manual"</span>, <span class="st">"DMC"</span>, <span class="st">"POC"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">debug =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">timeout =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cran =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">vignettes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">error_on =</span> <span class="st">"never"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">workers =</span> <span class="dv">5</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">crash_test =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_validation =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">coverage =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">load_testing =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">profile_code =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">check_reactivity =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">flow =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">r_version =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">locked_deps =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">port =</span> httpuv<span class="sc">::</span><span class="fu">randomPort</span>(<span class="at">min =</span> <span class="dv">3000</span>, <span class="at">max =</span> <span class="dv">3500</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Although primarily meant to be called from CI/CD, it may also run
 locally, provided that you have <code>shinycannon</code>and a
 Chrome-based browser. Fortunately, <code><a href="../reference/audit_app.html">audit_app()</a></code> is able to

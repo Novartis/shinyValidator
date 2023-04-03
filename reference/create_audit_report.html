@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shinyValidator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_audit_report</span><span class="op">(</span></span>
+<span>  crash_test <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  output_validation <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  coverage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  load_testing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -61,7 +62,36 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>...</dt>
+    <dl><dt>crash_test</dt>
+<dd><p>Whether to enable crash test of Shiny app. Default to TRUE.</p></dd>
+
+
+<dt>output_validation</dt>
+<dd><p>Whether to compare output snapshots for
+plots and htmlwidgets. Default to TRUE.</p></dd>
+
+
+<dt>coverage</dt>
+<dd><p>Whether to perform coverage report. Default to TRUE.</p></dd>
+
+
+<dt>load_testing</dt>
+<dd><p>Whether to perform load test. Default to TRUE.</p></dd>
+
+
+<dt>profile_code</dt>
+<dd><p>Whether to profile R code. Default to TRUE.</p></dd>
+
+
+<dt>check_reactivity</dt>
+<dd><p>Whether to check reactivity log. Default to TRUE.</p></dd>
+
+
+<dt>flow</dt>
+<dd><p>Whether to display project overview. Default to TRUE.</p></dd>
+
+
+<dt>...</dt>
 <dd><p>To pass extra parameters to <a href="edit_html_report.html">edit_html_report</a>.</p></dd>
 
 </dl></div>
