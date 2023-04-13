@@ -7,6 +7,16 @@
 
 <iframe src="shinyValidator-report.html" title="Coverage report" width="100%" allowfullscreen="" frameborder="0" scrolling="yes" height="500px"></iframe>
 
+## Introduction
+
+Don't know where to start? Follow this introduction video and slides from R Pharma 2022.
+
+<iframe src="https://www.youtube.com/embed/STpBxos_IXY" title="shinyValidator workshop R Pharma 2022" width="100%" height="500px"></iframe>
+
+<br/>
+
+<iframe src="https://rinpharma2022.rinterface.com" title="shinyValidator slides" width="100%" height="500px"></iframe>
+
 ## Purpose
 
 <p>
