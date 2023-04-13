@@ -5,8 +5,6 @@
 [![R-CMD-check](https://github.com/Novartis/shinyValidator/workflows/R-CMD-check/badge.svg)](https://github.com/Novartis/shinyValidator/actions)
 <!-- badges: end -->
 
-<iframe src="shinyValidator-report.html" title="Coverage report" width="100%" allowfullscreen="" frameborder="0" scrolling="yes" height="500px"></iframe>
-
 ## Introduction
 
 Don't know where to start? Follow this introduction video and slides from R Pharma 2022.
@@ -55,9 +53,13 @@ remotes::install_github("Novartis/shinyValidator")
 
 <div style="text-align:center;"><a href="articles/shinyValidator.html" class="btn btn-outline-secondary btn-lg">Go to Get Started</a></div>
 
+## Coverage
+
+<iframe src="shinyValidator-report.html" title="Coverage report" width="100%" allowfullscreen="" frameborder="0" scrolling="yes" height="500px"></iframe>
+
 ## Licence
 
-Copyright 2022 Novartis AG
+Copyright 2023 Novartis AG
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
