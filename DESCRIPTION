@@ -8,6 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "david.granjon@novartis.com",
            comment = c(ORCID = "YOUR-ORCID-ID")),
+           person("Novartis", "Pharma AG", role = "cph"),
       person(given = "Posit/RStudio", role = c("cph"), comment = "find_chrome related functions.")
     )
 Description: Audit your Shiny apps at each commit. 
@@ -15,7 +16,7 @@ Description: Audit your Shiny apps at each commit.
     performance tests (load test and global code profiling), reactivity audit as well as output tests.
     All results are gathered in an HTML report uploaded and available to everyone 
     on any CI/CD plaform or RStudio Connect.
-License: Apache License (>= 2)
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
